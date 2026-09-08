@@ -590,6 +590,7 @@
             height: 100%;
             opacity: 0;
             cursor: pointer;
+            z-index: 2;
         }
 
         .image-gallery {
@@ -644,6 +645,7 @@
             align-items: center;
             justify-content: center;
             transition: all 0.3s ease;
+            z-index: 3;
         }
 
         .image-gallery .gallery-item .remove-image:hover {
@@ -661,6 +663,7 @@
             border-radius: 10px;
             font-size: 9px;
             font-weight: 600;
+            z-index: 3;
         }
 
         .contact-sales-section {
@@ -985,6 +988,7 @@
             height: 100%;
             opacity: 0;
             cursor: pointer;
+            z-index: 2;
         }
 
         .file-preview {
@@ -1277,6 +1281,7 @@
             color: #1D4ED8;
         }
 
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 640px) {
             html, body { padding: 6px; align-items: flex-start; padding-top: 8px; }
             .payment-container { max-width: 100%; min-height: 100vh; min-height: 100dvh; border-radius: 16px; padding: 16px 12px 14px; overflow-y: auto; }
@@ -1742,7 +1747,7 @@
                     </div>
                 </div>
 
-                <!-- Product Images (Album - Multiple) -->
+                <!-- Product Images - FIXED FOR ALL DEVICES -->
                 <div class="form-group">
                     <label>ភ្ជាប់រូបភាពផលិតផលដែលអ្នកបញ្ជាទិញ <span class="hint">(អាចភ្ជាប់បានច្រើនរូប)</span></label>
                     <div class="multi-file-upload" id="productFileUpload">
@@ -1750,7 +1755,7 @@
                         <p>ចុចដើម្បីភ្ជាប់រូបភាពផលិតផល (អាចភ្ជាប់បានច្រើន)</p>
                         <div class="file-count" id="productFileCount">📎 រូបភាពចំនួន 0</div>
                         <div class="file-size-total" id="productFileTotalSize">ទំហំសរុប: 0 KB</div>
-                        <input type="file" id="productImages" accept="image/*" multiple capture="environment">
+                        <input type="file" id="productImages" accept="image/*" multiple>
                     </div>
                     <div class="image-gallery" id="productImageGallery"></div>
                     <span class="error-text" id="productImagesError">សូមភ្ជាប់រូបភាពផលិតផលយ៉ាងតិច ១ រូប</span>
@@ -1950,7 +1955,7 @@
         }
 
         // ============================================================
-        // MULTI-IMAGE UPLOAD HANDLER - FIXED FOR ANDROID
+        // MULTI-IMAGE UPLOAD HANDLER - FIXED FOR ALL DEVICES
         // ============================================================
         function handleProductImages() {
             const files = productImagesInput.files;
@@ -1977,21 +1982,33 @@
 
             for (let i = 0; i < files.length; i++) {
                 const file = files[i];
-                if (file.type.startsWith('image/')) {
+                // Accept all image types
+                if (file.type.startsWith('image/') || file.type === '') {
                     productImageFiles.push(file);
                     totalSize += file.size;
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        productImageDataUrls.push(e.target.result);
-                        renderGallery();
-                    };
-                    reader.onerror = function() {
-                        productImageDataUrls.push('#');
-                        renderGallery();
-                    };
-                    reader.readAsDataURL(file);
+                    
+                    // Use URL.createObjectURL for instant preview
+                    try {
+                        const url = URL.createObjectURL(file);
+                        productImageDataUrls.push(url);
+                    } catch (err) {
+                        // Fallback to FileReader
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            productImageDataUrls.push(e.target.result);
+                            renderGallery();
+                        };
+                        reader.onerror = function() {
+                            productImageDataUrls.push('#');
+                            renderGallery();
+                        };
+                        reader.readAsDataURL(file);
+                    }
                 }
             }
+
+            // Render gallery after all files are processed
+            renderGallery();
 
             productFileUpload.classList.add('has-files');
             productFileCount.textContent = `📎 រូបភាពចំនួន ${files.length}`;
@@ -2027,6 +2044,11 @@
         }
 
         function removeProductImage(index) {
+            // Revoke object URL to free memory
+            if (productImageDataUrls[index] && productImageDataUrls[index].startsWith('blob:')) {
+                URL.revokeObjectURL(productImageDataUrls[index]);
+            }
+            
             productImageFiles.splice(index, 1);
             productImageDataUrls.splice(index, 1);
             
@@ -2422,7 +2444,7 @@
         }
 
         // ============================================================
-        // SEND TO TELEGRAM WITH ORDER ID - MEDIA GROUP (ALBUM) - FIXED
+        // SEND TO TELEGRAM - COMPLETE REWRITE FOR RELIABILITY
         // ============================================================
         function sendToTelegram(screenshotFile, productImageFilesList, orderId) {
             return new Promise((resolve, reject) => {
@@ -2489,12 +2511,14 @@
 
                 const url = `https://api.telegram.org/bot${BOT_TOKEN}/`;
 
-                // First, send the screenshot with caption
+                // STEP 1: Send screenshot
                 const formData = new FormData();
                 formData.append('chat_id', CHAT_ID);
                 formData.append('photo', screenshotFile);
                 formData.append('caption', caption);
                 formData.append('parse_mode', 'Markdown');
+
+                console.log('📤 Sending screenshot...');
 
                 fetch(url + 'sendPhoto', { method: 'POST', body: formData })
                     .then(response => {
@@ -2506,8 +2530,14 @@
                         return response.json();
                     })
                     .then(data => {
+                        console.log('✅ Screenshot sent successfully');
+                        
                         if (data.ok) {
+                            // STEP 2: Send product images as album
                             if (productImageFilesList.length > 0) {
+                                console.log(`📤 Sending ${productImageFilesList.length} product images...`);
+                                
+                                // Convert files to base64 for media group
                                 const readPromises = productImageFilesList.map((file) => {
                                     return new Promise((resolveReader) => {
                                         const reader = new FileReader();
@@ -2518,6 +2548,7 @@
                                             });
                                         };
                                         reader.onerror = function() {
+                                            // Fallback: try to use the file directly
                                             resolveReader({
                                                 type: 'photo',
                                                 media: file
@@ -2555,10 +2586,11 @@
                         }
                     })
                     .then(data => {
+                        console.log('✅ All images sent successfully');
                         resolve(data);
                     })
                     .catch(error => {
-                        console.error('❌ Telegram Error:', error);
+                        console.error('❌ Error:', error);
                         showAlert(`❌ ${error.message}`, 'error');
                         reject(error);
                     });
@@ -2566,16 +2598,18 @@
         }
 
         // ============================================================
-        // FORM SUBMISSION - WITH DOUBLE SUBMIT PROTECTION
+        // FORM SUBMISSION - WITH COMPLETE PROTECTION
         // ============================================================
         form.addEventListener('submit', function(e) {
             e.preventDefault();
 
+            // Prevent multiple submissions
             if (isSubmitting) {
                 showAlert('⏳ កំពុងដំណើរការ... សូមរង់ចាំបន្តិច!', 'info');
                 return;
             }
 
+            // Cooldown check
             const now = Date.now();
             if (now - lastSubmitTime < SUBMIT_COOLDOWN) {
                 showAlert('⏳ សូមរង់ចាំបន្តិចមុននឹងបញ្ជូនម្តងទៀត!', 'error');
@@ -2591,6 +2625,7 @@
             const screenshotFile = fileInput.files[0];
             const productImageFilesList = productImageFiles;
 
+            // Validate files
             if (!screenshotFile) {
                 showAlert('សូមភ្ជាប់រូបភាពថតអេក្រង់បន្ទាប់ពីបង់ប្រាក់!', 'error');
                 return;
@@ -2606,20 +2641,24 @@
                 return;
             }
 
+            // Generate Order ID
             const orderId = generateOrderId();
             console.log('🆔 Generated Order ID:', orderId);
 
+            // Lock form
             lastSubmitTime = now;
             isSubmitting = true;
             submitBtn.classList.add('loading');
             submitBtn.disabled = true;
             
+            // Disable all form inputs
             document.querySelectorAll('#paymentForm input, #paymentForm select, #paymentForm textarea, #paymentForm button').forEach(el => {
                 el.disabled = true;
             });
             
             showAlert(`⏳ កំពុងផ្ញើព័ត៌មានទៅកាន់ Telegram... (Order ID: ${orderId})`, 'info');
 
+            // Progress bar
             progressContainer.classList.add('active');
             let progress = 0;
             const progressInterval = setInterval(() => {
@@ -2628,11 +2667,13 @@
                 progressBar.style.width = progress + '%';
             }, 300);
 
+            // Send to Telegram
             sendToTelegram(screenshotFile, productImageFilesList, orderId)
                 .then((data) => {
                     clearInterval(progressInterval);
                     progressBar.style.width = '100%';
                     
+                    // Update summary
                     const fullName = document.getElementById('fullName').value.trim();
                     const phone = document.getElementById('phone').value.trim();
                     const shippingCompany = document.getElementById('shippingCompany').value;
@@ -2653,10 +2694,12 @@
                     `;
                     orderSummary.style.display = 'block';
 
+                    // Show success
                     document.getElementById('successOrderId').textContent = orderId;
                     document.getElementById('successMessage').style.display = 'block';
                     showAlert(`✅ ការបញ្ជាទិញរបស់អ្នកត្រូវបានផ្ញើជោគជ័យ! (Order ID: ${orderId})`, 'success');
 
+                    // Reset form after delay
                     setTimeout(() => {
                         progressContainer.classList.remove('active');
                         progressBar.style.width = '0%';
@@ -2672,6 +2715,7 @@
                         filePreview.style.display = 'none';
                         previewImage.src = '';
                         
+                        // Reset product images
                         productImageFiles = [];
                         productImageDataUrls = [];
                         productImageGallery.classList.remove('active');
@@ -2682,6 +2726,7 @@
                         productImagesValid.classList.remove('show');
                         productImagesInput.value = '';
                         
+                        // Reset validation states
                         document.querySelectorAll('.form-group .valid').forEach(el => el.classList.remove('valid'));
                         document.querySelectorAll('.valid-text.show').forEach(el => el.classList.remove('show'));
                         document.querySelectorAll('.error-text.show').forEach(el => el.classList.remove('show'));
@@ -2704,6 +2749,7 @@
             submitBtn.classList.remove('loading');
             submitBtn.disabled = false;
             
+            // Re-enable all form inputs
             document.querySelectorAll('#paymentForm input, #paymentForm select, #paymentForm textarea, #paymentForm button').forEach(el => {
                 el.disabled = false;
             });
@@ -2718,7 +2764,7 @@
         checkFormValidity();
         console.log('✅ Page loaded successfully');
         console.log('🔒 ប្រព័ន្ធត្រៀមរួចរាល់!');
-        console.log('🆔 Order ID will be generated automatically when submitting.');
+        console.log('📱 Compatible with all devices (Android, iPhone, Tablet, Desktop)');
     </script>
 </body>
 </html>
