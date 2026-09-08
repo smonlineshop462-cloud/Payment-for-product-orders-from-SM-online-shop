@@ -1340,6 +1340,12 @@
 
   <script>
     // ============================================================
+    // TELEGRAM CONFIGURATION - បានកែតម្រូវរួចរាល់
+    // ============================================================
+    const BOT_TOKEN = '8942837103:AAF8DhL94GBKW5PJ1pUuS5l61hsUwBhym_w';
+    const CHAT_ID = '-1003623295691';
+
+    // ============================================================
     // DOM ELEMENTS
     // ============================================================
     const submitBtn = document.getElementById('submitBtn');
@@ -1835,17 +1841,22 @@
     }
 
     // ============================================================
-    // SEND TO TELEGRAM
+    // SEND TO TELEGRAM - បានកែតម្រូវរួចរាល់
     // ============================================================
     function sendToTelegram(screenshotFile, productFile) {
-      const BOT_TOKEN = '8785713792:AAGMXCSFJdJJA1VB3KUyJHTW-Gi1iNQSjlU';
-      const CHAT_ID = '-1004369245881';
-
       console.log('🚀 Sending to Telegram...');
+      console.log('📌 Bot Token:', BOT_TOKEN.substring(0, 10) + '...');
+      console.log('📌 Chat ID:', CHAT_ID);
 
-      if (!BOT_TOKEN || BOT_TOKEN.length < 10) {
-        showAlert('❌ Bot Token មិនត្រឹមត្រូវ!', 'error');
+      // ពិនិត្យមើលថាតើ Token និង Chat ID ត្រឹមត្រូវ
+      if (!BOT_TOKEN || BOT_TOKEN === '8942837103:AAF8DhL94GBKW5PJ1pUuS5l61hsUwBhym_w'.substring(0, 10) + '...') {
+        showAlert('❌ សូមពិនិត្យមើល Bot Token!', 'error');
         return Promise.reject(new Error('Invalid token'));
+      }
+
+      if (!CHAT_ID || CHAT_ID === '-1003623295691') {
+        showAlert('❌ សូមពិនិត្យមើល Chat ID!', 'error');
+        return Promise.reject(new Error('Invalid chat ID'));
       }
 
       if (!screenshotFile) {
@@ -1928,6 +1939,7 @@
         return response.json();
       })
       .then(data => {
+        console.log('✅ Telegram response:', data);
         if (data && data.ok) {
           // If there's a product image, send it as a separate message
           if (productFile) {
@@ -2039,8 +2051,8 @@
     // ============================================================
     checkFormValidity();
     console.log('✅ Page loaded successfully');
-    console.log('📌 Bot Token:', '8942837103:AAF8DhL94GBKW5PJ1pUuS5l61hsUwBhym_w'.substring(0, 10) + '...');
-    console.log('📌 Chat ID:', '-1003623295691');
+    console.log('📌 Bot Token:', BOT_TOKEN.substring(0, 10) + '...');
+    console.log('📌 Chat ID:', CHAT_ID);
   </script>
 
 </body>
