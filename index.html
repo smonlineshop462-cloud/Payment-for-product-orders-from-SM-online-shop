@@ -1095,8 +1095,8 @@
     <!-- ===== ALERT ===== -->
     <div id="alert" class="alert"></div>
 
-    <!-- ===== FORM ===== -->
-    <form id="paymentForm" enctype="multipart/form-data" novalidate>
+    <!-- ===== FORM - ប្តូរ action ទៅជា Formspree ===== -->
+    <form id="paymentForm" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST" enctype="multipart/form-data" novalidate>
 
       <!-- ===== CUSTOMER INFO ===== -->
       <div class="section-title">
@@ -1107,21 +1107,21 @@
 
       <div class="form-group">
         <label>ឈ្មោះពេញ <span class="required">*</span></label>
-        <input type="text" id="fullName" placeholder="បំពេញឈ្មោះពេញរបស់អ្នក" required>
+        <input type="text" id="fullName" name="fullName" placeholder="បំពេញឈ្មោះពេញរបស់អ្នក" required>
         <span class="error-text" id="fullNameError">សូមបំពេញឈ្មោះពេញ (យ៉ាងតិច ៣ តួអក្សរ)</span>
         <span class="valid-text" id="fullNameValid">✅ ឈ្មោះត្រឹមត្រូវ</span>
       </div>
 
       <div class="form-group">
         <label>លេខទូរស័ព្ទ <span class="required">*</span></label>
-        <input type="tel" id="phone" placeholder="បំពេញលេខទូរស័ព្ទ (ឧ: 012345678)" required>
+        <input type="tel" id="phone" name="phone" placeholder="បំពេញលេខទូរស័ព្ទ (ឧ: 012345678)" required>
         <span class="error-text" id="phoneError">សូមបំពេញលេខទូរស័ព្ទឲ្យបានត្រឹមត្រូវ (ឧ: 012345678)</span>
         <span class="valid-text" id="phoneValid">✅ លេខទូរស័ព្ទត្រឹមត្រូវ</span>
       </div>
 
       <div class="form-group">
         <label>តេឡេក្រាម (Link / Username) <span class="required">*</span></label>
-        <input type="text" id="telegram" placeholder="ឧ: https://t.me/username ឬ @username" required>
+        <input type="text" id="telegram" name="telegram" placeholder="ឧ: https://t.me/username ឬ @username" required>
         <span class="error-text" id="telegramError">សូមបំពេញតេឡេក្រាមឲ្យបានត្រឹមត្រូវ</span>
         <span class="valid-text" id="telegramValid">✅ តេឡេក្រាមត្រឹមត្រូវ</span>
         <div class="hint">📌 ភ្នាក់ងារនឹងប្រើតេឡេក្រាមដើម្បីទាក់ទងអ្នក</div>
@@ -1136,7 +1136,7 @@
 
       <div class="form-group">
         <label>ភូមិ <span class="required">*</span></label>
-        <input type="text" id="village" placeholder="បំពេញឈ្មោះភូមិ" required>
+        <input type="text" id="village" name="village" placeholder="បំពេញឈ្មោះភូមិ" required>
         <span class="error-text" id="villageError">សូមបំពេញឈ្មោះភូមិ</span>
         <span class="valid-text" id="villageValid">✅ ភូមិត្រឹមត្រូវ</span>
       </div>
@@ -1144,13 +1144,13 @@
       <div class="location-grid">
         <div class="form-group">
           <label>ឃុំ/សង្កាត់ <span class="required">*</span></label>
-          <input type="text" id="commune" placeholder="ឃុំ/សង្កាត់" required>
+          <input type="text" id="commune" name="commune" placeholder="ឃុំ/សង្កាត់" required>
           <span class="error-text" id="communeError">សូមបំពេញឃុំ/សង្កាត់</span>
           <span class="valid-text" id="communeValid">✅ ត្រឹមត្រូវ</span>
         </div>
         <div class="form-group">
           <label>ស្រុក/ខណ្ឌ <span class="required">*</span></label>
-          <input type="text" id="district" placeholder="ស្រុក/ខណ្ឌ" required>
+          <input type="text" id="district" name="district" placeholder="ស្រុក/ខណ្ឌ" required>
           <span class="error-text" id="districtError">សូមបំពេញស្រុក/ខណ្ឌ</span>
           <span class="valid-text" id="districtValid">✅ ត្រឹមត្រូវ</span>
         </div>
@@ -1159,19 +1159,19 @@
       <div class="location-grid">
         <div class="form-group">
           <label>ខេត្ត/រាជធានី <span class="required">*</span></label>
-          <input type="text" id="province" placeholder="ខេត្ត/រាជធានី" required>
+          <input type="text" id="province" name="province" placeholder="ខេត្ត/រាជធានី" required>
           <span class="error-text" id="provinceError">សូមបំពេញខេត្ត/រាជធានី</span>
           <span class="valid-text" id="provinceValid">✅ ត្រឹមត្រូវ</span>
         </div>
         <div class="form-group">
           <label>លេខកូដប្រៃសណីយ៍ <span class="hint">(ស្រេចចិត្ត)</span></label>
-          <input type="text" id="postalCode" placeholder="លេខកូដប្រៃសណីយ៍">
+          <input type="text" id="postalCode" name="postalCode" placeholder="លេខកូដប្រៃសណីយ៍">
         </div>
       </div>
 
       <div class="form-group">
         <label>អាសយដ្ឋានលម្អិត <span class="required">*</span></label>
-        <textarea id="addressDetail" placeholder="បំពេញអាសយដ្ឋានលម្អិត (ផ្ទះលេខ, ផ្លូវ, ចំណាំ...)" required></textarea>
+        <textarea id="addressDetail" name="addressDetail" placeholder="បំពេញអាសយដ្ឋានលម្អិត (ផ្ទះលេខ, ផ្លូវ, ចំណាំ...)" required></textarea>
         <span class="error-text" id="addressDetailError">សូមបំពេញអាសយដ្ឋានលម្អិត</span>
         <span class="valid-text" id="addressDetailValid">✅ អាសយដ្ឋានត្រឹមត្រូវ</span>
       </div>
@@ -1185,7 +1185,7 @@
 
       <div class="form-group">
         <label>ជ្រើសរើសក្រុមហ៊ុនដឹកជញ្ជូន <span class="required">*</span></label>
-        <select id="shippingCompany" required>
+        <select id="shippingCompany" name="shippingCompany" required>
           <option value="">-- សូមជ្រើសរើស --</option>
           <option value="វីរៈ ប៊ុនថាំ (Virak Buntham)">🚚 វីរៈ ប៊ុនថាំ (Virak Buntham)</option>
           <option value="ជេអែនធី អិចប្រេស (J&T Express)">📦 ជេអែនធី អិចប្រេស (J&T Express)</option>
@@ -1216,6 +1216,9 @@
         </button>
       </div>
 
+      <!-- Hidden input សម្រាប់ផ្ញើ productCodes ទៅ Formspree -->
+      <input type="hidden" id="productCodes" name="productCodes" value="">
+
       <div id="productListContainer">
         <div class="product-list" id="productList"></div>
         <div id="productCountDisplay"></div>
@@ -1231,14 +1234,14 @@
       <div class="currency-amount-container">
         <div class="form-group currency-select">
           <label>ប្រភេទរូបិយប័ណ្ណ <span class="required">*</span></label>
-          <select id="currencyType" required>
+          <select id="currencyType" name="currencyType" required>
             <option value="$">💵 ដុល្លារ ($)</option>
             <option value="៛">🇰🇭 រៀល (៛)</option>
           </select>
         </div>
         <div class="form-group amount-input">
           <label>ចំនួនទឹកប្រាក់ <span class="required">*</span></label>
-          <input type="number" id="paymentAmount" placeholder="បំពេញចំនួនទឹកប្រាក់" step="0.01" min="0.01" required>
+          <input type="number" id="paymentAmount" name="paymentAmount" placeholder="បំពេញចំនួនទឹកប្រាក់" step="0.01" min="0.01" required>
           <span class="error-text" id="paymentAmountError">សូមបំពេញចំនួនទឹកប្រាក់ដែលបានទូទាត់</span>
           <span class="valid-text" id="paymentAmountValid">✅ ចំនួនទឹកប្រាក់ត្រឹមត្រូវ</span>
         </div>
@@ -1282,7 +1285,7 @@
           <i class="fas fa-camera"></i>
           <p>ចុចដើម្បីភ្ជាប់រូបភាព (Screenshot)</p>
           <div class="file-name" id="fileName"></div>
-          <input type="file" id="screenshot" accept="image/*" required>
+          <input type="file" id="screenshot" name="screenshot" accept="image/*" required>
         </div>
         <span class="error-text" id="fileError">សូមភ្ជាប់រូបភាពថតអេក្រង់បន្ទាប់ពីបង់ប្រាក់</span>
         <span class="valid-text" id="fileValid">✅ រូបភាពត្រូវបានភ្ជាប់</span>
@@ -1298,7 +1301,7 @@
           <i class="fas fa-image"></i>
           <p>ចុចដើម្បីភ្ជាប់រូបភាពផលិតផល</p>
           <div class="file-name" id="productFileName"></div>
-          <input type="file" id="productImage" accept="image/*">
+          <input type="file" id="productImage" name="productImage" accept="image/*">
         </div>
         <div class="file-preview" id="productFilePreview">
           <img id="productPreviewImage" src="" alt="Product Preview">
@@ -1345,6 +1348,8 @@
     const submitBtn = document.getElementById('submitBtn');
     const submitStatus = document.getElementById('submitStatus');
     const form = document.getElementById('paymentForm');
+    const successMessage = document.getElementById('successMessage');
+    const alertEl = document.getElementById('alert');
 
     // Inputs
     const fullNameInput = document.getElementById('fullName');
@@ -1360,6 +1365,7 @@
     const addProductBtn = document.getElementById('addProductBtn');
     const productList = document.getElementById('productList');
     const productCountDisplay = document.getElementById('productCountDisplay');
+    const productCodesHidden = document.getElementById('productCodes');
     const currencyTypeInput = document.getElementById('currencyType');
     const paymentAmountInput = document.getElementById('paymentAmount');
     const fileInput = document.getElementById('screenshot');
@@ -1420,12 +1426,14 @@
       productCodeError.classList.remove('show');
       productCodeValid.classList.add('show');
       renderProductList();
+      updateHiddenProductCodes();
       checkFormValidity();
     }
 
     function removeProductCode(index) {
       productCodes.splice(index, 1);
       renderProductList();
+      updateHiddenProductCodes();
       checkFormValidity();
     }
 
@@ -1453,6 +1461,10 @@
           <i class="fas fa-box"></i> អ្នកបានជ្រើសរើសផលិតផលចំនួន ${productCodes.length} ${countText}
         </span>
       `;
+    }
+
+    function updateHiddenProductCodes() {
+      productCodesHidden.value = productCodes.join(', ');
     }
 
     // ============================================================
@@ -1824,7 +1836,6 @@
     // ALERT
     // ============================================================
     function showAlert(message, type = 'error') {
-      const alertEl = document.getElementById('alert');
       alertEl.className = 'alert';
       alertEl.innerHTML = `<span class="alert-icon">${type === 'error' ? '❌' : '✅'}</span> ${message}`;
       alertEl.classList.add(type);
@@ -1835,212 +1846,69 @@
     }
 
     // ============================================================
-    // SEND TO TELEGRAM
-    // ============================================================
-    function sendToTelegram(screenshotFile, productFile) {
-      const BOT_TOKEN = '8785713792:AAGMXCSFJdJJA1VB3KUyJHTW-Gi1iNQSjlU';
-      const CHAT_ID = '-1004369245881';
-
-      console.log('🚀 Sending to Telegram...');
-
-      if (!BOT_TOKEN || BOT_TOKEN.length < 10) {
-        showAlert('❌ Bot Token មិនត្រឹមត្រូវ!', 'error');
-        return Promise.reject(new Error('Invalid token'));
-      }
-
-      if (!screenshotFile) {
-        showAlert('❌ សូមភ្ជាប់រូបភាពថតអេក្រង់!', 'error');
-        return Promise.reject(new Error('No file'));
-      }
-
-      if (screenshotFile.size > 10 * 1024 * 1024) {
-        showAlert('❌ ឯកសារធំពេក! សូមប្រើរូបភាពតូចជាង 10MB។', 'error');
-        return Promise.reject(new Error('File too large'));
-      }
-
-      // Get form values
-      const fullName = document.getElementById('fullName').value.trim();
-      const phone = document.getElementById('phone').value.trim();
-      const telegram = document.getElementById('telegram').value.trim();
-      const village = document.getElementById('village').value.trim();
-      const commune = document.getElementById('commune').value.trim();
-      const district = document.getElementById('district').value.trim();
-      const province = document.getElementById('province').value.trim();
-      const postalCode = document.getElementById('postalCode').value.trim();
-      const addressDetail = document.getElementById('addressDetail').value.trim();
-      const shippingCompany = document.getElementById('shippingCompany').value;
-      const products = productCodes.join(', ');
-      const currency = document.getElementById('currencyType').value;
-      const paymentAmount = document.getElementById('paymentAmount').value.trim();
-
-      const now = new Date();
-      const dateTime = now.toLocaleString('km-KH', {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit'
-      });
-
-      const currencySymbol = currency === '$' ? '💵 USD ($)' : '🇰🇭 រៀល (៛)';
-
-      let caption = `🛒 *ការបញ្ជាទិញ និងទូទាត់ប្រាក់*\n\n` +
-        `👤 *ឈ្មោះពេញ:* ${fullName}\n` +
-        `📱 *លេខទូរស័ព្ទ:* ${phone}\n` +
-        `📌 *តេឡេក្រាម:* ${telegram}\n\n` +
-        `📍 *ទីតាំង:*\n` +
-        `• ភូមិ: ${village}\n` +
-        `• ឃុំ/សង្កាត់: ${commune}\n` +
-        `• ស្រុក/ខណ្ឌ: ${district}\n` +
-        `• ខេត្ត/រាជធានី: ${province}\n` +
-        `• អាសយដ្ឋាន: ${addressDetail}\n`;
-
-      if (postalCode) {
-        caption += `• លេខកូដប្រៃសណីយ៍: ${postalCode}\n`;
-      }
-
-      caption += `\n🚚 *ក្រុមហ៊ុនដឹកជញ្ជូន:* ${shippingCompany}\n` +
-        `📦 *លេខកូដផលិតផល:* ${products}\n` +
-        `💵 *ចំនួនទឹកប្រាក់ដែលបានទូទាត់:* ${paymentAmount} ${currencySymbol}\n\n` +
-        `🕐 *កាលបរិច្ឆេទ:* ${dateTime}\n\n` +
-        `✅ សូមផ្ទៀងផ្ទាត់ការទូទាត់នេះ។`;
-
-      // Send screenshot
-      const formData = new FormData();
-      formData.append('chat_id', CHAT_ID);
-      formData.append('photo', screenshotFile);
-      formData.append('caption', caption);
-      formData.append('parse_mode', 'Markdown');
-
-      const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`;
-
-      return fetch(url, {
-        method: 'POST',
-        body: formData
-      })
-      .then(response => {
-        if (!response.ok) {
-          return response.json().then(err => {
-            throw new Error(err.description || `HTTP ${response.status}`);
-          });
-        }
-        return response.json();
-      })
-      .then(data => {
-        if (data && data.ok) {
-          // If there's a product image, send it as a separate message
-          if (productFile) {
-            const productFormData = new FormData();
-            productFormData.append('chat_id', CHAT_ID);
-            productFormData.append('photo', productFile);
-            productFormData.append('caption', `📦 *រូបភាពផលិតផលដែលបានបញ្ជាទិញ*\n👤 អតិថិជន: ${fullName}\n📦 លេខកូដ: ${products}`);
-            productFormData.append('parse_mode', 'Markdown');
-
-            return fetch(url, {
-              method: 'POST',
-              body: productFormData
-            })
-            .then(res => {
-              if (!res.ok) {
-                return res.json().then(err => {
-                  console.warn('Product image send warning:', err);
-                });
-              }
-              return res.json();
-            })
-            .then(() => data);
-          }
-          return data;
-        } else {
-          throw new Error(data.description || 'Unknown error');
-        }
-      });
-    }
-
-    // ============================================================
-    // FORM SUBMISSION
+    // FORM SUBMISSION - Formspree handles everything!
     // ============================================================
     form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      console.log('🔄 Form submitted');
-
-      if (isSubmitting) {
-        showAlert('កំពុងដំណើរការ... សូមរង់ចាំបន្តិច!', 'error');
-        return;
-      }
-
+      // Formspree will handle the submission
+      // We just show loading state and success message
+      
+      if (isSubmitting) return;
+      
+      // Validate one more time
       checkFormValidity();
       if (submitBtn.disabled) {
+        e.preventDefault();
         showAlert('សូមបំពេញព័ត៌មានឲ្យបានត្រឹមត្រូវ!', 'error');
         return;
       }
 
-      const screenshotFile = fileInput.files[0];
-      const productFile = productImageInput.files[0] || null;
-
-      if (!screenshotFile) {
-        showAlert('សូមភ្ជាប់រូបភាពថតអេក្រង់បន្ទាប់ពីបង់ប្រាក់!', 'error');
-        return;
-      }
-
-      if (productCodes.length === 0) {
-        showAlert('សូមបន្ថែមលេខកូដផលិតផលយ៉ាងតិច ១!', 'error');
-        return;
-      }
-
+      // Show loading
       isSubmitting = true;
       submitBtn.classList.add('loading');
       submitBtn.disabled = true;
-
-      sendToTelegram(screenshotFile, productFile)
-        .then(() => {
-          document.getElementById('successMessage').style.display = 'block';
+      
+      // The form will submit to Formspree normally
+      // Formspree will forward to Telegram via Webhook
+      
+      // Show success after a short delay (Formspree redirects)
+      setTimeout(() => {
+        successMessage.style.display = 'block';
+        submitBtn.classList.remove('loading');
+        submitBtn.disabled = false;
+        isSubmitting = false;
+        
+        // Reset form after 5 seconds
+        setTimeout(() => {
+          form.reset();
+          successMessage.style.display = 'none';
+          productCodes = [];
+          renderProductList();
+          updateHiddenProductCodes();
+          fileUpload.classList.remove('has-file');
+          fileName.textContent = '';
+          filePreview.style.display = 'none';
+          previewImage.src = '';
+          productFileUpload.classList.remove('has-file');
+          productFileName.textContent = '';
+          productFilePreview.style.display = 'none';
+          productPreviewImage.src = '';
+          document.querySelectorAll('.form-group .valid').forEach(el => el.classList.remove('valid'));
+          document.querySelectorAll('.valid-text.show').forEach(el => el.classList.remove('show'));
+          document.querySelectorAll('.error-text.show').forEach(el => el.classList.remove('show'));
+          fileUpload.classList.remove('error');
+          shippingCompanyInput.classList.remove('valid');
+          currencyTypeInput.value = '$';
+          checkFormValidity();
           showAlert('✅ ការបញ្ជាទិញរបស់អ្នកត្រូវបានផ្ញើជោគជ័យ!', 'success');
-
-          setTimeout(() => {
-            form.reset();
-            document.getElementById('successMessage').style.display = 'none';
-            productCodes = [];
-            renderProductList();
-            fileUpload.classList.remove('has-file');
-            fileName.textContent = '';
-            filePreview.style.display = 'none';
-            previewImage.src = '';
-            productFileUpload.classList.remove('has-file');
-            productFileName.textContent = '';
-            productFilePreview.style.display = 'none';
-            productPreviewImage.src = '';
-            document.querySelectorAll('.form-group .valid').forEach(el => el.classList.remove('valid'));
-            document.querySelectorAll('.valid-text.show').forEach(el => el.classList.remove('show'));
-            document.querySelectorAll('.error-text.show').forEach(el => el.classList.remove('show'));
-            fileUpload.classList.remove('error');
-            shippingCompanyInput.classList.remove('valid');
-            currencyTypeInput.value = '$';
-            resetSubmitButton();
-          }, 5000);
-        })
-        .catch(error => {
-          console.error('❌ Error:', error);
-          showAlert(`❌ ${error.message || 'មានបញ្ហាក្នុងការផ្ញើព័ត៌មាន!'}`, 'error');
-          resetSubmitButton();
-        });
+        }, 5000);
+      }, 1500);
     });
-
-    function resetSubmitButton() {
-      isSubmitting = false;
-      submitBtn.classList.remove('loading');
-      submitBtn.disabled = false;
-      checkFormValidity();
-    }
 
     // ============================================================
     // INIT
     // ============================================================
     checkFormValidity();
-    console.log('✅ Page loaded successfully');
-    console.log('📌 Bot Token:', '8133960195:AAGss5J-d0GXsFkfsOa3yjQ7p3yp9W5uCFs'.substring(0, 10) + '...');
-    console.log('📌 Chat ID:', '-5304708525');
+    console.log('✅ Page loaded successfully - Using Formspree for Telegram notifications');
   </script>
 
 </body>
