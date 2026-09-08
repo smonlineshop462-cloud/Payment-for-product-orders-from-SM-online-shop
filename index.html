@@ -18,7 +18,7 @@
 
         html, body {
             min-height: 100vh;
-            min-height: 100dvh;
+            min-height: 100dvh; /* Dynamic viewport height for mobile */
             background: linear-gradient(145deg, #0B1120 0%, #1A2A4A 40%, #1E3A6F 100%);
             display: flex;
             align-items: flex-start;
@@ -33,7 +33,7 @@
             min-height: 100vh;
             min-height: 100dvh;
             background: rgba(255, 255, 255, 0.98);
-            padding: 16px 14px 20px;
+            padding: 24px 20px 30px;
             box-shadow: 0 40px 100px rgba(0, 0, 0, 0.45);
             animation: fadeIn 0.7s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
@@ -68,30 +68,29 @@
             100% { opacity: 1; }
         }
 
-        /* ===== HEADER ===== */
         .payment-header {
             text-align: center;
-            margin-bottom: 12px;
+            margin-bottom: 20px;
             flex-shrink: 0;
         }
 
         .payment-header .icon {
             background: linear-gradient(135deg, #2563EB, #7C3AED);
-            width: 56px;
-            height: 56px;
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 6px;
-            font-size: 24px;
+            margin: 0 auto 12px;
+            font-size: 32px;
             color: white;
-            box-shadow: 0 8px 30px rgba(37, 99, 235, 0.4);
+            box-shadow: 0 12px 45px rgba(37, 99, 235, 0.4);
             animation: float 4s ease-in-out infinite;
         }
 
         .payment-header h1 {
-            font-size: 20px;
+            font-size: 24px;
             color: #0F172A;
             font-weight: 800;
             background: linear-gradient(135deg, #0F172A, #2563EB);
@@ -102,8 +101,8 @@
 
         .payment-header p {
             color: #64748B;
-            font-size: 12px;
-            margin-top: 2px;
+            font-size: 14px;
+            margin-top: 4px;
             font-weight: 500;
         }
 
@@ -111,92 +110,67 @@
             display: inline-block;
             background: linear-gradient(135deg, #EEF4FF, #DBEAFE);
             color: #1D4ED8;
-            font-size: 9px;
+            font-size: 10px;
             font-weight: 700;
-            padding: 2px 12px;
+            padding: 3px 14px;
             border-radius: 20px;
-            margin-top: 3px;
+            margin-top: 4px;
         }
 
-        /* ===== SCROLLABLE CONTENT - Normal scroll ===== */
-        .scrollable-content {
-            flex: 1;
-            overflow-y: auto;
-            overflow-x: hidden;
-            padding-right: 2px;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .scrollable-content::-webkit-scrollbar {
-            width: 3px;
-        }
-
-        .scrollable-content::-webkit-scrollbar-track {
-            background: #F1F5F9;
-            border-radius: 10px;
-        }
-
-        .scrollable-content::-webkit-scrollbar-thumb {
-            background: #CBD5E1;
-            border-radius: 10px;
-        }
-
-        /* ===== TRUST SECTION ===== */
         .trust-section {
             background: linear-gradient(135deg, #F0FDF4, #DCFCE7);
             border: 2px solid #86EFAC;
-            border-radius: 12px;
-            padding: 12px 14px;
-            margin-bottom: 12px;
+            border-radius: 14px;
+            padding: 14px 16px;
+            margin-bottom: 18px;
             display: flex;
             align-items: flex-start;
-            gap: 10px;
+            gap: 12px;
             flex-shrink: 0;
         }
 
         .trust-section .trust-icon {
             background: linear-gradient(135deg, #22C55E, #16A34A);
-            width: 34px;
-            height: 34px;
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 14px;
+            font-size: 16px;
             color: white;
             flex-shrink: 0;
             box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3);
         }
 
         .trust-section .trust-content {
-            font-size: 11px;
+            font-size: 12px;
             color: #166534;
-            line-height: 1.5;
+            line-height: 1.6;
         }
 
         .trust-section .trust-content strong {
             display: block;
-            font-size: 12px;
+            font-size: 13px;
             margin-bottom: 2px;
         }
 
         .trust-section .trust-content .highlight {
             background: rgba(34, 197, 94, 0.15);
-            padding: 1px 5px;
+            padding: 1px 6px;
             border-radius: 4px;
             font-weight: 600;
         }
 
-        /* ===== SECTION TITLE ===== */
         .section-title {
-            font-size: 14px;
+            font-size: 15px;
             font-weight: 700;
             color: #0F172A;
-            margin: 12px 0 8px 0;
+            margin: 16px 0 10px 0;
             display: flex;
             align-items: center;
             gap: 8px;
-            padding-bottom: 5px;
+            padding-bottom: 6px;
             border-bottom: 2px solid #F1F5F9;
             flex-shrink: 0;
         }
@@ -205,8 +179,8 @@
             background: linear-gradient(135deg, #2563EB, #1D4ED8);
             color: white;
             font-size: 10px;
-            width: 20px;
-            height: 20px;
+            width: 22px;
+            height: 22px;
             border-radius: 50%;
             display: inline-flex;
             align-items: center;
@@ -214,18 +188,17 @@
             font-weight: 700;
         }
 
-        /* ===== FORM GROUP ===== */
         .form-group {
-            margin-bottom: 10px;
+            margin-bottom: 14px;
             position: relative;
         }
 
         .form-group label {
             display: block;
             font-weight: 600;
-            font-size: 12px;
+            font-size: 13px;
             color: #0F172A;
-            margin-bottom: 3px;
+            margin-bottom: 4px;
         }
 
         .form-group label .required {
@@ -234,7 +207,7 @@
         }
 
         .form-group .hint {
-            font-size: 10px;
+            font-size: 11px;
             color: #94A3B8;
             font-weight: 400;
             margin-left: 4px;
@@ -244,10 +217,10 @@
         .form-group select,
         .form-group textarea {
             width: 100%;
-            padding: 9px 12px;
+            padding: 11px 14px;
             border: 2px solid #E8EDF5;
-            border-radius: 10px;
-            font-size: 13px;
+            border-radius: 12px;
+            font-size: 14px;
             outline: none;
             transition: all 0.3s ease;
             background: #FAFBFD;
@@ -258,24 +231,24 @@
             appearance: none;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748B' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
             background-repeat: no-repeat;
-            background-position: right 12px center;
-            padding-right: 32px;
+            background-position: right 14px center;
+            padding-right: 36px;
             cursor: pointer;
-            border-radius: 10px;
+            border-radius: 12px;
         }
 
         .form-group textarea {
-            min-height: 50px;
+            min-height: 60px;
             resize: vertical;
             font-family: 'Kantumruy Pro', sans-serif;
-            border-radius: 10px;
+            border-radius: 12px;
         }
 
         .form-group input:focus,
         .form-group select:focus,
         .form-group textarea:focus {
             border-color: #2563EB;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.08);
             background: white;
         }
 
@@ -283,7 +256,7 @@
         .form-group select.error,
         .form-group textarea.error {
             border-color: #EF4444;
-            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.08);
+            box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.08);
             background: #FEF2F2;
         }
 
@@ -297,9 +270,9 @@
         .form-group .error-text {
             display: none;
             color: #EF4444;
-            font-size: 10px;
+            font-size: 11px;
             font-weight: 500;
-            margin-top: 2px;
+            margin-top: 3px;
         }
 
         .form-group .error-text.show {
@@ -310,9 +283,9 @@
         .form-group .valid-text {
             display: none;
             color: #22C55E;
-            font-size: 10px;
+            font-size: 11px;
             font-weight: 500;
-            margin-top: 2px;
+            margin-top: 3px;
         }
 
         .form-group .valid-text.show {
@@ -320,17 +293,15 @@
             animation: slideDown 0.3s ease;
         }
 
-        /* ===== LOCATION GRID ===== */
         .location-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 8px;
+            gap: 10px;
         }
 
-        /* ===== CURRENCY ===== */
         .currency-amount-container {
             display: flex;
-            gap: 8px;
+            gap: 10px;
             align-items: stretch;
             flex-wrap: wrap;
         }
@@ -342,7 +313,7 @@
 
         .currency-amount-container .amount-input {
             flex: 1;
-            min-width: 120px;
+            min-width: 140px;
         }
 
         .currency-amount-container .form-group {
@@ -351,7 +322,7 @@
 
         .currency-amount-container .form-group select,
         .currency-amount-container .form-group input {
-            height: 42px;
+            height: 46px;
         }
 
         .currency-select-wrapper {
@@ -360,99 +331,98 @@
 
         .currency-select-wrapper .currency-icon {
             position: absolute;
-            left: 10px;
+            left: 12px;
             top: 50%;
             transform: translateY(-50%);
-            font-size: 14px;
+            font-size: 16px;
             z-index: 2;
             pointer-events: none;
         }
 
         .currency-select-wrapper select {
-            padding-left: 34px !important;
-            padding-right: 32px !important;
+            padding-left: 38px !important;
+            padding-right: 36px !important;
             background-color: #FAFBFD;
             border: 2px solid #E8EDF5;
-            border-radius: 10px;
+            border-radius: 12px;
             font-weight: 600;
-            font-size: 13px;
+            font-size: 14px;
             cursor: pointer;
             transition: all 0.3s ease;
             appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
             background-repeat: no-repeat;
-            background-position: right 10px center;
-            background-size: 12px;
-            height: 42px;
+            background-position: right 12px center;
+            background-size: 14px;
+            height: 46px;
             width: 100%;
             color: #0F172A;
         }
 
         .currency-select-wrapper select:focus {
             border-color: #2563EB;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
             background-color: white;
         }
 
         .currency-select-wrapper select option {
-            padding: 8px 12px;
+            padding: 10px 14px;
             font-weight: 500;
         }
 
         .currency-badge {
             display: inline-flex;
             align-items: center;
-            gap: 4px;
+            gap: 5px;
             background: linear-gradient(135deg, #EEF4FF, #DBEAFE);
             color: #1D4ED8;
-            padding: 3px 10px;
+            padding: 4px 12px;
             border-radius: 20px;
-            font-size: 10px;
+            font-size: 11px;
             font-weight: 600;
             margin-top: 3px;
         }
 
         .payment-hint {
-            font-size: 11px;
+            font-size: 12px;
             color: #64748B;
-            margin-top: 3px;
+            margin-top: 4px;
             padding-left: 4px;
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 6px;
         }
 
-        /* ===== PRODUCT CODE - Fixed to show full P1234 ===== */
         .product-code-container {
             display: flex;
-            gap: 8px;
+            gap: 10px;
             align-items: center;
             flex-wrap: wrap;
         }
 
         .product-code-container .form-group {
             flex: 1;
-            min-width: 140px;
+            min-width: 160px;
             margin-bottom: 0;
         }
 
         .product-code-container .add-btn {
-            padding: 9px 14px;
+            padding: 11px 16px;
             background: linear-gradient(135deg, #2563EB, #1D4ED8);
             color: white;
             border: none;
-            border-radius: 10px;
-            font-size: 12px;
+            border-radius: 12px;
+            font-size: 13px;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
             white-space: nowrap;
             font-family: 'Kantumruy Pro', sans-serif;
             box-shadow: 0 4px 15px rgba(37, 99, 235, 0.25);
-            height: 42px;
+            height: 46px;
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 6px;
         }
 
         .product-code-container .add-btn:hover {
@@ -464,63 +434,11 @@
             transform: scale(0.95);
         }
 
-        .product-code-wrapper {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-
-        .product-code-wrapper .prefix {
-            position: absolute;
-            left: 12px;
-            font-weight: 700;
-            font-size: 14px;
-            color: #0F172A;
-            pointer-events: none;
-            background: transparent;
-            padding-right: 2px;
-            z-index: 1;
-        }
-
-        .product-code-wrapper input {
-            padding-left: 30px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 14px;
-            width: 100%;
-        }
-
-        .product-code-wrapper input:focus + .prefix {
-            color: #2563EB;
-        }
-
-        .product-code-wrapper input::placeholder {
-            letter-spacing: 0px;
-            font-weight: 400;
-            color: #A0AEC0;
-        }
-
-        /* Fix for small screens - ensure full display */
-        @media (max-width: 640px) {
-            .product-code-wrapper input {
-                font-size: 16px;
-                letter-spacing: 4px;
-                padding-left: 32px;
-            }
-            .product-code-wrapper .prefix {
-                font-size: 15px;
-                left: 10px;
-            }
-        }
-
-        /* ===== PRODUCT LIST ===== */
         .product-list {
-            margin-top: 8px;
+            margin-top: 10px;
             display: flex;
             flex-direction: column;
-            gap: 5px;
+            gap: 6px;
         }
 
         .product-item {
@@ -528,21 +446,21 @@
             align-items: center;
             justify-content: space-between;
             background: #F8FAFC;
-            padding: 7px 12px;
-            border-left: 3px solid #2563EB;
-            border-radius: 8px;
+            padding: 8px 14px;
+            border-left: 4px solid #2563EB;
+            border-radius: 10px;
             animation: slideDown 0.3s ease;
         }
 
         .product-item .product-code-display {
             font-weight: 600;
             color: #0F172A;
-            font-size: 12px;
+            font-size: 13px;
         }
 
         .product-item .product-code-display i {
             color: #2563EB;
-            margin-right: 5px;
+            margin-right: 6px;
         }
 
         .product-item .remove-btn {
@@ -550,10 +468,10 @@
             border: none;
             color: #EF4444;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 16px;
             transition: all 0.3s ease;
-            padding: 3px 5px;
-            border-radius: 5px;
+            padding: 4px 6px;
+            border-radius: 6px;
         }
 
         .product-item .remove-btn:hover {
@@ -565,29 +483,28 @@
             display: inline-block;
             background: linear-gradient(135deg, #2563EB, #7C3AED);
             color: white;
-            padding: 3px 10px;
+            padding: 3px 12px;
             border-radius: 20px;
-            font-size: 11px;
+            font-size: 12px;
             font-weight: 700;
-            margin-top: 5px;
+            margin-top: 6px;
             animation: slideDown 0.4s ease;
         }
 
-        /* ===== ABA PAY ===== */
         .aba-payment-wrapper {
             position: relative;
             padding: 3px;
-            border-radius: 14px;
+            border-radius: 16px;
             background: linear-gradient(135deg, #003A73, #0077BE, #003A73);
             background-size: 200% 200%;
             animation: shimmer 4s ease-in-out infinite;
-            box-shadow: 0 6px 30px rgba(0, 85, 164, 0.3);
+            box-shadow: 0 8px 35px rgba(0, 85, 164, 0.3);
             transition: all 0.4s ease;
         }
 
         .aba-payment-wrapper:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 40px rgba(0, 85, 164, 0.45);
+            box-shadow: 0 12px 50px rgba(0, 85, 164, 0.45);
         }
 
         .aba-payment-wrapper:active {
@@ -598,14 +515,14 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 8px;
+            gap: 10px;
             width: 100%;
-            padding: 12px 14px;
+            padding: 14px 18px;
             background: linear-gradient(135deg, #003A73 0%, #0055A4 40%, #0077BE 100%);
             color: white;
             border: none;
-            border-radius: 11px;
-            font-size: 14px;
+            border-radius: 13px;
+            font-size: 16px;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -629,7 +546,7 @@
         .aba-khqr-btn .khqr-left {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             position: relative;
             z-index: 1;
         }
@@ -638,11 +555,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 5px;
+            gap: 6px;
             background: rgba(255, 255, 255, 0.12);
-            padding: 5px 10px;
-            border-radius: 8px;
-            font-size: 11px;
+            padding: 6px 12px;
+            border-radius: 10px;
+            font-size: 12px;
             font-weight: 600;
             backdrop-filter: blur(4px);
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -651,15 +568,15 @@
         }
 
         .aba-khqr-btn .khqr-icon i {
-            font-size: 16px;
+            font-size: 18px;
         }
 
         .aba-khqr-btn .khqr-icon .qr-symbol {
             display: inline-block;
             background: rgba(255, 215, 0, 0.2);
-            padding: 1px 8px;
-            border-radius: 4px;
-            font-size: 9px;
+            padding: 2px 10px;
+            border-radius: 5px;
+            font-size: 10px;
             letter-spacing: 1px;
             color: #FFD700;
             font-weight: 700;
@@ -675,13 +592,13 @@
         }
 
         .aba-khqr-btn .khqr-text .main {
-            font-size: 15px;
+            font-size: 17px;
             font-weight: 700;
             letter-spacing: 0.3px;
         }
 
         .aba-khqr-btn .khqr-text .sub {
-            font-size: 10px;
+            font-size: 11px;
             font-weight: 400;
             opacity: 0.85;
         }
@@ -689,7 +606,7 @@
         .aba-khqr-btn .khqr-right {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             position: relative;
             z-index: 1;
             flex-shrink: 0;
@@ -698,36 +615,36 @@
         .aba-khqr-btn .khqr-badge {
             background: rgba(255, 215, 0, 0.15);
             border: 1px solid rgba(255, 215, 0, 0.2);
-            padding: 2px 8px;
+            padding: 3px 10px;
             border-radius: 20px;
-            font-size: 9px;
+            font-size: 10px;
             font-weight: 600;
             color: #FFD700;
             white-space: nowrap;
         }
 
         .aba-khqr-btn .khqr-arrow {
-            font-size: 14px;
+            font-size: 16px;
             opacity: 0.6;
             transition: all 0.3s ease;
             color: white;
         }
 
         .aba-payment-wrapper:hover .khqr-arrow {
-            transform: translateX(5px);
+            transform: translateX(6px);
             opacity: 1;
         }
 
         .payment-security-info {
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin-top: 5px;
+            gap: 12px;
+            margin-top: 6px;
             flex-wrap: wrap;
         }
 
         .payment-security-info span {
-            font-size: 10px;
+            font-size: 11px;
             color: #94A3B8;
         }
 
@@ -735,12 +652,11 @@
             color: #2563EB;
         }
 
-        /* ===== FILE UPLOAD ===== */
         .file-upload {
             position: relative;
             border: 2px dashed #D1D9E6;
-            border-radius: 12px;
-            padding: 18px 14px;
+            border-radius: 14px;
+            padding: 24px 16px;
             text-align: center;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -763,10 +679,10 @@
         }
 
         .file-upload i {
-            font-size: 28px;
+            font-size: 34px;
             color: #A0AEC0;
             display: block;
-            margin-bottom: 3px;
+            margin-bottom: 4px;
             transition: color 0.3s ease;
         }
 
@@ -776,22 +692,22 @@
 
         .file-upload p {
             color: #64748B;
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 500;
         }
 
         .file-upload .file-name {
             font-weight: 600;
             color: #0F172A;
-            margin-top: 2px;
-            font-size: 12px;
+            margin-top: 3px;
+            font-size: 13px;
             word-break: break-all;
         }
 
         .file-upload .file-size {
-            font-size: 10px;
+            font-size: 11px;
             color: #94A3B8;
-            margin-top: 1px;
+            margin-top: 2px;
         }
 
         .file-upload input[type="file"] {
@@ -804,66 +720,13 @@
             cursor: pointer;
         }
 
-        .file-list {
-            margin-top: 6px;
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .file-list-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: #F8FAFC;
-            padding: 5px 10px;
-            border-radius: 6px;
-            font-size: 11px;
-            color: #0F172A;
-            border-left: 3px solid #22C55E;
-            animation: slideDown 0.3s ease;
-        }
-
-        .file-list-item .file-info {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            overflow: hidden;
-        }
-
-        .file-list-item .file-info i {
-            color: #22C55E;
-            font-size: 13px;
-        }
-
-        .file-list-item .file-info span {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-width: 150px;
-        }
-
-        .file-list-item .file-remove {
-            background: none;
-            border: none;
-            color: #EF4444;
-            cursor: pointer;
-            font-size: 13px;
-            padding: 2px 5px;
-            border-radius: 4px;
-        }
-
-        .file-list-item .file-remove:hover {
-            background: #FEF2F2;
-        }
-
         .file-preview {
-            margin-top: 8px;
+            margin-top: 10px;
             max-width: 100%;
             border: 1px solid #E8EDF5;
-            border-radius: 8px;
+            border-radius: 10px;
             display: none;
-            max-height: 140px;
+            max-height: 160px;
             overflow: hidden;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
         }
@@ -874,15 +737,14 @@
             display: block;
         }
 
-        /* ===== SUBMIT BUTTON ===== */
         .submit-btn {
             width: 100%;
-            padding: 13px;
+            padding: 15px;
             background: linear-gradient(135deg, #2563EB, #7C3AED);
             color: white;
             border: none;
-            border-radius: 12px;
-            font-size: 15px;
+            border-radius: 14px;
+            font-size: 16px;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
@@ -890,8 +752,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            margin-top: 4px;
+            gap: 10px;
+            margin-top: 6px;
             box-shadow: 0 6px 30px rgba(37, 99, 235, 0.35);
             position: relative;
             overflow: hidden;
@@ -899,7 +761,7 @@
         }
 
         .submit-btn:hover:not(:disabled) {
-            transform: translateY(-2px);
+            transform: translateY(-3px);
             box-shadow: 0 10px 45px rgba(37, 99, 235, 0.45);
         }
 
@@ -928,14 +790,13 @@
             display: none;
         }
 
-        /* ===== PROGRESS BAR ===== */
         .progress-bar-container {
             display: none;
             width: 100%;
-            height: 3px;
+            height: 4px;
             background: #E8EDF5;
             border-radius: 4px;
-            margin-top: 6px;
+            margin-top: 8px;
             overflow: hidden;
             flex-shrink: 0;
         }
@@ -955,15 +816,14 @@
             animation: shimmer 2s linear infinite;
         }
 
-        /* ===== SUBMIT STATUS ===== */
         .submit-status {
             display: none;
             text-align: center;
-            font-size: 11px;
+            font-size: 12px;
             font-weight: 500;
-            margin-top: 6px;
-            padding: 8px 12px;
-            border-radius: 8px;
+            margin-top: 8px;
+            padding: 10px 14px;
+            border-radius: 10px;
             background: #F1F5F9;
             color: #64748B;
             animation: slideDown 0.4s ease;
@@ -986,14 +846,13 @@
             border: 1px solid #FECACA;
         }
 
-        /* ===== ALERT ===== */
         .alert {
             display: none;
-            padding: 10px 14px;
-            border-radius: 10px;
-            margin-bottom: 10px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-bottom: 14px;
             font-weight: 500;
-            font-size: 12px;
+            font-size: 13px;
             animation: slideDown 0.4s ease;
             flex-shrink: 0;
         }
@@ -1019,45 +878,43 @@
             color: #1E3A8A;
         }
 
-        /* ===== SUCCESS MESSAGE ===== */
         .success-message {
             display: none;
             background: linear-gradient(135deg, #F0FDF4, #DCFCE7);
             border: 2px solid #86EFAC;
-            border-radius: 12px;
+            border-radius: 14px;
             color: #166534;
-            padding: 16px;
-            margin-top: 10px;
+            padding: 20px;
+            margin-top: 16px;
             text-align: center;
             font-weight: 600;
-            font-size: 13px;
+            font-size: 14px;
             animation: fadeIn 0.5s ease;
             flex-shrink: 0;
         }
 
         .success-message i {
-            font-size: 30px;
+            font-size: 34px;
             display: block;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             color: #22C55E;
         }
 
-        /* ===== ORDER SUMMARY ===== */
         .order-summary {
             display: none;
             background: #F8FAFC;
-            padding: 12px 14px;
+            padding: 14px 16px;
             border-radius: 10px;
-            margin-top: 8px;
+            margin-top: 10px;
             border: 1px solid #E8EDF5;
             animation: slideDown 0.4s ease;
             flex-shrink: 0;
         }
 
         .order-summary h4 {
-            font-size: 12px;
+            font-size: 13px;
             color: #0F172A;
-            margin-bottom: 5px;
+            margin-bottom: 6px;
         }
 
         .order-summary h4 i {
@@ -1067,163 +924,122 @@
         .order-summary .summary-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 2px 12px;
-            font-size: 11px;
+            gap: 3px 14px;
+            font-size: 12px;
             color: #475569;
-            line-height: 1.6;
+            line-height: 1.8;
         }
 
         .order-summary .summary-grid .full-width {
             grid-column: 1 / -1;
         }
 
-        /* ===== PAYMENT NOTE ===== */
         .payment-note {
             background: linear-gradient(135deg, #FFFBEB, #FEF3C7);
-            border-radius: 10px;
-            padding: 10px 14px;
-            margin-top: 10px;
-            border-left: 4px solid #F59E0B;
-            font-size: 11px;
+            border-radius: 12px;
+            padding: 14px 16px;
+            margin-top: 14px;
+            border-left: 5px solid #F59E0B;
+            font-size: 12px;
             color: #92400E;
             display: flex;
             align-items: flex-start;
-            gap: 10px;
+            gap: 12px;
             flex-shrink: 0;
         }
 
         .payment-note i {
             color: #F59E0B;
-            font-size: 16px;
-            margin-top: 1px;
+            font-size: 18px;
+            margin-top: 2px;
             flex-shrink: 0;
         }
 
         .payment-note strong {
             display: block;
-            margin-bottom: 2px;
+            margin-bottom: 3px;
         }
 
-        .payment-note span {
-            font-size: 10px;
-            line-height: 1.5;
+        .product-code-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
         }
 
-        /* ===== FOOTER ===== */
+        .product-code-wrapper .prefix {
+            position: absolute;
+            left: 14px;
+            font-weight: 700;
+            font-size: 14px;
+            color: #0F172A;
+            pointer-events: none;
+            background: #FAFBFD;
+            padding-right: 4px;
+        }
+
+        .product-code-wrapper input {
+            padding-left: 28px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 12px;
+        }
+
+        .product-code-wrapper input:focus + .prefix {
+            color: #2563EB;
+        }
+
+        /* ===== FORM WRAPPER - SCROLLABLE CONTENT ===== */
+        .form-wrapper {
+            flex: 1;
+            overflow-y: auto;
+            padding-right: 2px;
+            margin-bottom: 8px;
+        }
+
+        .form-wrapper::-webkit-scrollbar {
+            width: 3px;
+        }
+
+        .form-wrapper::-webkit-scrollbar-track {
+            background: #F1F5F9;
+            border-radius: 10px;
+        }
+
+        .form-wrapper::-webkit-scrollbar-thumb {
+            background: #CBD5E1;
+            border-radius: 10px;
+        }
+
+        .form-wrapper::-webkit-scrollbar-thumb:hover {
+            background: #94A3B8;
+        }
+
+        /* ===== FOOTER ACTIONS ===== */
         .footer-actions {
             flex-shrink: 0;
-            padding-top: 6px;
+            padding-top: 8px;
             border-top: 1px solid #F1F5F9;
             margin-top: 4px;
         }
 
-        /* ============================================================ */
-        /* RESPONSIVE */
-        /* ============================================================ */
-
-        /* Large screens */
-        @media (min-width: 641px) {
-            .payment-container {
-                max-width: 580px;
-                min-height: auto;
-                padding: 24px 28px 20px;
-                border-radius: 0;
-                box-shadow: 0 40px 100px rgba(0, 0, 0, 0.45);
-                margin: 16px;
-                max-height: 96vh;
-                height: auto;
-            }
-
-            .scrollable-content {
-                max-height: calc(96vh - 280px);
-            }
-
-            body {
-                align-items: center;
-                padding: 10px;
-            }
-
-            .payment-header .icon {
-                width: 64px;
-                height: 64px;
-                font-size: 30px;
-            }
-
-            .payment-header h1 {
-                font-size: 24px;
-            }
-
-            .trust-section .trust-content {
-                font-size: 12px;
-            }
-
-            .trust-section .trust-content strong {
-                font-size: 13px;
-            }
-
-            .form-group label {
-                font-size: 13px;
-            }
-
-            .form-group input,
-            .form-group select,
-            .form-group textarea {
-                font-size: 14px;
-                padding: 10px 14px;
-            }
-
-            .product-code-wrapper input {
-                font-size: 15px;
-            }
-
-            .aba-khqr-btn .khqr-text .main {
-                font-size: 17px;
-            }
-
-            .submit-btn {
-                font-size: 16px;
-                padding: 15px;
-            }
-
-            .payment-note span {
-                font-size: 12px;
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .payment-container {
-                max-width: 620px;
-                padding: 28px 32px 24px;
-            }
-
-            .scrollable-content {
-                max-height: calc(100vh - 300px);
-            }
-        }
-
-        /* Small screens */
         @media (max-width: 640px) {
             .payment-container {
-                padding: 12px 10px 14px;
-            }
-
-            .payment-header .icon {
-                width: 48px;
-                height: 48px;
-                font-size: 22px;
+                padding: 16px 14px 20px;
             }
 
             .payment-header h1 {
-                font-size: 17px;
+                font-size: 20px;
             }
 
-            .payment-header p {
-                font-size: 11px;
+            .payment-header .icon {
+                width: 60px;
+                height: 60px;
+                font-size: 28px;
             }
 
             .location-grid {
                 grid-template-columns: 1fr 1fr;
-                gap: 6px;
+                gap: 8px;
             }
 
             .product-code-container {
@@ -1238,13 +1054,11 @@
             .product-code-container .add-btn {
                 width: 100%;
                 justify-content: center;
-                height: 38px;
-                font-size: 13px;
+                height: 42px;
             }
 
             .currency-amount-container {
                 flex-direction: column;
-                gap: 6px;
             }
 
             .currency-amount-container .currency-select {
@@ -1259,53 +1073,30 @@
                 min-width: unset;
             }
 
-            .currency-amount-container .form-group select,
-            .currency-amount-container .form-group input {
-                height: 38px;
-            }
-
             .trust-section {
                 flex-direction: column;
                 align-items: center;
                 text-align: center;
-                padding: 10px 12px;
-            }
-
-            .trust-section .trust-icon {
-                width: 30px;
-                height: 30px;
-                font-size: 12px;
-            }
-
-            .trust-section .trust-content {
-                font-size: 10px;
-            }
-
-            .trust-section .trust-content strong {
-                font-size: 11px;
+                padding: 12px 14px;
             }
 
             .aba-khqr-btn {
                 flex-wrap: wrap;
-                padding: 10px 12px;
-                gap: 6px;
+                padding: 12px 14px;
+                gap: 8px;
             }
 
             .aba-khqr-btn .khqr-text .main {
-                font-size: 13px;
-            }
-
-            .aba-khqr-btn .khqr-text .sub {
-                font-size: 9px;
+                font-size: 15px;
             }
 
             .aba-khqr-btn .khqr-icon {
-                padding: 4px 8px;
-                font-size: 10px;
+                padding: 5px 10px;
+                font-size: 11px;
             }
 
             .aba-khqr-btn .khqr-icon i {
-                font-size: 14px;
+                font-size: 16px;
             }
 
             .aba-khqr-btn .khqr-badge {
@@ -1316,8 +1107,8 @@
                 display: none;
             }
 
-            .aba-payment-wrapper {
-                border-radius: 12px;
+            .order-summary .summary-grid {
+                grid-template-columns: 1fr;
             }
 
             .payment-security-info {
@@ -1325,220 +1116,108 @@
             }
 
             .payment-security-info span {
-                font-size: 9px;
-            }
-
-            .section-title {
-                font-size: 12px;
-                margin: 10px 0 6px 0;
-            }
-
-            .section-title .step {
-                width: 18px;
-                height: 18px;
-                font-size: 9px;
-            }
-
-            .form-group {
-                margin-bottom: 8px;
-            }
-
-            .form-group label {
-                font-size: 11px;
+                font-size: 10px;
             }
 
             .form-group input,
             .form-group select,
             .form-group textarea {
-                padding: 8px 10px;
-                font-size: 12px;
-                border-radius: 8px;
-            }
-
-            .form-group textarea {
-                min-height: 42px;
-            }
-
-            .currency-select-wrapper select {
-                height: 38px;
-                font-size: 12px;
-                padding-left: 30px !important;
-                border-radius: 8px;
-            }
-
-            .currency-select-wrapper .currency-icon {
-                font-size: 12px;
-                left: 8px;
-            }
-
-            .currency-badge {
-                font-size: 9px;
-                padding: 2px 8px;
-            }
-
-            /* PRODUCT CODE - Fixed full display on small screens */
-            .product-code-wrapper input {
-                padding-left: 32px;
-                font-size: 15px;
-                letter-spacing: 4px;
-                border-radius: 8px;
-                height: 38px;
-            }
-
-            .product-code-wrapper .prefix {
-                font-size: 14px;
-                left: 10px;
-            }
-
-            .product-item {
-                padding: 6px 10px;
-                font-size: 11px;
-            }
-
-            .product-item .product-code-display {
-                font-size: 11px;
-            }
-
-            .product-count-badge {
-                font-size: 10px;
-                padding: 2px 8px;
-            }
-
-            .file-upload {
-                padding: 14px 10px;
-                border-radius: 10px;
-            }
-
-            .file-upload i {
-                font-size: 24px;
-            }
-
-            .file-upload p {
-                font-size: 11px;
-            }
-
-            .file-upload .file-name {
-                font-size: 11px;
-            }
-
-            .file-list-item {
-                padding: 4px 8px;
-                font-size: 10px;
-            }
-
-            .file-list-item .file-info span {
-                max-width: 100px;
+                padding: 10px 12px;
+                font-size: 13px;
             }
 
             .submit-btn {
-                padding: 11px;
-                font-size: 13px;
-                border-radius: 10px;
-            }
-
-            .submit-status {
-                font-size: 10px;
-                padding: 6px 10px;
-            }
-
-            .success-message {
-                font-size: 12px;
                 padding: 14px;
+                font-size: 15px;
             }
 
-            .success-message i {
-                font-size: 26px;
+            .file-upload {
+                padding: 20px 14px;
             }
 
-            .order-summary {
-                padding: 10px 12px;
-            }
-
-            .order-summary h4 {
-                font-size: 11px;
-            }
-
-            .order-summary .summary-grid {
-                font-size: 10px;
-                grid-template-columns: 1fr;
-            }
-
-            .payment-note {
-                padding: 8px 12px;
-                font-size: 10px;
-                margin-top: 8px;
-            }
-
-            .payment-note i {
-                font-size: 14px;
-            }
-
-            .payment-note span {
-                font-size: 10px;
-            }
-
-            .payment-hint {
-                font-size: 10px;
-            }
-
-            .alert {
-                font-size: 11px;
-                padding: 8px 12px;
-                margin-bottom: 8px;
-            }
-
-            .currency-amount-container .form-group select,
-            .currency-amount-container .form-group input {
-                height: 38px;
-                border-radius: 8px;
-            }
-
-            .product-code-container .add-btn {
-                height: 38px;
-                border-radius: 8px;
+            .file-upload i {
+                font-size: 28px;
             }
         }
 
         @media (max-width: 420px) {
             .payment-container {
-                padding: 8px 6px 10px;
-            }
-
-            .payment-header .icon {
-                width: 40px;
-                height: 40px;
-                font-size: 18px;
+                padding: 12px 10px 16px;
             }
 
             .payment-header h1 {
-                font-size: 15px;
+                font-size: 18px;
+            }
+
+            .payment-header .icon {
+                width: 50px;
+                height: 50px;
+                font-size: 22px;
             }
 
             .location-grid {
                 grid-template-columns: 1fr;
             }
 
-            .aba-khqr-btn .khqr-text .main {
+            .section-title {
+                font-size: 13px;
+                margin: 12px 0 8px 0;
+            }
+
+            .section-title .step {
+                width: 20px;
+                height: 20px;
+                font-size: 9px;
+            }
+
+            .form-group {
+                margin-bottom: 10px;
+            }
+
+            .form-group label {
                 font-size: 12px;
             }
 
-            .file-list-item .file-info span {
-                max-width: 80px;
+            .currency-amount-container .form-group select,
+            .currency-amount-container .form-group input {
+                height: 42px;
             }
 
-            .payment-security-info span {
-                font-size: 8px;
-            }
-
-            .product-code-wrapper input {
-                font-size: 14px;
-                letter-spacing: 3px;
-                padding-left: 28px;
-            }
-
-            .product-code-wrapper .prefix {
+            .currency-select-wrapper select {
+                height: 42px;
                 font-size: 13px;
-                left: 8px;
+            }
+        }
+
+        @media (min-width: 641px) {
+            .payment-container {
+                max-width: 580px;
+                min-height: auto;
+                padding: 32px 30px 28px;
+                border-radius: 0;
+                box-shadow: 0 40px 100px rgba(0, 0, 0, 0.45);
+                margin: 20px;
+                max-height: 98vh;
+            }
+
+            .form-wrapper {
+                max-height: calc(98vh - 320px);
+            }
+
+            body {
+                align-items: center;
+                padding: 10px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .payment-container {
+                max-width: 620px;
+                padding: 40px 35px 32px;
+            }
+
+            .form-wrapper {
+                max-height: calc(100vh - 340px);
             }
         }
     </style>
@@ -1554,44 +1233,44 @@
             <span class="sub-badge"><i class="fas fa-check-circle"></i> បានផ្ទៀងផ្ទាត់</span>
         </div>
 
+        <!-- TRUST SECTION -->
+        <div class="trust-section">
+            <div class="trust-icon"><i class="fas fa-handshake"></i></div>
+            <div class="trust-content">
+                <strong><i class="fas fa-shield-check" style="color:#22C55E;"></i> ហេតុអ្វីត្រូវប្រើប្រាស់ប្រព័ន្ធនេះ?</strong>
+                ប្រព័ន្ធនេះត្រូវបានបង្កើតឡើងដើម្បី <span class="highlight">ការពារការបោកប្រាស់</span> និងធានាថាការទូទាត់របស់អ្នកមានសុវត្ថិភាព៖
+                <br>✓ ការទូទាត់ត្រូវបានបញ្ជូនតាមប្រព័ន្ធ <span class="highlight">ABA KHQR</span> ស្តង់ដារ
+                <br>✓ រាល់ការបញ្ជាទិញត្រូវបាន <span class="highlight">រក្សាទុក</span> និងផ្ទៀងផ្ទាត់ដោយស្វ័យប្រវត្តិ
+                <br>✓ អ្នកនឹងទទួលបាន <span class="highlight">ការបញ្ជាក់</span> តាមរយៈតេឡេក្រាមភ្លាមៗ
+            </div>
+        </div>
+
         <!-- ALERT -->
         <div id="alert" class="alert"></div>
 
-        <!-- SCROLLABLE CONTENT -->
-        <div class="scrollable-content" id="scrollableContent">
-            <!-- TRUST SECTION -->
-            <div class="trust-section">
-                <div class="trust-icon"><i class="fas fa-handshake"></i></div>
-                <div class="trust-content">
-                    <strong><i class="fas fa-shield-check" style="color:#22C55E;"></i> ហេតុអ្វីត្រូវប្រើប្រាស់ប្រព័ន្ធនេះ?</strong>
-                    ប្រព័ន្ធនេះត្រូវបានបង្កើតឡើងដើម្បី <span class="highlight">ការពារការបោកប្រាស់</span> និងធានាថាការទូទាត់របស់អ្នកមានសុវត្ថិភាព៖
-                    ✓ ការទូទាត់ត្រូវបានបញ្ជូនតាមប្រព័ន្ធ <span class="highlight">ABA KHQR</span> ស្តង់ដារ
-                    ✓ រាល់ការបញ្ជាទិញត្រូវបាន <span class="highlight">រក្សាទុក</span> និងផ្ទៀងផ្ទាត់ដោយស្វ័យប្រវត្តិ
-                    ✓ អ្នកនឹងទទួលបាន <span class="highlight">ការបញ្ជាក់</span> តាមរយៈតេឡេក្រាមភ្លាមៗ
-                </div>
-            </div>
-
+        <!-- FORM WRAPPER - SCROLLABLE -->
+        <div class="form-wrapper">
             <form id="paymentForm" enctype="multipart/form-data" novalidate>
                 <!-- Customer Info -->
                 <div class="section-title">
                     <span class="step">1</span>
                     ព័ត៌មានអតិថិជន
-                    <i class="fas fa-user" style="margin-left:auto;color:#94A3B8;font-size:12px;"></i>
+                    <i class="fas fa-user" style="margin-left:auto;color:#94A3B8;font-size:13px;"></i>
                 </div>
 
                 <div class="form-group">
                     <label>ឈ្មោះពេញ <span class="required">*</span></label>
-                    <input type="text" id="fullName" placeholder="បំពេញឈ្មោះពេញ" required>
+                    <input type="text" id="fullName" placeholder="បំពេញឈ្មោះពេញរបស់អ្នក" required>
                     <span class="error-text" id="fullNameError">សូមបំពេញឈ្មោះពេញ (យ៉ាងតិច ៣ តួអក្សរ)</span>
                     <span class="valid-text" id="fullNameValid">✅ ឈ្មោះត្រឹមត្រូវ</span>
                 </div>
 
                 <div class="form-group">
                     <label>លេខទូរស័ព្ទ (Telegram) <span class="required">*</span></label>
-                    <input type="tel" id="phone" placeholder="ឧ: 0123456789" required>
+                    <input type="tel" id="phone" placeholder="បំពេញលេខទូរស័ព្ទ (ឧ: 0123456789)" required>
                     <span class="error-text" id="phoneError">សូមបំពេញលេខទូរស័ព្ទឲ្យបានត្រឹមត្រូវ (៨-១០ ខ្ទង់)</span>
                     <span class="valid-text" id="phoneValid">✅ លេខទូរស័ព្ទត្រឹមត្រូវ</span>
-                    <div class="hint">📌 លេខទូរស័ព្ទដូចគ្នានឹងលេខតេឡេក្រាម</div>
+                    <div class="hint">📌 លេខទូរស័ព្ទដូចគ្នានឹងលេខតេឡេក្រាមរបស់អ្នក</div>
                 </div>
 
                 <div class="form-group">
@@ -1606,7 +1285,7 @@
                 <div class="section-title">
                     <span class="step">2</span>
                     ទីតាំងអតិថិជន
-                    <i class="fas fa-map-marker-alt" style="margin-left:auto;color:#94A3B8;font-size:12px;"></i>
+                    <i class="fas fa-map-marker-alt" style="margin-left:auto;color:#94A3B8;font-size:13px;"></i>
                 </div>
 
                 <div class="form-group">
@@ -1655,38 +1334,38 @@
                 <div class="section-title">
                     <span class="step">3</span>
                     ក្រុមហ៊ុនដឹកជញ្ជូន
-                    <i class="fas fa-truck" style="margin-left:auto;color:#94A3B8;font-size:12px;"></i>
+                    <i class="fas fa-truck" style="margin-left:auto;color:#94A3B8;font-size:13px;"></i>
                 </div>
 
                 <div class="form-group">
                     <label>ជ្រើសរើសក្រុមហ៊ុនដឹកជញ្ជូន <span class="required">*</span></label>
                     <select id="shippingCompany" required>
                         <option value="">-- សូមជ្រើសរើស --</option>
-                        <option value="វីរៈ ប៊ុនថាំ (Virak Buntham)">🚚 វីរៈ ប៊ុនថាំ</option>
-                        <option value="ជេអែនធី អិចប្រេស (J&T Express)">📦 ជេអែនធី អិចប្រេស</option>
-                        <option value="វីអេង អិចប្រេស (VET Express)">🚛 វីអេង អិចប្រេស</option>
-                        <option value="ថុង សម្បត្តិ (Thong Sambath)">🏍️ ថុង សម្បត្តិ</option>
-                        <option value="ជីធីអូ អិចប្រេស (ZTO Express)">📦 ជីធីអូ អិចប្រេស</option>
+                        <option value="វីរៈ ប៊ុនថាំ (Virak Buntham)">🚚 វីរៈ ប៊ុនថាំ (Virak Buntham)</option>
+                        <option value="ជេអែនធី អិចប្រេស (J&T Express)">📦 ជេអែនធី អិចប្រេស (J&T Express)</option>
+                        <option value="វីអេង អិចប្រេស (VET Express)">🚛 វីអេង អិចប្រេស (VET Express)</option>
+                        <option value="ថុង សម្បត្តិ (Thong Sambath)">🏍️ ថុង សម្បត្តិ (Thong Sambath)</option>
+                        <option value="ជីធីអូ អិចប្រេស (ZTO Express)">📦 ជីធីអូ អិចប្រេស (ZTO Express)</option>
                     </select>
                     <span class="error-text" id="shippingCompanyError">សូមជ្រើសរើសក្រុមហ៊ុនដឹកជញ្ជូន</span>
-                    <span class="valid-text" id="shippingCompanyValid">✅ បានជ្រើសរើស</span>
+                    <span class="valid-text" id="shippingCompanyValid">✅ បានជ្រើសរើសក្រុមហ៊ុនដឹកជញ្ជូន</span>
                 </div>
 
                 <!-- Product Codes -->
                 <div class="section-title">
                     <span class="step">4</span>
                     លេខកូដផលិតផល
-                    <i class="fas fa-barcode" style="margin-left:auto;color:#94A3B8;font-size:12px;"></i>
+                    <i class="fas fa-barcode" style="margin-left:auto;color:#94A3B8;font-size:13px;"></i>
                 </div>
 
                 <div class="product-code-container">
-                    <div class="form-group" style="flex:1;min-width:140px;margin-bottom:0;">
+                    <div class="form-group" style="flex:1;min-width:160px;margin-bottom:0;">
                         <label>បញ្ចូលលេខកូដផលិតផល <span class="required">*</span></label>
                         <div class="product-code-wrapper">
                             <input type="text" id="productCodeInput" placeholder="1234" maxlength="4" inputmode="numeric" required>
                             <span class="prefix">P</span>
                         </div>
-                        <span class="error-text" id="productCodeError">សូមបំពេញលេខកូដ ៤ ខ្ទង់</span>
+                        <span class="error-text" id="productCodeError">សូមបំពេញលេខកូដផលិតផលជាលេខ ៤ ខ្ទង់</span>
                         <span class="valid-text" id="productCodeValid">✅ លេខកូដត្រឹមត្រូវ</span>
                     </div>
                     <button type="button" class="add-btn" id="addProductBtn">
@@ -1703,7 +1382,7 @@
                 <div class="section-title">
                     <span class="step">5</span>
                     ចំនួនទឹកប្រាក់ដែលបានទូទាត់
-                    <i class="fas fa-money-bill-wave" style="margin-left:auto;color:#94A3B8;font-size:12px;"></i>
+                    <i class="fas fa-money-bill-wave" style="margin-left:auto;color:#94A3B8;font-size:13px;"></i>
                 </div>
 
                 <div class="currency-amount-container">
@@ -1720,16 +1399,16 @@
                     <div class="form-group amount-input">
                         <label>ចំនួនទឹកប្រាក់ <span class="required">*</span></label>
                         <input type="number" id="paymentAmount" placeholder="បំពេញចំនួនទឹកប្រាក់" step="0.01" min="0.01" required>
-                        <span class="error-text" id="paymentAmountError">សូមបំពេញចំនួនទឹកប្រាក់</span>
+                        <span class="error-text" id="paymentAmountError">សូមបំពេញចំនួនទឹកប្រាក់ដែលបានទូទាត់</span>
                         <span class="valid-text" id="paymentAmountValid">✅ ចំនួនទឹកប្រាក់ត្រឹមត្រូវ</span>
                     </div>
                 </div>
-                <div style="display:flex; align-items:center; gap:6px; margin-top:4px; flex-wrap:wrap;">
+                <div style="display:flex; align-items:center; gap:8px; margin-top:6px; flex-wrap:wrap;">
                     <span class="currency-badge" id="currencyBadge">
-                        <i class="fas fa-circle" style="font-size:6px; color:#22C55E;"></i>
+                        <i class="fas fa-circle" style="font-size:7px; color:#22C55E;"></i>
                         រូបិយប័ណ្ណបច្ចុប្បន្ន: 💵 ដុល្លារ ($)
                     </span>
-                    <span style="font-size:10px; color:#94A3B8;">ជ្រើសរើសខាងលើ</span>
+                    <span style="font-size:11px; color:#94A3B8;">ជ្រើសរើសប្រភេទរូបិយប័ណ្ណខាងលើ</span>
                 </div>
                 <div class="payment-hint">
                     <i class="fas fa-info-circle"></i>
@@ -1740,7 +1419,7 @@
                 <div class="section-title">
                     <span class="step">6</span>
                     ការទូទាត់ប្រាក់
-                    <i class="fas fa-credit-card" style="margin-left:auto;color:#94A3B8;font-size:12px;"></i>
+                    <i class="fas fa-credit-card" style="margin-left:auto;color:#94A3B8;font-size:13px;"></i>
                 </div>
 
                 <div class="form-group">
@@ -1754,7 +1433,7 @@
                                 </span>
                                 <span class="khqr-text">
                                     <span class="main">🏦 ABA Bank</span>
-                                    <span class="sub">បង់ប្រាក់តាម KHQR</span>
+                                    <span class="sub">បង់ប្រាក់តាម KHQR ស្តង់ដារ</span>
                                 </span>
                             </span>
                             <span class="khqr-right">
@@ -1768,9 +1447,9 @@
                         </a>
                     </div>
                     <div class="payment-security-info">
-                        <span><i class="fas fa-shield-alt"></i> សុវត្ថិភាពខ្ពស់</span>
-                        <span><i class="fas fa-clock"></i> 24/7</span>
-                        <span><i class="fas fa-check-circle" style="color:#22C55E;"></i> ទទួលស្គាល់</span>
+                        <span><i class="fas fa-shield-alt"></i> ប្រព័ន្ធសុវត្ថិភាពខ្ពស់</span>
+                        <span><i class="fas fa-clock"></i> 24/7 អាចបង់ប្រាក់បានគ្រប់ពេល</span>
+                        <span><i class="fas fa-check-circle" style="color:#22C55E;"></i> ទទួលស្គាល់ដោយធនាគារជាតិ</span>
                     </div>
                 </div>
 
@@ -1784,24 +1463,23 @@
                         <div class="file-size" id="fileSize"></div>
                         <input type="file" id="screenshot" accept="image/*" required>
                     </div>
-                    <span class="error-text" id="fileError">សូមភ្ជាប់រូបភាពថតអេក្រង់</span>
+                    <span class="error-text" id="fileError">សូមភ្ជាប់រូបភាពថតអេក្រង់បន្ទាប់ពីបង់ប្រាក់</span>
                     <span class="valid-text" id="fileValid">✅ រូបភាពត្រូវបានភ្ជាប់</span>
                     <div class="file-preview" id="filePreview">
                         <img id="previewImage" src="" alt="Screenshot Preview">
                     </div>
                 </div>
 
-                <!-- Product Image - Multiple files -->
+                <!-- Product Image -->
                 <div class="form-group">
-                    <label>ភ្ជាប់រូបភាពផលិតផលដែលអ្នកបញ្ជាទិញ <span class="hint">(អាចច្រើនសន្លឹក)</span></label>
+                    <label>ភ្ជាប់រូបភាពផលិតផលដែលអ្នកបញ្ជាទិញ <span class="hint">(ស្រេចចិត្ត)</span></label>
                     <div class="file-upload" id="productFileUpload" style="border-color:#D1D9E6;">
-                        <i class="fas fa-images"></i>
+                        <i class="fas fa-image"></i>
                         <p>ចុចដើម្បីភ្ជាប់រូបភាពផលិតផល</p>
                         <div class="file-name" id="productFileName"></div>
                         <div class="file-size" id="productFileSize"></div>
-                        <input type="file" id="productImage" accept="image/*" multiple>
+                        <input type="file" id="productImage" accept="image/*">
                     </div>
-                    <div class="file-list" id="productFileList"></div>
                     <div class="file-preview" id="productFilePreview">
                         <img id="productPreviewImage" src="" alt="Product Preview">
                     </div>
@@ -1821,25 +1499,29 @@
             </div>
 
             <div class="submit-status incomplete" id="submitStatus">
-                <i class="fas fa-exclamation-circle"></i> សូមបំពេញព័ត៌មានឲ្យបានពេញលេញ
+                <i class="fas fa-exclamation-circle"></i> សូមបំពេញព័ត៌មានឲ្យបានពេញលេញ និងត្រឹមត្រូវ
             </div>
 
             <!-- SUCCESS -->
             <div class="success-message" id="successMessage">
                 <i class="fas fa-check-circle"></i>
                 ✅ ការបញ្ជាទិញរបស់អ្នកត្រូវបានផ្ញើដោយជោគជ័យ!
-                <br><small style="font-weight:400; display:block; margin-top:4px;">ភ្នាក់ងារនឹងទាក់ទងអ្នកតាមតេឡេក្រាម</small>
+                <br><small style="font-weight:400; display:block; margin-top:6px;">ភ្នាក់ងារនឹងទាក់ទងអ្នកតាមរយៈតេឡេក្រាមក្នុងពេលឆាប់ៗ</small>
             </div>
 
-            <!-- ORDER SUMMARY - Removed as requested -->
-            <!-- <div class="order-summary" id="orderSummary">...</div> -->
+            <!-- ORDER SUMMARY -->
+            <div class="order-summary" id="orderSummary">
+                <h4><i class="fas fa-receipt"></i> ព័ត៌មានសង្ខេប</h4>
+                <div class="summary-grid" id="summaryContent"></div>
+            </div>
 
             <!-- NOTE -->
             <div class="payment-note">
                 <i class="fas fa-info-circle"></i>
                 <span>
                     <strong>សូមបញ្ជាក់៖</strong>
-                    • បញ្ចូលលេខកូដផលិតផល ៤ ខ្ទង់ (ឧ: 1234) ចុចបន្ថែម<br>
+                    • ជ្រើសរើសប្រភេទរូបិយប័ណ្ណ (ដុល្លារ ឬ រៀល) មុនពេលបំពេញចំនួនទឹកប្រាក់<br>
+                    • បញ្ចូលលេខកូដផលិតផលជាលេខ ៤ ខ្ទង់ (ឧ: 1234) បន្ទាប់មកចុចបន្ថែម<br>
                     • <strong>ការទូទាត់របស់អ្នកត្រូវបានការពារ 100%</strong>
                 </span>
             </div>
@@ -1910,7 +1592,8 @@
 
         const progressContainer = document.getElementById('progressContainer');
         const progressBar = document.getElementById('progressBar');
-        // Order summary removed
+        const orderSummary = document.getElementById('orderSummary');
+        const summaryContent = document.getElementById('summaryContent');
 
         let productCodes = [];
         let isSubmitting = false;
@@ -1935,13 +1618,13 @@
             if (selected === '$') {
                 currencyIcon.textContent = '💵';
                 currencyBadge.innerHTML = `
-                    <i class="fas fa-circle" style="font-size:6px; color:#22C55E;"></i>
+                    <i class="fas fa-circle" style="font-size:7px; color:#22C55E;"></i>
                     រូបិយប័ណ្ណបច្ចុប្បន្ន: 💵 ដុល្លារ ($)
                 `;
             } else {
                 currencyIcon.textContent = '🇰🇭';
                 currencyBadge.innerHTML = `
-                    <i class="fas fa-circle" style="font-size:6px; color:#22C55E;"></i>
+                    <i class="fas fa-circle" style="font-size:7px; color:#22C55E;"></i>
                     រូបិយប័ណ្ណបច្ចុប្បន្ន: 🇰🇭 រៀល (៛)
                 `;
             }
@@ -1951,7 +1634,7 @@
         currencyType.addEventListener('change', updateCurrencyDisplay);
 
         // ============================================================
-        // PRODUCT CODE MANAGEMENT - Fixed to show P + 4 digits full
+        // PRODUCT CODE MANAGEMENT
         // ============================================================
         function formatProductCode(input) {
             let digits = input.replace(/\D/g, '');
@@ -1986,7 +1669,7 @@
                 if (digits.length > 0 && digits.length < 4) {
                     productCodeInput.classList.add('error');
                     productCodeError.classList.add('show');
-                    productCodeError.textContent = 'សូមបំពេញលេខកូដ ៤ ខ្ទង់ (បច្ចុប្បន្ន ' + digits.length + ' ខ្ទង់)';
+                    productCodeError.textContent = 'សូមបំពេញលេខកូដផលិតផលជាលេខ ៤ ខ្ទង់ (បច្ចុប្បន្ន ' + digits.length + ' ខ្ទង់)';
                 } else {
                     productCodeInput.classList.remove('error');
                     productCodeError.classList.remove('show');
@@ -2000,7 +1683,7 @@
             if (digits.length !== 4) {
                 productCodeInput.classList.add('error');
                 productCodeError.classList.add('show');
-                productCodeError.textContent = 'សូមបំពេញលេខកូដ ៤ ខ្ទង់';
+                productCodeError.textContent = 'សូមបំពេញលេខកូដផលិតផលជាលេខ ៤ ខ្ទង់';
                 productCodeValid.classList.remove('show');
                 return;
             }
@@ -2022,7 +1705,7 @@
             productCodeValid.classList.remove('show');
             renderProductList();
             checkFormValidity();
-            showAlert('✅ បានបន្ថែម ' + fullCode + ' ដោយជោគជ័យ!', 'success');
+            showAlert('✅ បានបន្ថែមលេខកូដ ' + fullCode + ' ដោយជោគជ័យ!', 'success');
         }
 
         function removeProductCode(index) {
@@ -2030,7 +1713,7 @@
             productCodes.splice(index, 1);
             renderProductList();
             checkFormValidity();
-            showAlert('🗑️ បានដក ' + removed + ' ចេញ', 'info');
+            showAlert('🗑️ បានដកលេខកូដ ' + removed + ' ចេញ', 'info');
         }
 
         function renderProductList() {
@@ -2054,13 +1737,13 @@
             const countText = productCodes.length === 1 ? 'ផលិតផល' : 'ផលិតផល';
             productCountDisplay.innerHTML = `
                 <span class="product-count-badge">
-                    <i class="fas fa-box"></i> ${productCodes.length} ${countText}
+                    <i class="fas fa-box"></i> អ្នកបានជ្រើសរើសផលិតផលចំនួន ${productCodes.length} ${countText}
                 </span>
             `;
         }
 
         // ============================================================
-        // FILE UPLOAD - Screenshot
+        // FILE UPLOAD HANDLERS
         // ============================================================
         const fileName = document.getElementById('fileName');
         const fileSize = document.getElementById('fileSize');
@@ -2093,71 +1776,31 @@
             checkFormValidity();
         });
 
-        // ============================================================
-        // FILE UPLOAD - Multiple Product Images
-        // ============================================================
         const productFileName = document.getElementById('productFileName');
         const productFileSize = document.getElementById('productFileSize');
-        const productFileList = document.getElementById('productFileList');
         const productFilePreview = document.getElementById('productFilePreview');
         const productPreviewImage = document.getElementById('productPreviewImage');
 
         productImageInput.addEventListener('change', function() {
-            const files = this.files;
-            if (files.length > 0) {
+            const file = this.files[0];
+            if (file) {
                 productFileUpload.classList.add('has-file');
-                productFileName.textContent = '📎 បានភ្ជាប់ ' + files.length + ' រូបភាព';
-                let totalSize = 0;
-                for (let i = 0; i < files.length; i++) {
-                    totalSize += files[i].size;
-                }
-                productFileSize.textContent = '📦 ' + formatFileSize(totalSize);
-                
-                let listHtml = '';
-                for (let i = 0; i < files.length; i++) {
-                    const file = files[i];
-                    listHtml += `
-                        <div class="file-list-item">
-                            <span class="file-info">
-                                <i class="fas fa-image"></i>
-                                <span>${file.name}</span>
-                                <span style="color:#94A3B8;font-size:9px;">(${formatFileSize(file.size)})</span>
-                            </span>
-                            <button type="button" class="file-remove" onclick="removeProductFile(${i})">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-                    `;
-                }
-                productFileList.innerHTML = listHtml;
-                
+                productFileName.textContent = '📎 ' + file.name;
+                productFileSize.textContent = '📦 ' + formatFileSize(file.size);
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     productPreviewImage.src = e.target.result;
                     productFilePreview.style.display = 'block';
                 };
-                reader.readAsDataURL(files[0]);
+                reader.readAsDataURL(file);
             } else {
                 productFileUpload.classList.remove('has-file');
                 productFileName.textContent = '';
                 productFileSize.textContent = '';
-                productFileList.innerHTML = '';
                 productFilePreview.style.display = 'none';
                 productPreviewImage.src = '';
             }
         });
-
-        function removeProductFile(index) {
-            const dt = new DataTransfer();
-            const files = productImageInput.files;
-            for (let i = 0; i < files.length; i++) {
-                if (i !== index) {
-                    dt.items.add(files[i]);
-                }
-            }
-            productImageInput.files = dt.files;
-            productImageInput.dispatchEvent(new Event('change'));
-        }
 
         // ============================================================
         // VALIDATION FUNCTIONS
@@ -2272,11 +1915,11 @@
             if (isValid) {
                 submitBtn.disabled = false;
                 submitStatus.className = 'submit-status show ready';
-                submitStatus.innerHTML = '<i class="fas fa-check-circle"></i> ព័ត៌មានទាំងអស់ត្រឹមត្រូវ!';
+                submitStatus.innerHTML = '<i class="fas fa-check-circle"></i> ព័ត៌មានទាំងអស់ត្រឹមត្រូវ! អ្នកអាចបញ្ជាក់ការបញ្ជាទិញបាន។';
             } else {
                 submitBtn.disabled = true;
                 submitStatus.className = 'submit-status show incomplete';
-                submitStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> សូមបំពេញព័ត៌មានឲ្យបានពេញលេញ';
+                submitStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> សូមបំពេញព័ត៌មានឲ្យបានពេញលេញ និងត្រឹមត្រូវ';
             }
         }
 
@@ -2313,12 +1956,14 @@
             } else {
                 productCodeInput.classList.add('error');
                 productCodeError.classList.add('show');
-                productCodeError.textContent = 'សូមបំពេញលេខកូដ ៤ ខ្ទង់';
+                productCodeError.textContent = 'សូមបំពេញលេខកូដផលិតផលជាលេខ ៤ ខ្ទង់';
             }
         });
 
+        // Submit button click handler (since button is outside form)
         submitBtn.addEventListener('click', function(e) {
             e.preventDefault();
+            // Trigger form submit
             form.dispatchEvent(new Event('submit'));
         });
 
@@ -2333,13 +1978,13 @@
             clearTimeout(window.alertTimeout);
             window.alertTimeout = setTimeout(() => {
                 alertEl.className = 'alert';
-            }, 4000);
+            }, 5000);
         }
 
         // ============================================================
         // SEND TO TELEGRAM
         // ============================================================
-        function sendToTelegram(screenshotFile, productFilesArray) {
+        function sendToTelegram(screenshotFile, productFile) {
             return new Promise((resolve, reject) => {
                 if (!screenshotFile) {
                     showAlert('❌ សូមភ្ជាប់រូបភាពថតអេក្រង់!', 'error');
@@ -2396,7 +2041,7 @@
 
                 caption += `\n🚚 *ក្រុមហ៊ុនដឹកជញ្ជូន:* ${shippingCompany}\n` +
                     `📦 *លេខកូដផលិតផល:* ${products}\n` +
-                    `💵 *ចំនួនទឹកប្រាក់:* ${paymentAmount} ${currencySymbol}\n\n` +
+                    `💵 *ចំនួនទឹកប្រាក់ដែលបានទូទាត់:* ${paymentAmount} ${currencySymbol}\n\n` +
                     `🕐 *កាលបរិច្ឆេទ:* ${dateTime}\n\n` +
                     `✅ សូមផ្ទៀងផ្ទាត់ការទូទាត់នេះ។`;
 
@@ -2419,26 +2064,24 @@
                     })
                     .then(data => {
                         if (data.ok) {
-                            if (productFilesArray && productFilesArray.length > 0) {
-                                const promises = [];
-                                for (let i = 0; i < productFilesArray.length; i++) {
-                                    const file = productFilesArray[i];
-                                    const productFormData = new FormData();
-                                    productFormData.append('chat_id', CHAT_ID);
-                                    productFormData.append('photo', file);
-                                    productFormData.append('caption', `📦 *រូបភាពផលិតផល ${i+1}/${productFilesArray.length}*\n👤 ${fullName}\n📦 ${products}`);
-                                    productFormData.append('parse_mode', 'Markdown');
-                                    promises.push(fetch(url, { method: 'POST', body: productFormData }));
-                                }
-                                return Promise.all(promises);
+                            if (productFile) {
+                                const productFormData = new FormData();
+                                productFormData.append('chat_id', CHAT_ID);
+                                productFormData.append('photo', productFile);
+                                productFormData.append('caption', `📦 *រូបភាពផលិតផលដែលបានបញ្ជាទិញ*\n👤 អតិថិជន: ${fullName}\n📦 លេខកូដ: ${products}`);
+                                productFormData.append('parse_mode', 'Markdown');
+
+                                return fetch(url, { method: 'POST', body: productFormData })
+                                    .then(res => res.json())
+                                    .then(() => data);
                             }
                             return data;
                         } else {
                             throw new Error(data.description || 'Unknown error');
                         }
                     })
-                    .then(() => {
-                        resolve({ ok: true });
+                    .then(data => {
+                        resolve(data);
                     })
                     .catch(error => {
                         showAlert(`❌ ${error.message}`, 'error');
@@ -2453,14 +2096,15 @@
         form.addEventListener('submit', function(e) {
             e.preventDefault();
 
+            // Check for duplicate submission
             const now = Date.now();
             if (now - lastSubmitTime < SUBMIT_COOLDOWN) {
-                showAlert('⏳ សូមរង់ចាំបន្តិច!', 'error');
+                showAlert('⏳ សូមរង់ចាំបន្តិចមុននឹងបញ្ជូនម្តងទៀត!', 'error');
                 return;
             }
 
             if (isSubmitting) {
-                showAlert('កំពុងដំណើរការ...', 'error');
+                showAlert('កំពុងដំណើរការ... សូមរង់ចាំបន្តិច!', 'error');
                 return;
             }
 
@@ -2471,19 +2115,15 @@
             }
 
             const screenshotFile = fileInput.files[0];
-            const productFilesArray = [];
-            const productFiles = productImageInput.files;
-            for (let i = 0; i < productFiles.length; i++) {
-                productFilesArray.push(productFiles[i]);
-            }
+            const productFile = productImageInput.files[0] || null;
 
             if (!screenshotFile) {
-                showAlert('សូមភ្ជាប់រូបភាពថតអេក្រង់!', 'error');
+                showAlert('សូមភ្ជាប់រូបភាពថតអេក្រង់បន្ទាប់ពីបង់ប្រាក់!', 'error');
                 return;
             }
 
             if (productCodes.length === 0) {
-                showAlert('សូមបន្ថែមលេខកូដផលិតផល!', 'error');
+                showAlert('សូមបន្ថែមលេខកូដផលិតផលយ៉ាងតិច ១!', 'error');
                 return;
             }
 
@@ -2491,8 +2131,9 @@
             isSubmitting = true;
             submitBtn.classList.add('loading');
             submitBtn.disabled = true;
-            showAlert('⏳ កំពុងផ្ញើព័ត៌មាន...', 'info');
+            showAlert('⏳ កំពុងផ្ញើព័ត៌មានទៅកាន់ Telegram...', 'info');
 
+            // Progress Bar
             progressContainer.classList.add('active');
             let progress = 0;
             const progressInterval = setInterval(() => {
@@ -2501,13 +2142,32 @@
                 progressBar.style.width = progress + '%';
             }, 300);
 
-            sendToTelegram(screenshotFile, productFilesArray)
-                .then(() => {
+            sendToTelegram(screenshotFile, productFile)
+                .then((data) => {
                     clearInterval(progressInterval);
                     progressBar.style.width = '100%';
                     
+                    const fullName = document.getElementById('fullName').value.trim();
+                    const phone = document.getElementById('phone').value.trim();
+                    const shippingCompany = document.getElementById('shippingCompany').value;
+                    const currency = document.getElementById('currencyType').value;
+                    const paymentAmount = document.getElementById('paymentAmount').value.trim();
+                    const currencySymbol = currency === '$' ? '💵 USD ($)' : '🇰🇭 រៀល (៛)';
+
+                    summaryContent.innerHTML = `
+                        <span><strong>ឈ្មោះ:</strong> ${fullName}</span>
+                        <span><strong>ទូរស័ព្ទ:</strong> ${phone}</span>
+                        <span><strong>ផលិតផល:</strong> ${productCodes.length} មុខ</span>
+                        <span><strong>ចំនួនទឹកប្រាក់:</strong> ${paymentAmount} ${currencySymbol}</span>
+                        <span class="full-width"><strong>ក្រុមហ៊ុនដឹកជញ្ជូន:</strong> ${shippingCompany}</span>
+                        <span class="full-width" style="color:#22C55E;">
+                            <i class="fas fa-check-circle"></i> បានផ្ញើជោគជ័យ!
+                        </span>
+                    `;
+                    orderSummary.style.display = 'block';
+
                     document.getElementById('successMessage').style.display = 'block';
-                    showAlert('✅ ការបញ្ជាទិញត្រូវបានផ្ញើជោគជ័យ!', 'success');
+                    showAlert('✅ ការបញ្ជាទិញរបស់អ្នកត្រូវបានផ្ញើជោគជ័យ!', 'success');
 
                     setTimeout(() => {
                         progressContainer.classList.remove('active');
@@ -2515,6 +2175,7 @@
                         
                         form.reset();
                         document.getElementById('successMessage').style.display = 'none';
+                        orderSummary.style.display = 'none';
                         productCodes = [];
                         renderProductList();
                         fileUpload.classList.remove('has-file');
@@ -2525,7 +2186,6 @@
                         productFileUpload.classList.remove('has-file');
                         productFileName.textContent = '';
                         productFileSize.textContent = '';
-                        productFileList.innerHTML = '';
                         productFilePreview.style.display = 'none';
                         productPreviewImage.src = '';
                         document.querySelectorAll('.form-group .valid').forEach(el => el.classList.remove('valid'));
