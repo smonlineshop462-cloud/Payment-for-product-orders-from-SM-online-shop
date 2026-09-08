@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        /* ===== CSS STYLES (unchanged) ===== */
+        /* ===== CSS STYLES (unchanged - keep your existing styles) ===== */
         * {
             margin: 0;
             padding: 0;
@@ -2441,6 +2441,8 @@
 
         // ============================================================
         // SEND TO TELEGRAM - SEND 2 SEPARATE MESSAGES
+        // MESSAGE 1: Screenshot + Order Info
+        // MESSAGE 2: Product Images as ALBUM (sendMediaGroup)
         // ============================================================
         function sendToTelegram(screenshotFile, productImageFilesList, orderId) {
             return new Promise((resolve, reject) => {
@@ -2528,25 +2530,17 @@
                         console.log('✅ Message 1 sent successfully');
                         
                         if (data.ok) {
-                            // ===== MESSAGE 2: Product Images (Send each separately) =====
+                            // ===== MESSAGE 2: Product Images as ALBUM using sendMediaGroup =====
                             if (productImageFilesList.length > 0) {
-                                console.log(`📤 Sending ${productImageFilesList.length} product images one by one...`);
+                                console.log(`📤 Preparing ${productImageFilesList.length} product images as album...`);
 
-                                // Create upload promises for each image
+                                // Step 1: Upload each image first to get file_id
                                 const uploadPromises = productImageFilesList.map((file, index) => {
-                                    const formData2 = new FormData();
-                                    formData2.append('chat_id', CHAT_ID);
-                                    formData2.append('photo', file);
-                                    formData2.append('caption', 
-                                        `📦 *រូបភាពផលិតផលដែលបានបញ្ជាទិញ*\n` +
-                                        `🆔 Order ID: \`${orderId}\`\n` +
-                                        `👤 អតិថិជន: ${fullName}\n` +
-                                        `📦 លេខកូដ: ${products}\n` +
-                                        `🖼️ រូបភាពទី ${index + 1}/${productImageFilesList.length}`
-                                    );
-                                    formData2.append('parse_mode', 'Markdown');
-
-                                    return fetch(url + 'sendPhoto', { method: 'POST', body: formData2 })
+                                    const formData = new FormData();
+                                    formData.append('chat_id', CHAT_ID);
+                                    formData.append('photo', file);
+                                    
+                                    return fetch(url + 'sendPhoto', { method: 'POST', body: formData })
                                         .then(res => {
                                             if (!res.ok) {
                                                 return res.json().then(err => {
@@ -2556,25 +2550,78 @@
                                             return res.json();
                                         })
                                         .then(result => {
-                                            console.log(`✅ Image ${index+1}/${productImageFilesList.length} sent successfully`);
-                                            return result;
-                                        })
-                                        .catch(err => {
-                                            console.error(`❌ Failed to send image ${index+1}:`, err);
-                                            // Continue with other images even if one fails
-                                            return { error: err.message, index: index };
+                                            if (result.ok && result.result) {
+                                                // Get the file_id from the response (largest size)
+                                                const photoArray = result.result.photo;
+                                                const fileId = photoArray[photoArray.length - 1].file_id;
+                                                console.log(`✅ Image ${index+1} uploaded, file_id: ${fileId}`);
+                                                return fileId;
+                                            }
+                                            throw new Error(`Failed to upload image ${index+1}`);
                                         });
                                 });
 
-                                return Promise.all(uploadPromises).then((results) => {
-                                    const failed = results.filter(r => r.error);
-                                    if (failed.length > 0) {
-                                        console.warn(`⚠️ ${failed.length} images failed to send`);
-                                    } else {
-                                        console.log('✅ All product images sent successfully');
-                                    }
-                                    return results;
-                                });
+                                // Step 2: After all images are uploaded, create media group
+                                return Promise.all(uploadPromises)
+                                    .then((fileIds) => {
+                                        console.log('✅ All images uploaded, creating album...');
+                                        
+                                        // Build media group payload (max 10 images per album)
+                                        const mediaGroup = fileIds.map((fileId, index) => ({
+                                            type: 'photo',
+                                            media: fileId,
+                                            caption: index === 0 ? 
+                                                `📦 *រូបភាពផលិតផលដែលបានបញ្ជាទិញ*\n🆔 Order ID: \`${orderId}\`\n👤 អតិថិជន: ${fullName}\n📦 លេខកូដ: ${products}\n🖼️ រូបភាពចំនួន ${fileIds.length} រូប` : 
+                                                '',
+                                            parse_mode: 'Markdown'
+                                        }));
+
+                                        // Send media group
+                                        return fetch(url + 'sendMediaGroup', {
+                                            method: 'POST',
+                                            headers: {
+                                                'Content-Type': 'application/json',
+                                            },
+                                            body: JSON.stringify({
+                                                chat_id: CHAT_ID,
+                                                media: mediaGroup
+                                            })
+                                        }).then(res => {
+                                            if (!res.ok) {
+                                                return res.json().then(err => {
+                                                    throw new Error(err.description || `HTTP ${res.status}`);
+                                                });
+                                            }
+                                            return res.json();
+                                        });
+                                    })
+                                    .then(data => {
+                                        console.log('✅ Album sent successfully!');
+                                        return data;
+                                    })
+                                    .catch(err => {
+                                        console.error('❌ Album failed:', err);
+                                        showAlert('⚠️ ការផ្ញើ Album បរាជ័យ កំពុងផ្ញើរូបភាពនីមួយៗ...', 'info');
+                                        
+                                        // FALLBACK: Send images separately
+                                        const fallbackPromises = productImageFilesList.map((file, index) => {
+                                            const formData = new FormData();
+                                            formData.append('chat_id', CHAT_ID);
+                                            formData.append('photo', file);
+                                            formData.append('caption', 
+                                                `📦 *រូបភាពផលិតផល ${index + 1}/${productImageFilesList.length}*\n` +
+                                                `🆔 Order ID: \`${orderId}\`\n` +
+                                                `👤 អតិថិជន: ${fullName}`
+                                            );
+                                            formData.append('parse_mode', 'Markdown');
+                                            return fetch(url + 'sendPhoto', { method: 'POST', body: formData });
+                                        });
+                                        
+                                        return Promise.all(fallbackPromises).then(responses => {
+                                            console.log('✅ All images sent separately as fallback');
+                                            return responses;
+                                        });
+                                    });
                             }
                             return data;
                         } else {
@@ -2747,7 +2794,9 @@
         console.log('✅ Page loaded successfully');
         console.log('🔒 ប្រព័ន្ធត្រៀមរួចរាល់!');
         console.log('📱 Compatible with all devices (Android, iPhone, Tablet, Desktop)');
-        console.log('📤 Will send 2 messages: 1) Screenshot + Order Info, 2) Product Images (each separately)');
+        console.log('📤 Will send 2 messages:');
+        console.log('   1️⃣ Screenshot + Order Info');
+        console.log('   2️⃣ Product Images as ALBUM (sendMediaGroup)');
     </script>
 </body>
 </html>
