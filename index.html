@@ -35,8 +35,7 @@
             width: 100%;
             max-width: 620px;
             height: auto;
-            max-height: 98vh;
-            max-height: 98dvh;
+            min-height: auto;
             background: rgba(255, 255, 255, 0.98);
             padding: 24px 20px 20px;
             box-shadow: 0 40px 100px rgba(0, 0, 0, 0.45);
@@ -44,7 +43,7 @@
             border-radius: 24px;
             display: flex;
             flex-direction: column;
-            overflow: hidden;
+            overflow: visible;
             transition: all 0.3s ease;
         }
 
@@ -168,33 +167,15 @@
             font-weight: 600;
         }
 
-        /* ===== FORM WRAPPER - SCROLLABLE ===== */
+        /* ===== FORM WRAPPER - NO SCROLL ON DESKTOP ===== */
         .form-wrapper {
             flex: 1 1 auto;
-            overflow-y: auto;
+            overflow-y: visible;
             overflow-x: hidden;
-            padding-right: 4px;
+            padding-right: 0;
             margin-bottom: 6px;
             min-height: 0;
             max-height: none;
-        }
-
-        .form-wrapper::-webkit-scrollbar {
-            width: 3px;
-        }
-
-        .form-wrapper::-webkit-scrollbar-track {
-            background: #F1F5F9;
-            border-radius: 10px;
-        }
-
-        .form-wrapper::-webkit-scrollbar-thumb {
-            background: #CBD5E1;
-            border-radius: 10px;
-        }
-
-        .form-wrapper::-webkit-scrollbar-thumb:hover {
-            background: #94A3B8;
         }
 
         /* ===== SECTION TITLE ===== */
@@ -421,7 +402,7 @@
             gap: 6px;
         }
 
-        /* ===== PRODUCT CODE ===== */
+        /* ===== PRODUCT CODE - FIXED FOR SMALL SCREENS ===== */
         .product-code-container {
             display: flex;
             gap: 10px;
@@ -473,17 +454,27 @@
             position: absolute;
             left: 12px;
             font-weight: 700;
-            font-size: 13px;
+            font-size: 14px;
             color: #0F172A;
             pointer-events: none;
-            background: #FAFBFD;
-            padding-right: 4px;
+            background: transparent;
+            padding-right: 2px;
+            z-index: 1;
         }
 
         .product-code-wrapper input {
-            padding-left: 26px;
+            padding-left: 28px !important;
             text-transform: uppercase;
             letter-spacing: 1px;
+            font-size: 14px !important;
+            font-weight: 600;
+        }
+
+        /* FIX: Ensure full code P1234 shows on small screens */
+        .product-code-wrapper input::placeholder {
+            font-size: 12px;
+            letter-spacing: 0;
+            font-weight: 400;
         }
 
         .product-list {
@@ -507,7 +498,9 @@
         .product-item .product-code-display {
             font-weight: 600;
             color: #0F172A;
-            font-size: 12px;
+            font-size: 13px;
+            word-break: keep-all;
+            white-space: nowrap;
         }
 
         .product-item .product-code-display i {
@@ -524,6 +517,7 @@
             transition: all 0.3s ease;
             padding: 3px 6px;
             border-radius: 6px;
+            flex-shrink: 0;
         }
 
         .product-item .remove-btn:hover {
@@ -998,31 +992,84 @@
             grid-column: 1 / -1;
         }
 
-        /* ===== PAYMENT NOTE ===== */
+        /* ===== PAYMENT NOTE - ENHANCED ===== */
         .payment-note {
-            background: linear-gradient(135deg, #FFFBEB, #FEF3C7);
-            border-radius: 12px;
-            padding: 12px 14px;
-            margin-top: 10px;
-            border-left: 5px solid #F59E0B;
-            font-size: 11px;
-            color: #92400E;
+            background: linear-gradient(135deg, #EFF6FF, #DBEAFE);
+            border-radius: 14px;
+            padding: 16px 18px;
+            margin-top: 12px;
+            border-left: 6px solid #2563EB;
+            font-size: 12px;
+            color: #1E3A8A;
             display: flex;
             align-items: flex-start;
-            gap: 10px;
+            gap: 14px;
             flex-shrink: 0;
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.08);
         }
 
-        .payment-note i {
-            color: #F59E0B;
+        .payment-note .note-icon {
+            background: linear-gradient(135deg, #2563EB, #1D4ED8);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-size: 16px;
-            margin-top: 2px;
+            color: white;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .payment-note .note-content {
+            flex: 1;
+        }
+
+        .payment-note .note-content .note-title {
+            font-weight: 700;
+            font-size: 13px;
+            color: #0F172A;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .payment-note .note-content .note-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .payment-note .note-content .note-list li {
+            padding: 2px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            font-size: 11.5px;
+            line-height: 1.6;
+        }
+
+        .payment-note .note-content .note-list li i {
+            color: #2563EB;
+            font-size: 12px;
+            margin-top: 3px;
             flex-shrink: 0;
         }
 
-        .payment-note strong {
-            display: block;
-            margin-bottom: 2px;
+        .payment-note .note-content .note-list li .highlight-text {
+            background: rgba(37, 99, 235, 0.1);
+            padding: 0 6px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #1D4ED8;
+        }
+
+        .payment-note .note-content .note-list li .warning-text {
+            background: rgba(239, 68, 68, 0.08);
+            padding: 0 6px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #DC2626;
         }
 
         /* ============================================================ */
@@ -1044,6 +1091,7 @@
                 min-height: 100dvh;
                 border-radius: 16px;
                 padding: 16px 12px 14px;
+                overflow-y: auto;
             }
 
             .payment-header .icon {
@@ -1061,8 +1109,8 @@
             }
 
             .form-wrapper {
-                max-height: none;
                 overflow-y: visible;
+                max-height: none;
             }
 
             .location-grid {
@@ -1208,8 +1256,24 @@
             }
 
             .payment-note {
-                font-size: 10px;
-                padding: 10px 12px;
+                padding: 14px 14px;
+                font-size: 11px;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .payment-note .note-icon {
+                width: 32px;
+                height: 32px;
+                font-size: 14px;
+            }
+
+            .payment-note .note-content .note-title {
+                font-size: 12px;
+            }
+
+            .payment-note .note-content .note-list li {
+                font-size: 10.5px;
             }
         }
 
@@ -1315,27 +1379,36 @@
                 font-size: 10px;
             }
 
-            .payment-note {
-                font-size: 9.5px;
-                padding: 8px 10px;
-            }
-
-            .payment-note i {
-                font-size: 14px;
-            }
-
-            .product-item {
-                padding: 6px 10px;
-                font-size: 11px;
+            .product-item .product-code-display {
+                font-size: 12px;
             }
 
             .product-count-badge {
                 font-size: 10px;
                 padding: 2px 10px;
             }
+
+            .payment-note {
+                padding: 12px 12px;
+                font-size: 10px;
+            }
+
+            .payment-note .note-content .note-title {
+                font-size: 11px;
+            }
+
+            .payment-note .note-content .note-list li {
+                font-size: 10px;
+            }
+
+            .payment-note .note-icon {
+                width: 28px;
+                height: 28px;
+                font-size: 12px;
+            }
         }
 
-        /* ===== Tablet & Desktop ===== */
+        /* ===== Tablet & Desktop - NO SCROLL ===== */
         @media (min-width: 641px) {
             html, body {
                 padding: 20px;
@@ -1344,16 +1417,18 @@
 
             .payment-container {
                 max-width: 580px;
-                max-height: 96vh;
-                max-height: 96dvh;
+                max-height: none;
+                min-height: auto;
                 border-radius: 28px;
                 padding: 28px 28px 24px;
                 box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+                overflow: visible;
             }
 
             .form-wrapper {
-                max-height: calc(96vh - 320px);
-                overflow-y: auto;
+                overflow-y: visible;
+                max-height: none;
+                padding-right: 0;
             }
 
             .payment-header .icon {
@@ -1374,10 +1449,6 @@
                 padding: 36px 34px 28px;
             }
 
-            .form-wrapper {
-                max-height: calc(100vh - 360px);
-            }
-
             .payment-header .icon {
                 width: 74px;
                 height: 74px;
@@ -1389,7 +1460,7 @@
             }
         }
 
-        /* ===== Landscape Mobile ===== */
+        /* ===== Landscape Mobile - WITH SCROLL ===== */
         @media (max-height: 700px) and (orientation: landscape) {
             html, body {
                 padding: 6px;
@@ -1401,6 +1472,7 @@
                 max-height: 98dvh;
                 padding: 12px 16px 12px;
                 border-radius: 16px;
+                overflow-y: auto;
             }
 
             .payment-header .icon {
@@ -1497,12 +1569,12 @@
             }
 
             .product-code-wrapper input {
-                padding: 6px 10px 6px 22px;
-                font-size: 11px;
+                padding: 6px 10px 6px 24px !important;
+                font-size: 12px !important;
             }
 
             .product-code-wrapper .prefix {
-                font-size: 11px;
+                font-size: 12px;
                 left: 10px;
             }
 
@@ -1513,7 +1585,10 @@
 
             .product-item {
                 padding: 4px 10px;
-                font-size: 10px;
+            }
+
+            .product-item .product-code-display {
+                font-size: 11px;
             }
 
             .product-count-badge {
@@ -1588,13 +1663,23 @@
             }
 
             .payment-note {
-                font-size: 9px;
-                padding: 6px 10px;
-                margin-top: 6px;
+                padding: 10px 12px;
+                font-size: 10px;
+                margin-top: 8px;
             }
 
-            .payment-note i {
+            .payment-note .note-icon {
+                width: 28px;
+                height: 28px;
                 font-size: 12px;
+            }
+
+            .payment-note .note-content .note-title {
+                font-size: 11px;
+            }
+
+            .payment-note .note-content .note-list li {
+                font-size: 9.5px;
             }
 
             .success-message {
@@ -1618,8 +1703,8 @@
             }
 
             .form-wrapper {
-                max-height: calc(98vh - 240px);
-                overflow-y: auto;
+                overflow-y: visible;
+                max-height: none;
             }
         }
 
@@ -1701,10 +1786,6 @@
                 display: none;
             }
 
-            .form-wrapper {
-                max-height: calc(98vh - 170px);
-            }
-
             .footer-actions {
                 padding-top: 2px;
             }
@@ -1726,13 +1807,17 @@
             }
 
             .product-code-wrapper input {
-                padding: 4px 8px 4px 18px;
-                font-size: 10px;
+                padding: 4px 8px 4px 20px !important;
+                font-size: 10px !important;
             }
 
             .product-code-wrapper .prefix {
                 font-size: 10px;
                 left: 8px;
+            }
+
+            .product-item .product-code-display {
+                font-size: 10px;
             }
         }
     </style>
@@ -2030,15 +2115,44 @@
                 <div class="summary-grid" id="summaryContent"></div>
             </div>
 
-            <!-- NOTE -->
+            <!-- ENHANCED PAYMENT NOTE -->
             <div class="payment-note">
-                <i class="fas fa-info-circle"></i>
-                <span>
-                    <strong>សូមបញ្ជាក់៖</strong>
-                    • ជ្រើសរើសប្រភេទរូបិយប័ណ្ណ (ដុល្លារ ឬ រៀល) មុនពេលបំពេញចំនួនទឹកប្រាក់<br>
-                    • បញ្ចូលលេខកូដផលិតផលជាលេខ ៤ ខ្ទង់ (ឧ: 1234) បន្ទាប់មកចុចបន្ថែម<br>
-                    • <strong>ការទូទាត់របស់អ្នកត្រូវបានការពារ 100%</strong>
-                </span>
+                <div class="note-icon">
+                    <i class="fas fa-info-circle"></i>
+                </div>
+                <div class="note-content">
+                    <span class="note-title">📋 សេចក្តីបញ្ជាក់បន្ថែម</span>
+                    <ul class="note-list">
+                        <li>
+                            <i class="fas fa-check-circle" style="color:#22C55E;"></i>
+                            <span>ប្រព័ន្ធនេះត្រូវបានបង្កើតឡើងដើម្បី <span class="highlight-text">ការពារការបោកប្រាស់</span> និងធានាសុវត្ថិភាពការទូទាត់របស់អ្នក</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-shield-alt" style="color:#2563EB;"></i>
+                            <span>ការទូទាត់ទាំងអស់ត្រូវបាន <span class="highlight-text">ផ្ទៀងផ្ទាត់ដោយស្វ័យប្រវត្តិ</span> តាមរយៈប្រព័ន្ធ ABA KHQR</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-clock" style="color:#F59E0B;"></i>
+                            <span>អ្នកនឹងទទួលបាន <span class="highlight-text">ការបញ្ជាក់ការបញ្ជាទិញ</span> តាមរយៈតេឡេក្រាមក្នុងរយៈពេល ៥-១០ នាទី</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone" style="color:#22C55E;"></i>
+                            <span>ប្រសិនបើមានបញ្ហា សូមទាក់ទងភ្នាក់ងារតាមរយៈ <span class="highlight-text">លេខទូរស័ព្ទ</span> ឬ <span class="highlight-text">តេឡេក្រាម</span> ដែលអ្នកបានផ្តល់</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-lock" style="color:#7C3AED;"></i>
+                            <span>រាល់ព័ត៌មានរបស់អ្នកត្រូវបាន <span class="highlight-text">រក្សាទុកដោយសុវត្ថិភាព</span> និងមិនត្រូវបានចែករំលែកទៅភាគីទីបីឡើយ</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-exclamation-triangle" style="color:#F59E0B;"></i>
+                            <span><span class="warning-text">សូមប្រុងប្រយ័ត្ន៖</span> កុំផ្ញើប្រាក់ទៅកាន់គណនីផ្សេងក្រៅពីលេខគណនីដែលបានបង្ហាញនៅលើ ABA KHQR</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-file-invoice" style="color:#2563EB;"></i>
+                            <span>បន្ទាប់ពីបញ្ជាក់ការបញ្ជាទិញ អ្នកនឹងទទួលបាន <span class="highlight-text">លេខសម្គាល់ការបញ្ជាទិញ (Order ID)</span> តាមរយៈតេឡេក្រាម</span>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
