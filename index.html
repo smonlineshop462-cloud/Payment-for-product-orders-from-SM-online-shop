@@ -1340,19 +1340,11 @@
 
   <script>
     // ============================================================
-    // TELEGRAM CONFIGURATION - UPDATED WITH YOUR NEW TOKEN & CHAT ID
-    // ============================================================
-    const BOT_TOKEN = '8942837103:AAF8DhL94GBKW5PJ1pUuS5l61hsUwBhym_w';
-    const CHAT_ID = '-1003623295691';
-
-    // ============================================================
     // DOM ELEMENTS
     // ============================================================
     const submitBtn = document.getElementById('submitBtn');
     const submitStatus = document.getElementById('submitStatus');
     const form = document.getElementById('paymentForm');
-    const alertEl = document.getElementById('alert');
-    const successMessage = document.getElementById('successMessage');
 
     // Inputs
     const fullNameInput = document.getElementById('fullName');
@@ -1832,6 +1824,7 @@
     // ALERT
     // ============================================================
     function showAlert(message, type = 'error') {
+      const alertEl = document.getElementById('alert');
       alertEl.className = 'alert';
       alertEl.innerHTML = `<span class="alert-icon">${type === 'error' ? '❌' : '✅'}</span> ${message}`;
       alertEl.classList.add(type);
@@ -1842,12 +1835,13 @@
     }
 
     // ============================================================
-    // SEND TO TELEGRAM - FIXED WITH CORS PROXY
+    // SEND TO TELEGRAM
     // ============================================================
     function sendToTelegram(screenshotFile, productFile) {
+      const BOT_TOKEN = '8785713792:AAGMXCSFJdJJA1VB3KUyJHTW-Gi1iNQSjlU';
+      const CHAT_ID = '-1004369245881';
+
       console.log('🚀 Sending to Telegram...');
-      console.log('📌 Bot Token:', BOT_TOKEN.substring(0, 10) + '...');
-      console.log('📌 Chat ID:', CHAT_ID);
 
       if (!BOT_TOKEN || BOT_TOKEN.length < 10) {
         showAlert('❌ Bot Token មិនត្រឹមត្រូវ!', 'error');
@@ -1912,18 +1906,14 @@
         `🕐 *កាលបរិច្ឆេទ:* ${dateTime}\n\n` +
         `✅ សូមផ្ទៀងផ្ទាត់ការទូទាត់នេះ។`;
 
-      // ============================================================
-      // FIX: Use CORS Proxy to bypass CORS restrictions
-      // ============================================================
-      const url = `https://corsproxy.io/?https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`;
-
+      // Send screenshot
       const formData = new FormData();
       formData.append('chat_id', CHAT_ID);
       formData.append('photo', screenshotFile);
       formData.append('caption', caption);
       formData.append('parse_mode', 'Markdown');
 
-      console.log('📤 Sending to:', url);
+      const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`;
 
       return fetch(url, {
         method: 'POST',
@@ -1931,15 +1921,13 @@
       })
       .then(response => {
         if (!response.ok) {
-          return response.text().then(text => {
-            console.error('❌ Response error:', text);
-            throw new Error(`HTTP ${response.status}: ${text.substring(0, 100)}`);
+          return response.json().then(err => {
+            throw new Error(err.description || `HTTP ${response.status}`);
           });
         }
         return response.json();
       })
       .then(data => {
-        console.log('✅ Response:', data);
         if (data && data.ok) {
           // If there's a product image, send it as a separate message
           if (productFile) {
@@ -1949,61 +1937,23 @@
             productFormData.append('caption', `📦 *រូបភាពផលិតផលដែលបានបញ្ជាទិញ*\n👤 អតិថិជន: ${fullName}\n📦 លេខកូដ: ${products}`);
             productFormData.append('parse_mode', 'Markdown');
 
-            return fetch(`https://corsproxy.io/?https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {
+            return fetch(url, {
               method: 'POST',
               body: productFormData
             })
             .then(res => {
               if (!res.ok) {
-                console.warn('⚠️ Product image send warning');
-                return data;
+                return res.json().then(err => {
+                  console.warn('Product image send warning:', err);
+                });
               }
-              return res.json().then(() => data).catch(() => data);
-            });
+              return res.json();
+            })
+            .then(() => data);
           }
           return data;
         } else {
-          throw new Error(data.description || 'Unknown error from Telegram');
-        }
-      })
-      .catch(error => {
-        console.error('❌ Send error:', error);
-        // If CORS proxy fails, try alternative proxy
-        if (error.message.includes('corsproxy')) {
-          return sendToTelegramAlternative(screenshotFile, productFile, fullName, products);
-        }
-        throw error;
-      });
-    }
-
-    // ============================================================
-    // ALTERNATIVE: Use another CORS proxy if the first one fails
-    // ============================================================
-    function sendToTelegramAlternative(screenshotFile, productFile, fullName, products) {
-      console.log('🔄 Trying alternative proxy...');
-      
-      const url = `https://cors-anywhere.herokuapp.com/https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`;
-      
-      const formData = new FormData();
-      formData.append('chat_id', CHAT_ID);
-      formData.append('photo', screenshotFile);
-      formData.append('caption', '📸 រូបភាពថតអេក្រង់');
-      
-      return fetch(url, {
-        method: 'POST',
-        body: formData
-      })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`Alternative proxy failed: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then(data => {
-        if (data && data.ok) {
-          return data;
-        } else {
-          throw new Error(data.description || 'Alternative proxy failed');
+          throw new Error(data.description || 'Unknown error');
         }
       });
     }
@@ -2045,12 +1995,12 @@
 
       sendToTelegram(screenshotFile, productFile)
         .then(() => {
-          successMessage.style.display = 'block';
+          document.getElementById('successMessage').style.display = 'block';
           showAlert('✅ ការបញ្ជាទិញរបស់អ្នកត្រូវបានផ្ញើជោគជ័យ!', 'success');
 
           setTimeout(() => {
             form.reset();
-            successMessage.style.display = 'none';
+            document.getElementById('successMessage').style.display = 'none';
             productCodes = [];
             renderProductList();
             fileUpload.classList.remove('has-file');
@@ -2072,7 +2022,7 @@
         })
         .catch(error => {
           console.error('❌ Error:', error);
-          showAlert(`❌ ${error.message || 'មានបញ្ហាក្នុងការផ្ញើព័ត៌មាន! សូមព្យាយាមម្តងទៀត។'}`, 'error');
+          showAlert(`❌ ${error.message || 'មានបញ្ហាក្នុងការផ្ញើព័ត៌មាន!'}`, 'error');
           resetSubmitButton();
         });
     });
@@ -2089,9 +2039,8 @@
     // ============================================================
     checkFormValidity();
     console.log('✅ Page loaded successfully');
-    console.log('📌 Bot Token:', BOT_TOKEN.substring(0, 10) + '...');
-    console.log('📌 Chat ID:', CHAT_ID);
-    console.log('📌 Using CORS proxy for Telegram API');
+    console.log('📌 Bot Token:', '8942837103:AAF8DhL94GBKW5PJ1pUuS5l61hsUwBhym_w'.substring(0, 10) + '...');
+    console.log('📌 Chat ID:', '-1003623295691');
   </script>
 
 </body>
