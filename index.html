@@ -2495,7 +2495,11 @@
             <div class="success-message" id="successMessage">
                 <i class="fas fa-check-circle"></i>
                 ✅ ការបញ្ជាទិញរបស់អ្នកត្រូវបានផ្ញើដោយជោគជ័យ!
-                <br><small style="font-weight:400; display:block; margin-top:4px;">យើងខ្ញុំនឹងទាក់ទងអ្នកតាមរយៈតេឡេក្រាមក្នុងពេលឆាប់ៗ</small>
+                <br><span style="display:block; margin-top:6px; font-size:16px; background:#DBEAFE; padding:8px 16px; border-radius:10px; color:#1D4ED8;">
+                    🆔 <strong>លេខសម្គាល់ការបញ្ជាទិញរបស់អ្នក: <span id="successOrderId">ORD-20260908-XXXXX</span></strong>
+                </span>
+                <small style="font-weight:400; display:block; margin-top:6px;">សូមរក្សាទុកលេខសម្គាល់នេះសម្រាប់តាមដានការបញ្ជាទិញរបស់អ្នក</small>
+                <small style="font-weight:400; display:block; margin-top:4px;">យើងខ្ញុំនឹងទាក់ទងអ្នកតាមរយៈតេឡេក្រាមក្នុងពេលឆាប់ៗ</small>
             </div>
 
             <!-- ORDER SUMMARY -->
@@ -2547,7 +2551,7 @@
     </div>
 
     <script>
-                // ============================================================
+        // ============================================================
         // TELEGRAM CONFIGURATION
         // ============================================================
         const BOT_TOKEN = '8942837103:AAF8DhL94GBKW5PJ1pUuS5l61hsUwBhym_w';
@@ -3323,15 +3327,7 @@
                     orderSummary.style.display = 'block';
 
                     // Update success message with Order ID
-                    document.getElementById('successMessage').innerHTML = `
-                        <i class="fas fa-check-circle"></i>
-                        ✅ ការបញ្ជាទិញរបស់អ្នកត្រូវបានផ្ញើដោយជោគជ័យ!
-                        <br><span style="display:block; margin-top:6px; font-size:16px; background:#DBEAFE; padding:8px 16px; border-radius:10px; color:#1D4ED8;">
-                            🆔 <strong>លេខសម្គាល់ការបញ្ជាទិញរបស់អ្នក: ${orderId}</strong>
-                        </span>
-                        <small style="font-weight:400; display:block; margin-top:6px;">សូមរក្សាទុកលេខសម្គាល់នេះសម្រាប់តាមដានការបញ្ជាទិញរបស់អ្នក</small>
-                        <small style="font-weight:400; display:block; margin-top:4px;">យើងខ្ញុំនឹងទាក់ទងអ្នកតាមរយៈតេឡេក្រាមក្នុងពេលឆាប់ៗ</small>
-                    `;
+                    document.getElementById('successOrderId').textContent = orderId;
                     document.getElementById('successMessage').style.display = 'block';
                     showAlert(`✅ ការបញ្ជាទិញរបស់អ្នកត្រូវបានផ្ញើជោគជ័យ! (Order ID: ${orderId})`, 'success');
 
@@ -3393,3 +3389,6 @@
         console.log('✅ Page loaded successfully');
         console.log('🔒 ប្រព័ន្ធត្រៀមរួចរាល់!');
         console.log('🆔 Order ID will be generated automatically when submitting.');
+    </script>
+</body>
+</html>
