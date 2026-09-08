@@ -9,7 +9,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        /* ===== RESET & BASE ===== */
         * {
             margin: 0;
             padding: 0;
@@ -30,7 +29,6 @@
             overflow-x: hidden;
         }
 
-        /* ===== MAIN CONTAINER ===== */
         .payment-container {
             width: 100%;
             max-width: 620px;
@@ -71,7 +69,6 @@
             100% { opacity: 1; }
         }
 
-        /* ===== HEADER ===== */
         .payment-header {
             text-align: center;
             margin-bottom: 16px;
@@ -121,7 +118,6 @@
             margin-top: 4px;
         }
 
-        /* ===== TRUST SECTION ===== */
         .trust-section {
             background: linear-gradient(135deg, #F0FDF4, #DCFCE7);
             border: 2px solid #86EFAC;
@@ -167,7 +163,6 @@
             font-weight: 600;
         }
 
-        /* ===== FORM WRAPPER ===== */
         .form-wrapper {
             flex: 1 1 auto;
             overflow-y: visible;
@@ -178,7 +173,6 @@
             max-height: none;
         }
 
-        /* ===== SECTION TITLE ===== */
         .section-title {
             font-size: 14px;
             font-weight: 700;
@@ -206,7 +200,6 @@
             flex-shrink: 0;
         }
 
-        /* ===== FORM ELEMENTS ===== */
         .form-group {
             margin-bottom: 12px;
             position: relative;
@@ -311,14 +304,12 @@
             animation: slideDown 0.3s ease;
         }
 
-        /* ===== LOCATION GRID ===== */
         .location-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 10px;
         }
 
-        /* ===== CURRENCY & AMOUNT ===== */
         .currency-amount-container {
             display: flex;
             gap: 10px;
@@ -402,7 +393,6 @@
             gap: 6px;
         }
 
-        /* ===== PRODUCT CODE ===== */
         .product-code-container {
             display: flex;
             gap: 10px;
@@ -536,7 +526,6 @@
             animation: slideDown 0.4s ease;
         }
 
-        /* ===== MULTI IMAGE UPLOAD (ALBUM) ===== */
         .multi-file-upload {
             position: relative;
             border: 2px dashed #D1D9E6;
@@ -604,7 +593,6 @@
             cursor: pointer;
         }
 
-        /* ===== IMAGE GALLERY (ALBUM) ===== */
         .image-gallery {
             display: none;
             grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
@@ -676,7 +664,6 @@
             font-weight: 600;
         }
 
-        /* ===== CONTACT SALES BUTTON ===== */
         .contact-sales-section {
             margin-top: 10px;
             margin-bottom: 6px;
@@ -772,7 +759,6 @@
             opacity: 1;
         }
 
-        /* ===== ABA PAYMENT BUTTON ===== */
         .aba-payment-wrapper {
             position: relative;
             padding: 3px;
@@ -934,7 +920,6 @@
             color: #2563EB;
         }
 
-        /* ===== FILE UPLOAD (Single) ===== */
         .file-upload {
             position: relative;
             border: 2px dashed #D1D9E6;
@@ -1020,7 +1005,6 @@
             display: block;
         }
 
-        /* ===== ALERT ===== */
         .alert {
             display: none;
             padding: 10px 14px;
@@ -1053,7 +1037,6 @@
             color: #1E3A8A;
         }
 
-        /* ===== SUBMIT BUTTON ===== */
         .footer-actions {
             flex-shrink: 0;
             padding-top: 6px;
@@ -1112,7 +1095,6 @@
             display: none;
         }
 
-        /* ===== PROGRESS BAR ===== */
         .progress-bar-container {
             display: none;
             width: 100%;
@@ -1139,7 +1121,6 @@
             animation: shimmer 2s linear infinite;
         }
 
-        /* ===== SUBMIT STATUS ===== */
         .submit-status {
             display: none;
             text-align: center;
@@ -1170,7 +1151,6 @@
             border: 1px solid #FECACA;
         }
 
-        /* ===== SUCCESS & SUMMARY ===== */
         .success-message {
             display: none;
             background: linear-gradient(135deg, #F0FDF4, #DCFCE7);
@@ -1227,7 +1207,6 @@
             grid-column: 1 / -1;
         }
 
-        /* ===== ENHANCED PAYMENT NOTE ===== */
         .payment-note {
             background: linear-gradient(135deg, #EFF6FF, #DBEAFE);
             border-radius: 14px;
@@ -1298,10 +1277,6 @@
             font-weight: 600;
             color: #1D4ED8;
         }
-
-        /* ============================================================ */
-        /* ===== RESPONSIVE BREAKPOINTS ===== */
-        /* ============================================================ */
 
         @media (max-width: 640px) {
             html, body {
@@ -2202,7 +2177,6 @@
 <body>
 
     <div class="payment-container">
-        <!-- HEADER -->
         <div class="payment-header">
             <div class="icon"><i class="fas fa-shopping-bag"></i></div>
             <h1>ការបញ្ជាទិញ និងទូទាត់ប្រាក់</h1>
@@ -2210,7 +2184,6 @@
             <span class="sub-badge"><i class="fas fa-check-circle"></i> បានផ្ទៀងផ្ទាត់</span>
         </div>
 
-        <!-- TRUST SECTION -->
         <div class="trust-section">
             <div class="trust-icon"><i class="fas fa-handshake"></i></div>
             <div class="trust-content">
@@ -2222,10 +2195,8 @@
             </div>
         </div>
 
-        <!-- ALERT -->
         <div id="alert" class="alert"></div>
 
-        <!-- CONTACT SALES BUTTON -->
         <div class="contact-sales-section">
             <a href="https://t.me/ZTg88889999" target="_blank" class="contact-sales-btn">
                 <span class="btn-icon"><i class="fab fa-telegram-plane"></i></span>
@@ -2237,10 +2208,8 @@
             </a>
         </div>
 
-        <!-- FORM WRAPPER -->
         <div class="form-wrapper">
             <form id="paymentForm" enctype="multipart/form-data" novalidate>
-                <!-- Customer Info -->
                 <div class="section-title">
                     <span class="step">1</span>
                     ព័ត៌មានអតិថិជន
@@ -2255,22 +2224,21 @@
                 </div>
 
                 <div class="form-group">
-                    <label>លេខទូរស័ព្ទរបស់អ្នក (សម្រាប់តេឡេក្រាម) <span class="required">*</span></label>
-                    <input type="tel" id="phone" placeholder="ឧទាហរណ៍: 0123456789" required>
-                    <span class="error-text" id="phoneError">សូមបញ្ចូលលេខទូរស័ព្ទឱ្យបានត្រឹមត្រូវ (៨-១០ ខ្ទង់)</span>
+                    <label>លេខទូរស័ព្ទរបស់អ្នក <span class="required">*</span></label>
+                    <input type="tel" id="phone" placeholder="ឧទាហរណ៍: 0123456789 ឬ +855123456789" required>
+                    <span class="error-text" id="phoneError">សូមបញ្ចូលលេខទូរស័ព្ទឱ្យបានត្រឹមត្រូវ (យ៉ាងតិច ៨ ខ្ទង់)</span>
                     <span class="valid-text" id="phoneValid">✅ លេខទូរស័ព្ទត្រឹមត្រូវ</span>
-                    <div class="hint">📌 លេខនេះត្រូវតែជាលេខតេឡេក្រាមដែលអ្នកប្រើប្រាស់</div>
+                    <div class="hint">📌 អាចបញ្ចូលដោយមាន +855 ឬគ្មានក៏បាន</div>
                 </div>
 
                 <div class="form-group">
-                    <label>តេឡេក្រាមរបស់អ្នក (Link / Username) <span class="required">*</span></label>
-                    <input type="text" id="telegram" placeholder="ឧទាហរណ៍: https://t.me/username ឬ @username" required>
+                    <label>តេឡេក្រាមរបស់អ្នក (Link / Username / លេខទូរស័ព្ទ) <span class="required">*</span></label>
+                    <input type="text" id="telegram" placeholder="ឧទាហរណ៍: @username ឬ https://t.me/username ឬ 0123456789" required>
                     <span class="error-text" id="telegramError">សូមបញ្ចូលតេឡេក្រាមឱ្យបានត្រឹមត្រូវ</span>
                     <span class="valid-text" id="telegramValid">✅ តេឡេក្រាមត្រឹមត្រូវ</span>
-                    <div class="hint">📌 យើងនឹងប្រើតេឡេក្រាមនេះដើម្បីទាក់ទងអ្នក</div>
+                    <div class="hint">📌 អាចបញ្ចូលជា @username, Link, ឬលេខទូរស័ព្ទ</div>
                 </div>
 
-                <!-- Location -->
                 <div class="section-title">
                     <span class="step">2</span>
                     ទីតាំងដឹកជញ្ជូន
@@ -2319,7 +2287,6 @@
                     <span class="valid-text" id="addressDetailValid">✅ អាសយដ្ឋានត្រឹមត្រូវ</span>
                 </div>
 
-                <!-- Shipping -->
                 <div class="section-title">
                     <span class="step">3</span>
                     ក្រុមហ៊ុនដឹកជញ្ជូន
@@ -2340,7 +2307,6 @@
                     <span class="valid-text" id="shippingCompanyValid">✅ បានជ្រើសរើសក្រុមហ៊ុនដឹកជញ្ជូន</span>
                 </div>
 
-                <!-- Product Codes -->
                 <div class="section-title">
                     <span class="step">4</span>
                     លេខកូដផលិតផល
@@ -2367,7 +2333,6 @@
                     <div id="productCountDisplay"></div>
                 </div>
 
-                <!-- Payment Amount -->
                 <div class="section-title">
                     <span class="step">5</span>
                     ចំនួនទឹកប្រាក់ដែលត្រូវទូទាត់
@@ -2404,7 +2369,6 @@
                     សូមបញ្ចូលចំនួនទឹកប្រាក់ដែលអ្នកបានទូទាត់ជាក់ស្តែង
                 </div>
 
-                <!-- Payment -->
                 <div class="section-title">
                     <span class="step">6</span>
                     ការទូទាត់ប្រាក់
@@ -2442,7 +2406,6 @@
                     </div>
                 </div>
 
-                <!-- Screenshot -->
                 <div class="form-group">
                     <label>ជំហានទី ២: ភ្ជាប់រូបភាពថតអេក្រង់បន្ទាប់ពីបង់ប្រាក់ <span class="required">*</span></label>
                     <div class="file-upload" id="fileUpload">
@@ -2459,7 +2422,6 @@
                     </div>
                 </div>
 
-                <!-- Product Images (Album - Multiple) -->
                 <div class="form-group">
                     <label>ភ្ជាប់រូបភាពផលិតផលដែលអ្នកបញ្ជាទិញ <span class="hint">(អាចភ្ជាប់បានច្រើនរូប)</span></label>
                     <div class="multi-file-upload" id="productFileUpload">
@@ -2476,7 +2438,6 @@
             </form>
         </div>
 
-        <!-- FOOTER ACTIONS -->
         <div class="footer-actions">
             <button type="submit" class="submit-btn" id="submitBtn" disabled>
                 <span class="btn-text"><i class="fas fa-paper-plane"></i> បញ្ជាក់ការបញ្ជាទិញ</span>
@@ -2491,7 +2452,6 @@
                 <i class="fas fa-exclamation-circle"></i> សូមបំពេញព័ត៌មានឱ្យបានពេញលេញ និងត្រឹមត្រូវ
             </div>
 
-            <!-- SUCCESS -->
             <div class="success-message" id="successMessage">
                 <i class="fas fa-check-circle"></i>
                 ✅ ការបញ្ជាទិញរបស់អ្នកត្រូវបានផ្ញើដោយជោគជ័យ!
@@ -2502,13 +2462,11 @@
                 <small style="font-weight:400; display:block; margin-top:4px;">យើងខ្ញុំនឹងទាក់ទងអ្នកតាមរយៈតេឡេក្រាមក្នុងពេលឆាប់ៗ</small>
             </div>
 
-            <!-- ORDER SUMMARY -->
             <div class="order-summary" id="orderSummary">
                 <h4><i class="fas fa-receipt"></i> ព័ត៌មានសង្ខេប</h4>
                 <div class="summary-grid" id="summaryContent"></div>
             </div>
 
-            <!-- ENHANCED PAYMENT NOTE -->
             <div class="payment-note">
                 <div class="note-icon">
                     <i class="fas fa-info-circle"></i>
@@ -2549,8 +2507,7 @@
             </div>
         </div>
     </div>
-
-    <script>
+        <script>
         // ============================================================
         // TELEGRAM CONFIGURATION
         // ============================================================
@@ -2639,19 +2596,15 @@
         // ORDER ID GENERATION
         // ============================================================
         function generateOrderId() {
-            // Format: ORD-YYYYMMDD-XXXXX
             const now = new Date();
             const date = now.getFullYear() +
                 String(now.getMonth() + 1).padStart(2, '0') +
                 String(now.getDate()).padStart(2, '0');
-            
-            // Generate 5 random alphanumeric characters
             const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
             let random = '';
             for (let i = 0; i < 5; i++) {
                 random += chars.charAt(Math.floor(Math.random() * chars.length));
             }
-            
             return `ORD-${date}-${random}`;
         }
 
@@ -2689,19 +2642,16 @@
                 return;
             }
 
-            // Clear previous data
             productImageFiles = [];
             productImageDataUrls = [];
             productImageGallery.innerHTML = '';
             let totalSize = 0;
 
-            // Process each file
             for (let i = 0; i < files.length; i++) {
                 const file = files[i];
                 if (file.type.startsWith('image/')) {
                     productImageFiles.push(file);
                     totalSize += file.size;
-                    
                     const reader = new FileReader();
                     reader.onload = function(e) {
                         productImageDataUrls.push(e.target.result);
@@ -2711,7 +2661,6 @@
                 }
             }
 
-            // Update UI
             productFileUpload.classList.add('has-files');
             productFileCount.textContent = `📎 រូបភាពចំនួន ${files.length}`;
             productFileTotalSize.textContent = `ទំហំសរុប: ${formatTotalSize(totalSize)}`;
@@ -2745,18 +2694,15 @@
         }
 
         function removeProductImage(index) {
-            // Remove from arrays
             productImageFiles.splice(index, 1);
             productImageDataUrls.splice(index, 1);
             
-            // Update file input
             const dt = new DataTransfer();
             productImageFiles.forEach(file => dt.items.add(file));
             productImagesInput.files = dt.files;
             
             renderGallery();
             
-            // Update count
             const count = productImageFiles.length;
             productFileCount.textContent = `📎 រូបភាពចំនួន ${count}`;
             
@@ -2973,12 +2919,23 @@
 
         function validatePhone() {
             return validateField(phoneInput, phoneError, phoneValid, v => {
-                return /^(0[1-9]{1}[0-9]{7,9})$/.test(v);
+                let clean = v.replace(/^\+855/, '');
+                clean = clean.replace(/\D/g, '');
+                return /^0[1-9]{1}[0-9]{7,9}$/.test(clean) || /^[1-9]{1}[0-9]{7,9}$/.test(clean);
             });
         }
 
         function validateTelegram() {
-            return validateField(telegramInput, telegramError, telegramValid, v => /^(https?:\/\/t\.me\/[a-zA-Z0-9_]+|@[a-zA-Z0-9_]+)$/.test(v));
+            return validateField(telegramInput, telegramError, telegramValid, v => {
+                const trimmed = v.trim();
+                if (/^@[a-zA-Z0-9_]{3,}$/.test(trimmed)) return true;
+                if (/^https?:\/\/t\.me\/[a-zA-Z0-9_]+$/.test(trimmed)) return true;
+                const phoneCheck = trimmed.replace(/^\+855/, '').replace(/\D/g, '');
+                if (/^0[1-9]{1}[0-9]{7,9}$/.test(phoneCheck) || /^[1-9]{1}[0-9]{7,9}$/.test(phoneCheck)) {
+                    return true;
+                }
+                return false;
+            });
         }
 
         function validateVillage() {
@@ -3130,7 +3087,7 @@
         }
 
         // ============================================================
-        // SEND TO TELEGRAM WITH ORDER ID
+        // SEND TO TELEGRAM WITH ORDER ID - MEDIA GROUP (ALBUM)
         // ============================================================
         function sendToTelegram(screenshotFile, productImageFilesList, orderId) {
             return new Promise((resolve, reject) => {
@@ -3172,7 +3129,6 @@
 
                 const currencySymbol = currency === '$' ? '💵 USD ($)' : '🇰🇭 រៀល (៛)';
 
-                // Build caption with Order ID prominently displayed
                 let caption = `🛒 *ការបញ្ជាទិញ និងទូទាត់ប្រាក់*\n\n` +
                     `🆔 *លេខសម្គាល់ការបញ្ជាទិញ (Order ID):* \`${orderId}\`\n\n` +
                     `👤 *ឈ្មោះពេញ:* ${fullName}\n` +
@@ -3196,16 +3152,16 @@
                     `🕐 *កាលបរិច្ឆេទ:* ${dateTime}\n\n` +
                     `✅ សូមផ្ទៀងផ្ទាត់ការទូទាត់នេះ។`;
 
-                const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`;
+                const url = `https://api.telegram.org/bot${BOT_TOKEN}/`;
 
-                // Send screenshot first
+                // First, send the screenshot with caption
                 const formData = new FormData();
                 formData.append('chat_id', CHAT_ID);
                 formData.append('photo', screenshotFile);
                 formData.append('caption', caption);
                 formData.append('parse_mode', 'Markdown');
 
-                fetch(url, { method: 'POST', body: formData })
+                fetch(url + 'sendPhoto', { method: 'POST', body: formData })
                     .then(response => {
                         if (!response.ok) {
                             return response.json().then(err => {
@@ -3216,18 +3172,47 @@
                     })
                     .then(data => {
                         if (data.ok) {
-                            // Send product images as album
-                            const productPromises = productImageFilesList.map((file, index) => {
-                                const productFormData = new FormData();
-                                productFormData.append('chat_id', CHAT_ID);
-                                productFormData.append('photo', file);
-                                productFormData.append('caption', `📦 *រូបភាពផលិតផល ${index + 1}/${productImageFilesList.length}*\n🆔 Order ID: \`${orderId}\`\n👤 អតិថិជន: ${fullName}\n📦 លេខកូដ: ${products}`);
-                                productFormData.append('parse_mode', 'Markdown');
-                                return fetch(url, { method: 'POST', body: productFormData })
-                                    .then(res => res.json());
-                            });
+                            // If there are product images, send them as a media group (album)
+                            if (productImageFilesList.length > 0) {
+                                // Convert all product images to base64
+                                const readPromises = productImageFilesList.map((file) => {
+                                    return new Promise((resolveReader) => {
+                                        const reader = new FileReader();
+                                        reader.onload = function(e) {
+                                            resolveReader({
+                                                type: 'photo',
+                                                media: e.target.result
+                                            });
+                                        };
+                                        reader.readAsDataURL(file);
+                                    });
+                                });
 
-                            return Promise.all(productPromises).then(() => data);
+                                return Promise.all(readPromises).then((processedFiles) => {
+                                    // Build media group payload
+                                    const mediaGroupPayload = processedFiles.map((item, index) => {
+                                        return {
+                                            type: 'photo',
+                                            media: item.media,
+                                            caption: index === 0 ? `📦 *រូបភាពផលិតផល (Album)*\n🆔 Order ID: \`${orderId}\`\n👤 អតិថិជន: ${fullName}\n📦 លេខកូដ: ${products}` : '',
+                                            parse_mode: 'Markdown'
+                                        };
+                                    });
+
+                                    // Send media group (album) - all images in one message
+                                    return fetch(url + 'sendMediaGroup', {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                        },
+                                        body: JSON.stringify({
+                                            chat_id: CHAT_ID,
+                                            media: mediaGroupPayload
+                                        })
+                                    }).then(res => res.json());
+                                });
+                            }
+                            return data;
                         } else {
                             throw new Error(data.description || 'Unknown error');
                         }
@@ -3283,7 +3268,6 @@
                 return;
             }
 
-            // Generate Order ID
             const orderId = generateOrderId();
             console.log('🆔 Generated Order ID:', orderId);
 
@@ -3326,7 +3310,6 @@
                     `;
                     orderSummary.style.display = 'block';
 
-                    // Update success message with Order ID
                     document.getElementById('successOrderId').textContent = orderId;
                     document.getElementById('successMessage').style.display = 'block';
                     showAlert(`✅ ការបញ្ជាទិញរបស់អ្នកត្រូវបានផ្ញើជោគជ័យ! (Order ID: ${orderId})`, 'success');
@@ -3346,7 +3329,6 @@
                         filePreview.style.display = 'none';
                         previewImage.src = '';
                         
-                        // Reset product images
                         productImageFiles = [];
                         productImageDataUrls = [];
                         productImageGallery.classList.remove('active');
