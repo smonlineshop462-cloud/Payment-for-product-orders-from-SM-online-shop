@@ -2547,7 +2547,7 @@
     </div>
 
     <script>
-        // ============================================================
+                // ============================================================
         // TELEGRAM CONFIGURATION
         // ============================================================
         const BOT_TOKEN = '8942837103:AAF8DhL94GBKW5PJ1pUuS5l61hsUwBhym_w';
@@ -2630,6 +2630,26 @@
         // Store uploaded product images
         let productImageFiles = [];
         let productImageDataUrls = [];
+
+        // ============================================================
+        // ORDER ID GENERATION
+        // ============================================================
+        function generateOrderId() {
+            // Format: ORD-YYYYMMDD-XXXXX
+            const now = new Date();
+            const date = now.getFullYear() +
+                String(now.getMonth() + 1).padStart(2, '0') +
+                String(now.getDate()).padStart(2, '0');
+            
+            // Generate 5 random alphanumeric characters
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let random = '';
+            for (let i = 0; i < 5; i++) {
+                random += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            
+            return `ORD-${date}-${random}`;
+        }
 
         // ============================================================
         // UTILITY FUNCTIONS
@@ -3106,9 +3126,9 @@
         }
 
         // ============================================================
-        // SEND TO TELEGRAM
+        // SEND TO TELEGRAM WITH ORDER ID
         // ============================================================
-        function sendToTelegram(screenshotFile, productImageFilesList) {
+        function sendToTelegram(screenshotFile, productImageFilesList, orderId) {
             return new Promise((resolve, reject) => {
                 if (!screenshotFile) {
                     showAlert('❌ សូមភ្ជាប់រូបភាពថតអេក្រង់!', 'error');
@@ -3148,7 +3168,9 @@
 
                 const currencySymbol = currency === '$' ? '💵 USD ($)' : '🇰🇭 រៀល (៛)';
 
+                // Build caption with Order ID prominently displayed
                 let caption = `🛒 *ការបញ្ជាទិញ និងទូទាត់ប្រាក់*\n\n` +
+                    `🆔 *លេខសម្គាល់ការបញ្ជាទិញ (Order ID):* \`${orderId}\`\n\n` +
                     `👤 *ឈ្មោះពេញ:* ${fullName}\n` +
                     `📱 *លេខទូរស័ព្ទ:* ${phone}\n` +
                     `📌 *តេឡេក្រាម:* ${telegram}\n\n` +
@@ -3190,12 +3212,12 @@
                     })
                     .then(data => {
                         if (data.ok) {
-                            // Send product images as album (send each as separate photo with same caption)
+                            // Send product images as album
                             const productPromises = productImageFilesList.map((file, index) => {
                                 const productFormData = new FormData();
                                 productFormData.append('chat_id', CHAT_ID);
                                 productFormData.append('photo', file);
-                                productFormData.append('caption', `📦 *រូបភាពផលិតផល ${index + 1}/${productImageFilesList.length}*\n👤 អតិថិជន: ${fullName}\n📦 លេខកូដ: ${products}`);
+                                productFormData.append('caption', `📦 *រូបភាពផលិតផល ${index + 1}/${productImageFilesList.length}*\n🆔 Order ID: \`${orderId}\`\n👤 អតិថិជន: ${fullName}\n📦 លេខកូដ: ${products}`);
                                 productFormData.append('parse_mode', 'Markdown');
                                 return fetch(url, { method: 'POST', body: productFormData })
                                     .then(res => res.json());
@@ -3257,11 +3279,15 @@
                 return;
             }
 
+            // Generate Order ID
+            const orderId = generateOrderId();
+            console.log('🆔 Generated Order ID:', orderId);
+
             lastSubmitTime = now;
             isSubmitting = true;
             submitBtn.classList.add('loading');
             submitBtn.disabled = true;
-            showAlert('⏳ កំពុងផ្ញើព័ត៌មានទៅកាន់ Telegram...', 'info');
+            showAlert(`⏳ កំពុងផ្ញើព័ត៌មានទៅកាន់ Telegram... (Order ID: ${orderId})`, 'info');
 
             progressContainer.classList.add('active');
             let progress = 0;
@@ -3271,7 +3297,7 @@
                 progressBar.style.width = progress + '%';
             }, 300);
 
-            sendToTelegram(screenshotFile, productImageFilesList)
+            sendToTelegram(screenshotFile, productImageFilesList, orderId)
                 .then((data) => {
                     clearInterval(progressInterval);
                     progressBar.style.width = '100%';
@@ -3284,6 +3310,7 @@
                     const currencySymbol = currency === '$' ? '💵 USD ($)' : '🇰🇭 រៀល (៛)';
 
                     summaryContent.innerHTML = `
+                        <span><strong>Order ID:</strong> <span style="color:#2563EB;font-weight:700;">${orderId}</span></span>
                         <span><strong>ឈ្មោះ:</strong> ${fullName}</span>
                         <span><strong>ទូរស័ព្ទ:</strong> ${phone}</span>
                         <span><strong>ផលិតផល:</strong> ${productCodes.length} មុខ</span>
@@ -3295,8 +3322,18 @@
                     `;
                     orderSummary.style.display = 'block';
 
+                    // Update success message with Order ID
+                    document.getElementById('successMessage').innerHTML = `
+                        <i class="fas fa-check-circle"></i>
+                        ✅ ការបញ្ជាទិញរបស់អ្នកត្រូវបានផ្ញើដោយជោគជ័យ!
+                        <br><span style="display:block; margin-top:6px; font-size:16px; background:#DBEAFE; padding:8px 16px; border-radius:10px; color:#1D4ED8;">
+                            🆔 <strong>លេខសម្គាល់ការបញ្ជាទិញរបស់អ្នក: ${orderId}</strong>
+                        </span>
+                        <small style="font-weight:400; display:block; margin-top:6px;">សូមរក្សាទុកលេខសម្គាល់នេះសម្រាប់តាមដានការបញ្ជាទិញរបស់អ្នក</small>
+                        <small style="font-weight:400; display:block; margin-top:4px;">យើងខ្ញុំនឹងទាក់ទងអ្នកតាមរយៈតេឡេក្រាមក្នុងពេលឆាប់ៗ</small>
+                    `;
                     document.getElementById('successMessage').style.display = 'block';
-                    showAlert('✅ ការបញ្ជាទិញរបស់អ្នកត្រូវបានផ្ញើជោគជ័យ!', 'success');
+                    showAlert(`✅ ការបញ្ជាទិញរបស់អ្នកត្រូវបានផ្ញើជោគជ័យ! (Order ID: ${orderId})`, 'success');
 
                     setTimeout(() => {
                         progressContainer.classList.remove('active');
@@ -3330,7 +3367,7 @@
                         shippingCompanyInput.classList.remove('valid');
                         updateCurrencyDisplay();
                         resetSubmitButton();
-                    }, 5000);
+                    }, 6000);
                 })
                 .catch(error => {
                     console.error('❌ Error:', error);
@@ -3355,6 +3392,4 @@
         checkFormValidity();
         console.log('✅ Page loaded successfully');
         console.log('🔒 ប្រព័ន្ធត្រៀមរួចរាល់!');
-    </script>
-</body>
-</html>
+        console.log('🆔 Order ID will be generated automatically when submitting.');
