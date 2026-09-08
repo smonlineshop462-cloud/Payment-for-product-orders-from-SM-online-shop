@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ប្រព័ន្ធបញ្ជាទិញ និងទូទាត់ប្រាក់តាមរយៈ ABA KHQR ប្រកបដោយសុវត្ថិភាព">
+    <meta name="keywords" content="ABA, KHQR, បញ្ជាទិញ, ទូទាត់, កម្ពុជា">
     <title>ការបញ្ជាទិញ និងទូទាត់ប្រាក់</title>
     <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -57,6 +59,11 @@
         @keyframes pulseGlow {
             0%, 100% { box-shadow: 0 0 20px rgba(37, 99, 235, 0.2); }
             50% { box-shadow: 0 0 40px rgba(37, 99, 235, 0.4); }
+        }
+        @keyframes progressPulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
         }
 
         .payment-header {
@@ -287,7 +294,6 @@
             gap: 12px;
         }
 
-        /* ===== CURRENCY SELECT - MODERN DESIGN ===== */
         .currency-amount-container {
             display: flex;
             gap: 12px;
@@ -314,7 +320,6 @@
             height: 50px;
         }
 
-        /* Modern Currency Select */
         .currency-select-wrapper {
             position: relative;
         }
@@ -360,7 +365,6 @@
             font-weight: 500;
         }
 
-        /* Currency badge display */
         .currency-badge {
             display: inline-flex;
             align-items: center;
@@ -478,7 +482,6 @@
             animation: slideDown 0.4s ease;
         }
 
-        /* ===== ABA PAY BUTTON - MODERN DESIGN ===== */
         .aba-payment-wrapper {
             position: relative;
             padding: 4px;
@@ -623,19 +626,21 @@
             opacity: 1;
         }
 
-        .aba-payment-wrapper .payment-security {
+        .payment-security-info {
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 8px;
-            margin-top: 10px;
+            gap: 16px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+
+        .payment-security-info span {
             font-size: 12px;
             color: #94A3B8;
         }
 
-        .aba-payment-wrapper .payment-security i {
-            color: #22C55E;
-            font-size: 14px;
+        .payment-security-info span i {
+            color: #2563EB;
         }
 
         .file-upload {
@@ -688,6 +693,12 @@
             margin-top: 4px;
             font-size: 14px;
             word-break: break-all;
+        }
+
+        .file-upload .file-size {
+            font-size: 12px;
+            color: #94A3B8;
+            margin-top: 2px;
         }
 
         .file-upload input[type="file"] {
@@ -767,6 +778,31 @@
 
         .submit-btn.loading .btn-text {
             display: none;
+        }
+
+        .progress-bar-container {
+            display: none;
+            width: 100%;
+            height: 5px;
+            background: #E8EDF5;
+            border-radius: 4px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+
+        .progress-bar-container.active {
+            display: block;
+            animation: progressPulse 1.5s ease-in-out infinite;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #2563EB, #7C3AED, #2563EB);
+            background-size: 200% 100%;
+            border-radius: 4px;
+            transition: width 0.3s ease;
+            animation: shimmer 2s linear infinite;
         }
 
         .submit-status {
@@ -850,6 +886,39 @@
             color: #22C55E;
         }
 
+        .order-summary {
+            display: none;
+            background: #F8FAFC;
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin-top: 12px;
+            border: 1px solid #E8EDF5;
+            animation: slideDown 0.4s ease;
+        }
+
+        .order-summary h4 {
+            font-size: 14px;
+            color: #0F172A;
+            margin-bottom: 8px;
+        }
+
+        .order-summary h4 i {
+            color: #2563EB;
+        }
+
+        .order-summary .summary-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4px 16px;
+            font-size: 13px;
+            color: #475569;
+            line-height: 1.8;
+        }
+
+        .order-summary .summary-grid .full-width {
+            grid-column: 1 / -1;
+        }
+
         .payment-note {
             background: linear-gradient(135deg, #FFFBEB, #FEF3C7);
             border-radius: 14px;
@@ -875,7 +944,6 @@
             margin-bottom: 4px;
         }
 
-        /* ===== Product Code Input with P prefix ===== */
         .product-code-wrapper {
             position: relative;
             display: flex;
@@ -986,6 +1054,14 @@
             .aba-khqr-btn .khqr-arrow {
                 display: none;
             }
+
+            .order-summary .summary-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .payment-security-info {
+                gap: 8px;
+            }
         }
 
         @media (max-width: 420px) {
@@ -1049,8 +1125,8 @@
 
             <div class="form-group">
                 <label>លេខទូរស័ព្ទ (Telegram) <span class="required">*</span></label>
-                <input type="tel" id="phone" placeholder="បំពេញលេខទូរស័ព្ទ (ឧ: 012345678)" required>
-                <span class="error-text" id="phoneError">សូមបំពេញលេខទូរស័ព្ទឲ្យបានត្រឹមត្រូវ</span>
+                <input type="tel" id="phone" placeholder="បំពេញលេខទូរស័ព្ទ (ឧ: 0123456789)" required>
+                <span class="error-text" id="phoneError">សូមបំពេញលេខទូរស័ព្ទឲ្យបានត្រឹមត្រូវ (៨-១០ ខ្ទង់)</span>
                 <span class="valid-text" id="phoneValid">✅ លេខទូរស័ព្ទត្រឹមត្រូវ</span>
                 <div class="hint">📌 លេខទូរស័ព្ទដូចគ្នានឹងលេខតេឡេក្រាមរបស់អ្នក</div>
             </div>
@@ -1228,19 +1304,10 @@
                         </span>
                     </a>
                 </div>
-                <div class="payment-security" style="display:flex; align-items:center; gap:16px; margin-top:8px; flex-wrap:wrap;">
-                    <span style="font-size:12px; color:#94A3B8;">
-                        <i class="fas fa-shield-alt" style="color:#2563EB;"></i> 
-                        ប្រព័ន្ធសុវត្ថិភាពខ្ពស់
-                    </span>
-                    <span style="font-size:12px; color:#94A3B8;">
-                        <i class="fas fa-clock" style="color:#2563EB;"></i> 
-                        24/7 អាចបង់ប្រាក់បានគ្រប់ពេល
-                    </span>
-                    <span style="font-size:12px; color:#94A3B8;">
-                        <i class="fas fa-check-circle" style="color:#22C55E;"></i> 
-                        ទទួលស្គាល់ដោយធនាគារជាតិ
-                    </span>
+                <div class="payment-security-info">
+                    <span><i class="fas fa-shield-alt"></i> ប្រព័ន្ធសុវត្ថិភាពខ្ពស់</span>
+                    <span><i class="fas fa-clock"></i> 24/7 អាចបង់ប្រាក់បានគ្រប់ពេល</span>
+                    <span><i class="fas fa-check-circle" style="color:#22C55E;"></i> ទទួលស្គាល់ដោយធនាគារជាតិ</span>
                 </div>
             </div>
 
@@ -1251,6 +1318,7 @@
                     <i class="fas fa-camera"></i>
                     <p>ចុចដើម្បីភ្ជាប់រូបភាព (Screenshot)</p>
                     <div class="file-name" id="fileName"></div>
+                    <div class="file-size" id="fileSize"></div>
                     <input type="file" id="screenshot" accept="image/*" required>
                 </div>
                 <span class="error-text" id="fileError">សូមភ្ជាប់រូបភាពថតអេក្រង់បន្ទាប់ពីបង់ប្រាក់</span>
@@ -1267,6 +1335,7 @@
                     <i class="fas fa-image"></i>
                     <p>ចុចដើម្បីភ្ជាប់រូបភាពផលិតផល</p>
                     <div class="file-name" id="productFileName"></div>
+                    <div class="file-size" id="productFileSize"></div>
                     <input type="file" id="productImage" accept="image/*">
                 </div>
                 <div class="file-preview" id="productFilePreview">
@@ -1280,6 +1349,10 @@
                 <span class="spinner"><i class="fas fa-spinner"></i></span>
             </button>
 
+            <div class="progress-bar-container" id="progressContainer">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+
             <div class="submit-status incomplete" id="submitStatus">
                 <i class="fas fa-exclamation-circle"></i> សូមបំពេញព័ត៌មានឲ្យបានពេញលេញ និងត្រឹមត្រូវ
             </div>
@@ -1290,6 +1363,12 @@
             <i class="fas fa-check-circle"></i>
             ✅ ការបញ្ជាទិញរបស់អ្នកត្រូវបានផ្ញើដោយជោគជ័យ!
             <br><small style="font-weight:400; display:block; margin-top:8px;">ភ្នាក់ងារនឹងទាក់ទងអ្នកតាមរយៈតេឡេក្រាមក្នុងពេលឆាប់ៗ</small>
+        </div>
+
+        <!-- ORDER SUMMARY -->
+        <div class="order-summary" id="orderSummary">
+            <h4><i class="fas fa-receipt"></i> ព័ត៌មានសង្ខេប</h4>
+            <div class="summary-grid" id="summaryContent"></div>
         </div>
 
         <!-- NOTE -->
@@ -1338,7 +1417,6 @@
         const productImageInput = document.getElementById('productImage');
         const productFileUpload = document.getElementById('productFileUpload');
 
-        // Currency elements
         const currencyType = document.getElementById('currencyType');
         const currencyIcon = document.getElementById('currencyIcon');
         const currencyBadge = document.getElementById('currencyBadge');
@@ -1368,9 +1446,25 @@
         const fileError = document.getElementById('fileError');
         const fileValid = document.getElementById('fileValid');
 
+        const progressContainer = document.getElementById('progressContainer');
+        const progressBar = document.getElementById('progressBar');
+        const orderSummary = document.getElementById('orderSummary');
+        const summaryContent = document.getElementById('summaryContent');
+
         let productCodes = [];
         let isSubmitting = false;
         let autoAddTimer = null;
+        let lastSubmitTime = 0;
+        const SUBMIT_COOLDOWN = 3000;
+
+        // ============================================================
+        // UTILITY FUNCTIONS
+        // ============================================================
+        function formatFileSize(bytes) {
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+            return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+        }
 
         // ============================================================
         // CURRENCY SELECT HANDLER
@@ -1396,7 +1490,7 @@
         currencyType.addEventListener('change', updateCurrencyDisplay);
 
         // ============================================================
-        // PRODUCT CODE MANAGEMENT - Auto Add with P prefix
+        // PRODUCT CODE MANAGEMENT
         // ============================================================
         function formatProductCode(input) {
             let digits = input.replace(/\D/g, '');
@@ -1508,6 +1602,7 @@
         // FILE UPLOAD HANDLERS
         // ============================================================
         const fileName = document.getElementById('fileName');
+        const fileSize = document.getElementById('fileSize');
         const filePreview = document.getElementById('filePreview');
         const previewImage = document.getElementById('previewImage');
 
@@ -1517,6 +1612,7 @@
                 fileUpload.classList.add('has-file');
                 fileUpload.classList.remove('error');
                 fileName.textContent = '📎 ' + file.name;
+                fileSize.textContent = '📦 ' + formatFileSize(file.size);
                 fileError.classList.remove('show');
                 fileValid.classList.add('show');
                 const reader = new FileReader();
@@ -1528,6 +1624,7 @@
             } else {
                 fileUpload.classList.remove('has-file');
                 fileName.textContent = '';
+                fileSize.textContent = '';
                 filePreview.style.display = 'none';
                 previewImage.src = '';
                 fileValid.classList.remove('show');
@@ -1536,6 +1633,7 @@
         });
 
         const productFileName = document.getElementById('productFileName');
+        const productFileSize = document.getElementById('productFileSize');
         const productFilePreview = document.getElementById('productFilePreview');
         const productPreviewImage = document.getElementById('productPreviewImage');
 
@@ -1544,6 +1642,7 @@
             if (file) {
                 productFileUpload.classList.add('has-file');
                 productFileName.textContent = '📎 ' + file.name;
+                productFileSize.textContent = '📦 ' + formatFileSize(file.size);
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     productPreviewImage.src = e.target.result;
@@ -1553,6 +1652,7 @@
             } else {
                 productFileUpload.classList.remove('has-file');
                 productFileName.textContent = '';
+                productFileSize.textContent = '';
                 productFilePreview.style.display = 'none';
                 productPreviewImage.src = '';
             }
@@ -1588,7 +1688,10 @@
         }
 
         function validatePhone() {
-            return validateField(phoneInput, phoneError, phoneValid, v => /^(0[1-9]{1}[0-9]{7,8})$/.test(v));
+            return validateField(phoneInput, phoneError, phoneValid, v => {
+                // អនុញ្ញាតលេខ ៨-១០ ខ្ទង់
+                return /^(0[1-9]{1}[0-9]{7,9})$/.test(v);
+            });
         }
 
         function validateTelegram() {
@@ -1843,6 +1946,13 @@
         form.addEventListener('submit', function(e) {
             e.preventDefault();
 
+            // ពិនិត្យការបញ្ជូនដដែលៗ
+            const now = Date.now();
+            if (now - lastSubmitTime < SUBMIT_COOLDOWN) {
+                showAlert('⏳ សូមរង់ចាំបន្តិចមុននឹងបញ្ជូនម្តងទៀត!', 'error');
+                return;
+            }
+
             if (isSubmitting) {
                 showAlert('កំពុងដំណើរការ... សូមរង់ចាំបន្តិច!', 'error');
                 return;
@@ -1867,27 +1977,70 @@
                 return;
             }
 
+            // កំណត់ពេលវេលាបញ្ជូន
+            lastSubmitTime = now;
             isSubmitting = true;
             submitBtn.classList.add('loading');
             submitBtn.disabled = true;
             showAlert('⏳ កំពុងផ្ញើព័ត៌មានទៅកាន់ Telegram...', 'info');
 
+            // Progress Bar
+            progressContainer.classList.add('active');
+            let progress = 0;
+            const progressInterval = setInterval(() => {
+                progress += Math.random() * 15;
+                if (progress > 90) progress = 90;
+                progressBar.style.width = progress + '%';
+            }, 300);
+
             sendToTelegram(screenshotFile, productFile)
-                .then(() => {
+                .then((data) => {
+                    // Progress 100%
+                    clearInterval(progressInterval);
+                    progressBar.style.width = '100%';
+                    
+                    // បង្ហាញព័ត៌មានសង្ខេប
+                    const fullName = document.getElementById('fullName').value.trim();
+                    const phone = document.getElementById('phone').value.trim();
+                    const shippingCompany = document.getElementById('shippingCompany').value;
+                    const currency = document.getElementById('currencyType').value;
+                    const paymentAmount = document.getElementById('paymentAmount').value.trim();
+                    const currencySymbol = currency === '$' ? '💵 USD ($)' : '🇰🇭 រៀល (៛)';
+
+                    summaryContent.innerHTML = `
+                        <span><strong>ឈ្មោះ:</strong> ${fullName}</span>
+                        <span><strong>ទូរស័ព្ទ:</strong> ${phone}</span>
+                        <span><strong>ផលិតផល:</strong> ${productCodes.length} មុខ</span>
+                        <span><strong>ចំនួនទឹកប្រាក់:</strong> ${paymentAmount} ${currencySymbol}</span>
+                        <span class="full-width"><strong>ក្រុមហ៊ុនដឹកជញ្ជូន:</strong> ${shippingCompany}</span>
+                        <span class="full-width" style="color:#22C55E;">
+                            <i class="fas fa-check-circle"></i> បានផ្ញើជោគជ័យ!
+                        </span>
+                    `;
+                    orderSummary.style.display = 'block';
+
                     document.getElementById('successMessage').style.display = 'block';
                     showAlert('✅ ការបញ្ជាទិញរបស់អ្នកត្រូវបានផ្ញើជោគជ័យ!', 'success');
 
                     setTimeout(() => {
+                        // លាក់ Progress Bar
+                        progressContainer.classList.remove('active');
+                        progressBar.style.width = '0%';
+                        
+                        // Reset form
                         form.reset();
                         document.getElementById('successMessage').style.display = 'none';
+                        orderSummary.style.display = 'none';
                         productCodes = [];
                         renderProductList();
                         fileUpload.classList.remove('has-file');
                         fileName.textContent = '';
+                        fileSize.textContent = '';
                         filePreview.style.display = 'none';
                         previewImage.src = '';
                         productFileUpload.classList.remove('has-file');
                         productFileName.textContent = '';
+                        productFileSize.textContent = '';
                         productFilePreview.style.display = 'none';
                         productPreviewImage.src = '';
                         document.querySelectorAll('.form-group .valid').forEach(el => el.classList.remove('valid'));
@@ -1900,6 +2053,9 @@
                 })
                 .catch(error => {
                     console.error('❌ Error:', error);
+                    clearInterval(progressInterval);
+                    progressContainer.classList.remove('active');
+                    progressBar.style.width = '0%';
                     resetSubmitButton();
                 });
         });
@@ -1919,6 +2075,7 @@
         console.log('✅ Page loaded successfully');
         console.log('📌 Bot Token:', BOT_TOKEN.substring(0, 10) + '...');
         console.log('📌 Chat ID:', CHAT_ID);
+        console.log('🔒 ប្រព័ន្ធត្រៀមរួចរាល់!');
     </script>
 </body>
 </html>
