@@ -1747,7 +1747,7 @@
                     </div>
                 </div>
 
-                <!-- Product Images - FIXED FOR ALL DEVICES -->
+                <!-- Product Images -->
                 <div class="form-group">
                     <label>ភ្ជាប់រូបភាពផលិតផលដែលអ្នកបញ្ជាទិញ <span class="hint">(អាចភ្ជាប់បានច្រើនរូប)</span></label>
                     <div class="multi-file-upload" id="productFileUpload">
@@ -1796,7 +1796,7 @@
                 <div class="summary-grid" id="summaryContent"></div>
             </div>
 
-            <!-- ENHANCED PAYMENT NOTE -->
+            <!-- PAYMENT NOTE -->
             <div class="payment-note">
                 <div class="note-icon">
                     <i class="fas fa-info-circle"></i>
@@ -1955,7 +1955,7 @@
         }
 
         // ============================================================
-        // MULTI-IMAGE UPLOAD HANDLER - FIXED FOR ALL DEVICES
+        // MULTI-IMAGE UPLOAD HANDLER
         // ============================================================
         function handleProductImages() {
             const files = productImagesInput.files;
@@ -1982,17 +1982,14 @@
 
             for (let i = 0; i < files.length; i++) {
                 const file = files[i];
-                // Accept all image types
                 if (file.type.startsWith('image/') || file.type === '') {
                     productImageFiles.push(file);
                     totalSize += file.size;
                     
-                    // Use URL.createObjectURL for instant preview
                     try {
                         const url = URL.createObjectURL(file);
                         productImageDataUrls.push(url);
                     } catch (err) {
-                        // Fallback to FileReader
                         const reader = new FileReader();
                         reader.onload = function(e) {
                             productImageDataUrls.push(e.target.result);
@@ -2007,7 +2004,6 @@
                 }
             }
 
-            // Render gallery after all files are processed
             renderGallery();
 
             productFileUpload.classList.add('has-files');
@@ -2044,7 +2040,6 @@
         }
 
         function removeProductImage(index) {
-            // Revoke object URL to free memory
             if (productImageDataUrls[index] && productImageDataUrls[index].startsWith('blob:')) {
                 URL.revokeObjectURL(productImageDataUrls[index]);
             }
@@ -2444,7 +2439,7 @@
         }
 
         // ============================================================
-        // SEND TO TELEGRAM - COMPLETE REWRITE FOR RELIABILITY
+        // SEND TO TELEGRAM - SEND 2 SEPARATE MESSAGES
         // ============================================================
         function sendToTelegram(screenshotFile, productImageFilesList, orderId) {
             return new Promise((resolve, reject) => {
@@ -2486,7 +2481,10 @@
 
                 const currencySymbol = currency === '$' ? '💵 USD ($)' : '🇰🇭 រៀល (៛)';
 
-                let caption = `🛒 *ការបញ្ជាទិញ និងទូទាត់ប្រាក់*\n\n` +
+                const url = `https://api.telegram.org/bot${BOT_TOKEN}/`;
+
+                // ===== MESSAGE 1: Screenshot + Order Info =====
+                let caption1 = `🛒 *ការបញ្ជាទិញ និងទូទាត់ប្រាក់*\n\n` +
                     `🆔 *លេខសម្គាល់ការបញ្ជាទិញ (Order ID):* \`${orderId}\`\n\n` +
                     `👤 *ឈ្មោះពេញ:* ${fullName}\n` +
                     `📱 *លេខទូរស័ព្ទ:* ${phone}\n` +
@@ -2499,28 +2497,24 @@
                     `• អាសយដ្ឋាន: ${addressDetail}\n`;
 
                 if (postalCode) {
-                    caption += `• លេខកូដប្រៃសណីយ៍: ${postalCode}\n`;
+                    caption1 += `• លេខកូដប្រៃសណីយ៍: ${postalCode}\n`;
                 }
 
-                caption += `\n🚚 *ក្រុមហ៊ុនដឹកជញ្ជូន:* ${shippingCompany}\n` +
+                caption1 += `\n🚚 *ក្រុមហ៊ុនដឹកជញ្ជូន:* ${shippingCompany}\n` +
                     `📦 *លេខកូដផលិតផល:* ${products}\n` +
                     `💵 *ចំនួនទឹកប្រាក់ដែលត្រូវទូទាត់:* ${paymentAmount} ${currencySymbol}\n` +
-                    `🖼️ *រូបភាពផលិតផល:* ${productImageFilesList.length} រូប\n\n` +
                     `🕐 *កាលបរិច្ឆេទ:* ${dateTime}\n\n` +
                     `✅ សូមផ្ទៀងផ្ទាត់ការទូទាត់នេះ។`;
 
-                const url = `https://api.telegram.org/bot${BOT_TOKEN}/`;
+                console.log('📤 Sending Message 1: Screenshot + Order Info...');
 
-                // STEP 1: Send screenshot
-                const formData = new FormData();
-                formData.append('chat_id', CHAT_ID);
-                formData.append('photo', screenshotFile);
-                formData.append('caption', caption);
-                formData.append('parse_mode', 'Markdown');
+                const formData1 = new FormData();
+                formData1.append('chat_id', CHAT_ID);
+                formData1.append('photo', screenshotFile);
+                formData1.append('caption', caption1);
+                formData1.append('parse_mode', 'Markdown');
 
-                console.log('📤 Sending screenshot...');
-
-                fetch(url + 'sendPhoto', { method: 'POST', body: formData })
+                fetch(url + 'sendPhoto', { method: 'POST', body: formData1 })
                     .then(response => {
                         if (!response.ok) {
                             return response.json().then(err => {
@@ -2530,12 +2524,12 @@
                         return response.json();
                     })
                     .then(data => {
-                        console.log('✅ Screenshot sent successfully');
+                        console.log('✅ Message 1 sent successfully');
                         
                         if (data.ok) {
-                            // STEP 2: Send product images as album
+                            // ===== MESSAGE 2: Product Images (Album) =====
                             if (productImageFilesList.length > 0) {
-                                console.log(`📤 Sending ${productImageFilesList.length} product images...`);
+                                console.log(`📤 Sending Message 2: ${productImageFilesList.length} product images as album...`);
                                 
                                 // Convert files to base64 for media group
                                 const readPromises = productImageFilesList.map((file) => {
@@ -2548,7 +2542,6 @@
                                             });
                                         };
                                         reader.onerror = function() {
-                                            // Fallback: try to use the file directly
                                             resolveReader({
                                                 type: 'photo',
                                                 media: file
@@ -2563,7 +2556,7 @@
                                         return {
                                             type: 'photo',
                                             media: item.media,
-                                            caption: index === 0 ? `📦 *រូបភាពផលិតផល (Album)*\n🆔 Order ID: \`${orderId}\`\n👤 អតិថិជន: ${fullName}\n📦 លេខកូដ: ${products}` : '',
+                                            caption: index === 0 ? `📦 *រូបភាពផលិតផលដែលបានបញ្ជាទិញ*\n🆔 Order ID: \`${orderId}\`\n👤 អតិថិជន: ${fullName}\n📦 លេខកូដ: ${products}\n🖼️ រូបភាពទី ${index + 1}/${productImageFilesList.length}` : `🖼️ រូបភាពទី ${index + 1}/${productImageFilesList.length}`,
                                             parse_mode: 'Markdown'
                                         };
                                     });
@@ -2586,7 +2579,7 @@
                         }
                     })
                     .then(data => {
-                        console.log('✅ All images sent successfully');
+                        console.log('✅ Message 2 sent successfully');
                         resolve(data);
                     })
                     .catch(error => {
@@ -2598,18 +2591,16 @@
         }
 
         // ============================================================
-        // FORM SUBMISSION - WITH COMPLETE PROTECTION
+        // FORM SUBMISSION
         // ============================================================
         form.addEventListener('submit', function(e) {
             e.preventDefault();
 
-            // Prevent multiple submissions
             if (isSubmitting) {
                 showAlert('⏳ កំពុងដំណើរការ... សូមរង់ចាំបន្តិច!', 'info');
                 return;
             }
 
-            // Cooldown check
             const now = Date.now();
             if (now - lastSubmitTime < SUBMIT_COOLDOWN) {
                 showAlert('⏳ សូមរង់ចាំបន្តិចមុននឹងបញ្ជូនម្តងទៀត!', 'error');
@@ -2625,7 +2616,6 @@
             const screenshotFile = fileInput.files[0];
             const productImageFilesList = productImageFiles;
 
-            // Validate files
             if (!screenshotFile) {
                 showAlert('សូមភ្ជាប់រូបភាពថតអេក្រង់បន្ទាប់ពីបង់ប្រាក់!', 'error');
                 return;
@@ -2641,24 +2631,20 @@
                 return;
             }
 
-            // Generate Order ID
             const orderId = generateOrderId();
             console.log('🆔 Generated Order ID:', orderId);
 
-            // Lock form
             lastSubmitTime = now;
             isSubmitting = true;
             submitBtn.classList.add('loading');
             submitBtn.disabled = true;
             
-            // Disable all form inputs
             document.querySelectorAll('#paymentForm input, #paymentForm select, #paymentForm textarea, #paymentForm button').forEach(el => {
                 el.disabled = true;
             });
             
             showAlert(`⏳ កំពុងផ្ញើព័ត៌មានទៅកាន់ Telegram... (Order ID: ${orderId})`, 'info');
 
-            // Progress bar
             progressContainer.classList.add('active');
             let progress = 0;
             const progressInterval = setInterval(() => {
@@ -2667,13 +2653,11 @@
                 progressBar.style.width = progress + '%';
             }, 300);
 
-            // Send to Telegram
             sendToTelegram(screenshotFile, productImageFilesList, orderId)
                 .then((data) => {
                     clearInterval(progressInterval);
                     progressBar.style.width = '100%';
                     
-                    // Update summary
                     const fullName = document.getElementById('fullName').value.trim();
                     const phone = document.getElementById('phone').value.trim();
                     const shippingCompany = document.getElementById('shippingCompany').value;
@@ -2694,12 +2678,10 @@
                     `;
                     orderSummary.style.display = 'block';
 
-                    // Show success
                     document.getElementById('successOrderId').textContent = orderId;
                     document.getElementById('successMessage').style.display = 'block';
                     showAlert(`✅ ការបញ្ជាទិញរបស់អ្នកត្រូវបានផ្ញើជោគជ័យ! (Order ID: ${orderId})`, 'success');
 
-                    // Reset form after delay
                     setTimeout(() => {
                         progressContainer.classList.remove('active');
                         progressBar.style.width = '0%';
@@ -2715,7 +2697,6 @@
                         filePreview.style.display = 'none';
                         previewImage.src = '';
                         
-                        // Reset product images
                         productImageFiles = [];
                         productImageDataUrls = [];
                         productImageGallery.classList.remove('active');
@@ -2726,7 +2707,6 @@
                         productImagesValid.classList.remove('show');
                         productImagesInput.value = '';
                         
-                        // Reset validation states
                         document.querySelectorAll('.form-group .valid').forEach(el => el.classList.remove('valid'));
                         document.querySelectorAll('.valid-text.show').forEach(el => el.classList.remove('show'));
                         document.querySelectorAll('.error-text.show').forEach(el => el.classList.remove('show'));
@@ -2749,7 +2729,6 @@
             submitBtn.classList.remove('loading');
             submitBtn.disabled = false;
             
-            // Re-enable all form inputs
             document.querySelectorAll('#paymentForm input, #paymentForm select, #paymentForm textarea, #paymentForm button').forEach(el => {
                 el.disabled = false;
             });
@@ -2765,6 +2744,7 @@
         console.log('✅ Page loaded successfully');
         console.log('🔒 ប្រព័ន្ធត្រៀមរួចរាល់!');
         console.log('📱 Compatible with all devices (Android, iPhone, Tablet, Desktop)');
+        console.log('📤 Will send 2 messages: 1) Screenshot + Order Info, 2) Product Images Album');
     </script>
 </body>
 </html>
