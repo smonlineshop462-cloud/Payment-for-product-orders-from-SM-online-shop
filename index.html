@@ -21,16 +21,12 @@
             align-items: center;
             justify-content: center;
             padding: 20px;
-            position: relative;
-            overflow-x: hidden;
         }
 
         .payment-container {
             max-width: 620px;
             width: 100%;
             background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(20px);
-            border-radius: 32px;
             padding: 40px 35px;
             box-shadow: 0 40px 100px rgba(0, 0, 0, 0.45);
             animation: fadeIn 0.7s cubic-bezier(0.16, 1, 0.3, 1);
@@ -105,7 +101,6 @@
         .trust-section {
             background: linear-gradient(135deg, #F0FDF4, #DCFCE7);
             border: 2px solid #86EFAC;
-            border-radius: 16px;
             padding: 18px 20px;
             margin-bottom: 24px;
             display: flex;
@@ -202,7 +197,6 @@
             width: 100%;
             padding: 13px 16px;
             border: 2px solid #E8EDF5;
-            border-radius: 14px;
             font-size: 15px;
             outline: none;
             transition: all 0.3s ease;
@@ -306,6 +300,31 @@
             height: 50px;
         }
 
+        /* ===== CURRENCY SELECT STYLING ===== */
+        .currency-select select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748B' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            padding-right: 40px;
+            cursor: pointer;
+            font-weight: 600;
+            background-color: #FAFBFD;
+            border: 2px solid #E8EDF5;
+            border-radius: 0;
+            transition: all 0.3s ease;
+        }
+
+        .currency-select select:focus {
+            border-color: #2563EB;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.08);
+            background: white;
+        }
+
+        .currency-select select option {
+            padding: 10px;
+            font-weight: 500;
+        }
+
         .payment-hint {
             font-size: 13px;
             color: #64748B;
@@ -334,7 +353,6 @@
             background: linear-gradient(135deg, #2563EB, #1D4ED8);
             color: white;
             border: none;
-            border-radius: 14px;
             font-size: 14px;
             font-weight: 700;
             cursor: pointer;
@@ -366,7 +384,6 @@
             justify-content: space-between;
             background: #F8FAFC;
             padding: 10px 16px;
-            border-radius: 12px;
             border-left: 4px solid #2563EB;
             animation: slideDown 0.3s ease;
         }
@@ -390,7 +407,6 @@
             font-size: 18px;
             transition: all 0.3s ease;
             padding: 4px 8px;
-            border-radius: 8px;
         }
 
         .product-item .remove-btn:hover {
@@ -403,7 +419,6 @@
             background: linear-gradient(135deg, #2563EB, #7C3AED);
             color: white;
             padding: 4px 14px;
-            border-radius: 20px;
             font-size: 13px;
             font-weight: 700;
             margin-top: 8px;
@@ -420,7 +435,6 @@
             background: linear-gradient(135deg, #003A73 0%, #0055A4 40%, #0077BE 100%);
             color: white;
             border: none;
-            border-radius: 16px;
             font-size: 18px;
             font-weight: 700;
             cursor: pointer;
@@ -448,7 +462,6 @@
             gap: 8px;
             background: rgba(255, 255, 255, 0.12);
             padding: 8px 18px;
-            border-radius: 12px;
             font-size: 14px;
             font-weight: 600;
             backdrop-filter: blur(4px);
@@ -460,7 +473,6 @@
             display: inline-block;
             background: rgba(255, 215, 0, 0.2);
             padding: 2px 12px;
-            border-radius: 6px;
             font-size: 11px;
             letter-spacing: 1px;
             color: #FFD700;
@@ -488,7 +500,6 @@
         .file-upload {
             position: relative;
             border: 2px dashed #D1D9E6;
-            border-radius: 16px;
             padding: 32px 20px;
             text-align: center;
             cursor: pointer;
@@ -550,7 +561,6 @@
         .file-preview {
             margin-top: 12px;
             max-width: 100%;
-            border-radius: 12px;
             border: 1px solid #E8EDF5;
             display: none;
             max-height: 200px;
@@ -570,7 +580,6 @@
             background: linear-gradient(135deg, #2563EB, #7C3AED);
             color: white;
             border: none;
-            border-radius: 16px;
             font-size: 18px;
             font-weight: 700;
             cursor: pointer;
@@ -623,7 +632,6 @@
             font-weight: 500;
             margin-top: 12px;
             padding: 12px 16px;
-            border-radius: 12px;
             background: #F1F5F9;
             color: #64748B;
             animation: slideDown 0.4s ease;
@@ -648,7 +656,6 @@
         .alert {
             display: none;
             padding: 14px 20px;
-            border-radius: 14px;
             margin-bottom: 16px;
             font-weight: 500;
             font-size: 14px;
@@ -682,7 +689,6 @@
             border: 2px solid #86EFAC;
             color: #166534;
             padding: 24px;
-            border-radius: 16px;
             margin-top: 20px;
             text-align: center;
             font-weight: 600;
@@ -699,7 +705,6 @@
 
         .payment-note {
             background: linear-gradient(135deg, #FFFBEB, #FEF3C7);
-            border-radius: 14px;
             padding: 16px 20px;
             margin-top: 18px;
             border-left: 5px solid #F59E0B;
@@ -722,35 +727,37 @@
             margin-bottom: 4px;
         }
 
-        .test-btn {
-            width: 100%;
-            padding: 12px;
-            margin-top: 12px;
-            background: linear-gradient(135deg, #22C55E, #16A34A);
-            color: white;
-            border: none;
-            border-radius: 14px;
-            font-size: 16px;
+        /* ===== Product Code Input with P prefix ===== */
+        .product-code-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .product-code-wrapper .prefix {
+            position: absolute;
+            left: 16px;
             font-weight: 700;
-            cursor: pointer;
-            font-family: 'Kantumruy Pro', sans-serif;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3);
+            font-size: 15px;
+            color: #0F172A;
+            pointer-events: none;
+            background: #FAFBFD;
+            padding-right: 4px;
         }
 
-        .test-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 25px rgba(34, 197, 94, 0.4);
+        .product-code-wrapper input {
+            padding-left: 32px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .test-btn:active {
-            transform: scale(0.95);
+        .product-code-wrapper input:focus + .prefix {
+            color: #2563EB;
         }
 
         @media (max-width: 640px) {
             .payment-container {
                 padding: 24px 18px;
-                border-radius: 24px;
                 margin: 10px;
             }
 
@@ -879,10 +886,11 @@
             </div>
 
             <div class="form-group">
-                <label>លេខទូរស័ព្ទ <span class="required">*</span></label>
+                <label>លេខទូរស័ព្ទ (Telegram) <span class="required">*</span></label>
                 <input type="tel" id="phone" placeholder="បំពេញលេខទូរស័ព្ទ (ឧ: 012345678)" required>
                 <span class="error-text" id="phoneError">សូមបំពេញលេខទូរស័ព្ទឲ្យបានត្រឹមត្រូវ</span>
                 <span class="valid-text" id="phoneValid">✅ លេខទូរស័ព្ទត្រឹមត្រូវ</span>
+                <div class="hint">📌 លេខទូរស័ព្ទដូចគ្នានឹងលេខតេឡេក្រាមរបស់អ្នក</div>
             </div>
 
             <div class="form-group">
@@ -973,8 +981,11 @@
             <div class="product-code-container">
                 <div class="form-group" style="flex:1;min-width:200px;margin-bottom:0;">
                     <label>បញ្ចូលលេខកូដផលិតផល <span class="required">*</span></label>
-                    <input type="text" id="productCodeInput" placeholder="ឧ: P001, P002, ..." required>
-                    <span class="error-text" id="productCodeError">សូមបំពេញលេខកូដផលិតផល</span>
+                    <div class="product-code-wrapper">
+                        <input type="text" id="productCodeInput" placeholder="1234" maxlength="4" inputmode="numeric" required>
+                        <span class="prefix">P</span>
+                    </div>
+                    <span class="error-text" id="productCodeError">សូមបំពេញលេខកូដផលិតផលជាលេខ ៤ ខ្ទង់</span>
                     <span class="valid-text" id="productCodeValid">✅ លេខកូដត្រឹមត្រូវ</span>
                 </div>
                 <button type="button" class="add-btn" id="addProductBtn">
@@ -1079,11 +1090,6 @@
             </div>
         </form>
 
-        <!-- TEST BUTTON -->
-        <button type="button" class="test-btn" onclick="testTelegramConnection()">
-            <i class="fas fa-bolt"></i> 🔍 សាកល្បងការតភ្ជាប់ Telegram
-        </button>
-
         <!-- SUCCESS -->
         <div class="success-message" id="successMessage">
             <i class="fas fa-check-circle"></i>
@@ -1097,7 +1103,7 @@
             <span>
                 <strong>សូមបញ្ជាក់៖</strong>
                 • ជ្រើសរើសប្រភេទរូបិយប័ណ្ណ (ដុល្លារ ឬ រៀល) មុនពេលបំពេញចំនួនទឹកប្រាក់<br>
-                • បញ្ចូលលេខកូដផលិតផលដើម្បីបញ្ជាក់ការបញ្ជាទិញ<br>
+                • បញ្ចូលលេខកូដផលិតផលជាលេខ ៤ ខ្ទង់ (ឧ: 1234) បន្ទាប់មកចុចបន្ថែម<br>
                 • បន្ទាប់ពីបង់ប្រាក់រួច សូមភ្ជាប់រូបភាពថតអេក្រង់ដើម្បីផ្ទៀងផ្ទាត់<br>
                 • <strong>ការទូទាត់របស់អ្នកត្រូវបានការពារ 100%</strong>
             </span>
@@ -1164,35 +1170,90 @@
 
         let productCodes = [];
         let isSubmitting = false;
+        let autoAddTimer = null;
 
         // ============================================================
-        // PRODUCT CODE MANAGEMENT
+        // PRODUCT CODE MANAGEMENT - Auto Add with P prefix
         // ============================================================
+        function formatProductCode(input) {
+            // Remove non-digit characters
+            let digits = input.replace(/\D/g, '');
+            
+            // Limit to 4 digits
+            if (digits.length > 4) {
+                digits = digits.slice(0, 4);
+            }
+            
+            return digits;
+        }
+
+        function handleProductCodeInput() {
+            const rawValue = productCodeInput.value;
+            const digits = formatProductCode(rawValue);
+            
+            // Update input with formatted value
+            productCodeInput.value = digits;
+            
+            // Clear previous timer
+            if (autoAddTimer) {
+                clearTimeout(autoAddTimer);
+                autoAddTimer = null;
+            }
+            
+            // Validate
+            if (digits.length === 4) {
+                productCodeInput.classList.remove('error');
+                productCodeError.classList.remove('show');
+                productCodeValid.classList.add('show');
+                
+                // Auto add after 300ms
+                autoAddTimer = setTimeout(() => {
+                    addProductCode();
+                    autoAddTimer = null;
+                }, 300);
+            } else {
+                productCodeInput.classList.remove('valid');
+                productCodeValid.classList.remove('show');
+                if (digits.length > 0 && digits.length < 4) {
+                    productCodeInput.classList.add('error');
+                    productCodeError.classList.add('show');
+                    productCodeError.textContent = 'សូមបំពេញលេខកូដផលិតផលជាលេខ ៤ ខ្ទង់ (បច្ចុប្បន្ន ' + digits.length + ' ខ្ទង់)';
+                } else {
+                    productCodeInput.classList.remove('error');
+                    productCodeError.classList.remove('show');
+                }
+            }
+        }
+
         function addProductCode() {
-            const code = productCodeInput.value.trim();
-            if (!code) {
+            const digits = productCodeInput.value.trim();
+            
+            if (digits.length !== 4) {
                 productCodeInput.classList.add('error');
                 productCodeError.classList.add('show');
+                productCodeError.textContent = 'សូមបំពេញលេខកូដផលិតផលជាលេខ ៤ ខ្ទង់';
                 productCodeValid.classList.remove('show');
-                showAlert('សូមបំពេញលេខកូដផលិតផល!', 'error');
                 return;
             }
 
-            if (productCodes.includes(code)) {
-                showAlert('លេខកូដនេះត្រូវបានបន្ថែមរួចហើយ!', 'error');
+            const fullCode = 'P' + digits;
+            
+            if (productCodes.includes(fullCode)) {
+                showAlert('លេខកូដ ' + fullCode + ' ត្រូវបានបន្ថែមរួចហើយ!', 'error');
                 productCodeInput.classList.add('error');
                 productCodeInput.value = '';
+                productCodeValid.classList.remove('show');
                 return;
             }
 
-            productCodes.push(code);
+            productCodes.push(fullCode);
             productCodeInput.value = '';
             productCodeInput.classList.remove('error');
             productCodeError.classList.remove('show');
-            productCodeValid.classList.add('show');
+            productCodeValid.classList.remove('show');
             renderProductList();
             checkFormValidity();
-            showAlert(`✅ បានបន្ថែមលេខកូដ ${code} ដោយជោគជ័យ!`, 'success');
+            showAlert('✅ បានបន្ថែមលេខកូដ ' + fullCode + ' ដោយជោគជ័យ!', 'success');
         }
 
         function removeProductCode(index) {
@@ -1200,7 +1261,7 @@
             productCodes.splice(index, 1);
             renderProductList();
             checkFormValidity();
-            showAlert(`🗑️ បានដកលេខកូដ ${removed} ចេញ`, 'info');
+            showAlert('🗑️ បានដកលេខកូដ ' + removed + ' ចេញ', 'info');
         }
 
         function renderProductList() {
@@ -1410,12 +1471,35 @@
             el.addEventListener('change', checkFormValidity);
         });
 
-        addProductBtn.addEventListener('click', addProductCode);
+        // Product Code Input - Auto format and auto add
+        productCodeInput.addEventListener('input', handleProductCodeInput);
 
+        // Allow paste with digits only
+        productCodeInput.addEventListener('paste', function(e) {
+            e.preventDefault();
+            const pasted = (e.clipboardData || window.clipboardData).getData('text');
+            const digits = formatProductCode(pasted);
+            this.value = digits;
+            handleProductCodeInput.call(this);
+        });
+
+        // Enter key to add manually
         productCodeInput.addEventListener('keydown', function(e) {
             if (e.key === 'Enter') {
                 e.preventDefault();
+                if (this.value.length === 4) {
+                    addProductCode();
+                }
+            }
+        });
+
+        addProductBtn.addEventListener('click', function() {
+            if (productCodeInput.value.length === 4) {
                 addProductCode();
+            } else {
+                productCodeInput.classList.add('error');
+                productCodeError.classList.add('show');
+                productCodeError.textContent = 'សូមបំពេញលេខកូដផលិតផលជាលេខ ៤ ខ្ទង់';
             }
         });
 
@@ -1434,54 +1518,10 @@
         }
 
         // ============================================================
-        // TEST TELEGRAM CONNECTION
-        // ============================================================
-        function testTelegramConnection() {
-            showAlert('🔄 កំពុងសាកល្បងការតភ្ជាប់ Telegram...', 'info');
-
-            const testMessage = '✅ *ការតភ្ជាប់ Telegram ដំណើរការបានត្រឹមត្រូវ!*\n\n' +
-                '📌 Bot Token: ' + BOT_TOKEN.substring(0, 10) + '...\n' +
-                '📌 Chat ID: ' + CHAT_ID + '\n\n' +
-                '🕐 កាលបរិច្ឆេទ: ' + new Date().toLocaleString('km-KH');
-
-            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
-
-            fetch(url, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    chat_id: CHAT_ID,
-                    text: testMessage,
-                    parse_mode: 'Markdown'
-                })
-            })
-            .then(response => {
-                if (!response.ok) {
-                    return response.json().then(err => {
-                        throw new Error(err.description || `HTTP ${response.status}`);
-                    });
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (data.ok) {
-                    showAlert('✅ ការតភ្ជាប់ Telegram ដំណើរការបានត្រឹមត្រូវ! សូមពិនិត្យសារក្នុង Telegram។', 'success');
-                } else {
-                    showAlert(`❌ បញ្ហា: ${data.description || 'មិនស្គាល់'}. សូមពិនិត្យមើល Bot Token និង Chat ID។`, 'error');
-                }
-            })
-            .catch(error => {
-                showAlert(`❌ បញ្ហាក្នុងការតភ្ជាប់: ${error.message}`, 'error');
-            });
-        }
-
-        // ============================================================
         // SEND TO TELEGRAM
         // ============================================================
         function sendToTelegram(screenshotFile, productFile) {
             return new Promise((resolve, reject) => {
-                console.log('🚀 Sending to Telegram...');
-
                 if (!screenshotFile) {
                     showAlert('❌ សូមភ្ជាប់រូបភាពថតអេក្រង់!', 'error');
                     reject(new Error('No file'));
@@ -1666,8 +1706,6 @@
         console.log('✅ Page loaded successfully');
         console.log('📌 Bot Token:', BOT_TOKEN.substring(0, 10) + '...');
         console.log('📌 Chat ID:', CHAT_ID);
-        console.log('💡 សូមចុចប៊ូតុង "សាកល្បងការតភ្ជាប់ Telegram" ដើម្បីពិនិត្យមើលការតភ្ជាប់');
     </script>
-
 </body>
 </html>
