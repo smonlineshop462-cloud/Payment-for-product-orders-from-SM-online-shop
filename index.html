@@ -167,7 +167,7 @@
             font-weight: 600;
         }
 
-        /* ===== FORM WRAPPER - NO SCROLL ON DESKTOP ===== */
+        /* ===== FORM WRAPPER ===== */
         .form-wrapper {
             flex: 1 1 auto;
             overflow-y: visible;
@@ -402,7 +402,7 @@
             gap: 6px;
         }
 
-        /* ===== PRODUCT CODE - FIXED FOR SMALL SCREENS ===== */
+        /* ===== PRODUCT CODE ===== */
         .product-code-container {
             display: flex;
             gap: 10px;
@@ -470,7 +470,6 @@
             font-weight: 600;
         }
 
-        /* FIX: Ensure full code P1234 shows on small screens */
         .product-code-wrapper input::placeholder {
             font-size: 12px;
             letter-spacing: 0;
@@ -535,6 +534,242 @@
             font-weight: 700;
             margin-top: 4px;
             animation: slideDown 0.4s ease;
+        }
+
+        /* ===== MULTI IMAGE UPLOAD (ALBUM) ===== */
+        .multi-file-upload {
+            position: relative;
+            border: 2px dashed #D1D9E6;
+            border-radius: 14px;
+            padding: 16px 14px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #FAFBFD;
+        }
+
+        .multi-file-upload:hover {
+            border-color: #2563EB;
+            background: #F1F7FF;
+        }
+
+        .multi-file-upload.has-files {
+            border-color: #22C55E;
+            background: #F0FDF4;
+        }
+
+        .multi-file-upload.error {
+            border-color: #EF4444;
+            background: #FEF2F2;
+        }
+
+        .multi-file-upload i {
+            font-size: 28px;
+            color: #A0AEC0;
+            display: block;
+            margin-bottom: 3px;
+            transition: color 0.3s ease;
+        }
+
+        .multi-file-upload.has-files i {
+            color: #22C55E;
+        }
+
+        .multi-file-upload p {
+            color: #64748B;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .multi-file-upload .file-count {
+            font-weight: 600;
+            color: #0F172A;
+            margin-top: 2px;
+            font-size: 12px;
+        }
+
+        .multi-file-upload .file-size-total {
+            font-size: 10px;
+            color: #94A3B8;
+            margin-top: 2px;
+        }
+
+        .multi-file-upload input[type="file"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        /* ===== IMAGE GALLERY (ALBUM) ===== */
+        .image-gallery {
+            display: none;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 8px;
+            margin-top: 10px;
+            max-height: 200px;
+            overflow-y: auto;
+            padding: 4px;
+        }
+
+        .image-gallery.active {
+            display: grid;
+        }
+
+        .image-gallery .gallery-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px solid #E8EDF5;
+            aspect-ratio: 1 / 1;
+            background: #F8FAFC;
+            transition: all 0.3s ease;
+        }
+
+        .image-gallery .gallery-item:hover {
+            border-color: #2563EB;
+            transform: scale(1.02);
+        }
+
+        .image-gallery .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .image-gallery .gallery-item .remove-image {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            background: rgba(239, 68, 68, 0.9);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 22px;
+            height: 22px;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .image-gallery .gallery-item .remove-image:hover {
+            background: #EF4444;
+            transform: scale(1.1);
+        }
+
+        .image-gallery .gallery-item .image-index {
+            position: absolute;
+            bottom: 4px;
+            left: 4px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 1px 8px;
+            border-radius: 10px;
+            font-size: 9px;
+            font-weight: 600;
+        }
+
+        /* ===== CONTACT SALES BUTTON ===== */
+        .contact-sales-section {
+            margin-top: 10px;
+            margin-bottom: 6px;
+            flex-shrink: 0;
+        }
+
+        .contact-sales-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            width: 100%;
+            padding: 14px 18px;
+            background: linear-gradient(135deg, #0088CC, #00A3E0, #0088CC);
+            background-size: 200% 200%;
+            animation: shimmer 3s ease-in-out infinite;
+            color: white;
+            border: none;
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            font-family: 'Kantumruy Pro', sans-serif;
+            box-shadow: 0 6px 30px rgba(0, 136, 204, 0.35);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-sales-btn::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .contact-sales-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 45px rgba(0, 136, 204, 0.5);
+        }
+
+        .contact-sales-btn:active {
+            transform: scale(0.97);
+        }
+
+        .contact-sales-btn .btn-icon {
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            flex-shrink: 0;
+        }
+
+        .contact-sales-btn .btn-text {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            line-height: 1.3;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-sales-btn .btn-text .main {
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+        }
+
+        .contact-sales-btn .btn-text .sub {
+            font-size: 11px;
+            font-weight: 400;
+            opacity: 0.85;
+        }
+
+        .contact-sales-btn .btn-arrow {
+            font-size: 18px;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+            margin-left: auto;
+        }
+
+        .contact-sales-btn:hover .btn-arrow {
+            transform: translateX(6px);
+            opacity: 1;
         }
 
         /* ===== ABA PAYMENT BUTTON ===== */
@@ -699,7 +934,7 @@
             color: #2563EB;
         }
 
-        /* ===== FILE UPLOAD ===== */
+        /* ===== FILE UPLOAD (Single) ===== */
         .file-upload {
             position: relative;
             border: 2px dashed #D1D9E6;
@@ -992,31 +1227,31 @@
             grid-column: 1 / -1;
         }
 
-        /* ===== PAYMENT NOTE - ENHANCED ===== */
+        /* ===== ENHANCED PAYMENT NOTE ===== */
         .payment-note {
             background: linear-gradient(135deg, #EFF6FF, #DBEAFE);
             border-radius: 14px;
-            padding: 16px 18px;
-            margin-top: 12px;
+            padding: 14px 16px;
+            margin-top: 10px;
             border-left: 6px solid #2563EB;
             font-size: 12px;
             color: #1E3A8A;
             display: flex;
             align-items: flex-start;
-            gap: 14px;
+            gap: 12px;
             flex-shrink: 0;
             box-shadow: 0 2px 8px rgba(37, 99, 235, 0.08);
         }
 
         .payment-note .note-icon {
             background: linear-gradient(135deg, #2563EB, #1D4ED8);
-            width: 36px;
-            height: 36px;
+            width: 34px;
+            height: 34px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 16px;
+            font-size: 15px;
             color: white;
             flex-shrink: 0;
             box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
@@ -1031,7 +1266,7 @@
             font-size: 13px;
             color: #0F172A;
             display: block;
-            margin-bottom: 4px;
+            margin-bottom: 3px;
         }
 
         .payment-note .note-content .note-list {
@@ -1045,7 +1280,7 @@
             display: flex;
             align-items: flex-start;
             gap: 8px;
-            font-size: 11.5px;
+            font-size: 11px;
             line-height: 1.6;
         }
 
@@ -1064,19 +1299,10 @@
             color: #1D4ED8;
         }
 
-        .payment-note .note-content .note-list li .warning-text {
-            background: rgba(239, 68, 68, 0.08);
-            padding: 0 6px;
-            border-radius: 4px;
-            font-weight: 600;
-            color: #DC2626;
-        }
-
         /* ============================================================ */
         /* ===== RESPONSIVE BREAKPOINTS ===== */
         /* ============================================================ */
 
-        /* ===== Mobile (default) ===== */
         @media (max-width: 640px) {
             html, body {
                 padding: 6px;
@@ -1250,22 +1476,58 @@
                 font-size: 11px;
             }
 
+            .multi-file-upload {
+                padding: 14px 10px;
+            }
+
+            .multi-file-upload i {
+                font-size: 24px;
+            }
+
+            .multi-file-upload p {
+                font-size: 11px;
+            }
+
+            .image-gallery {
+                grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+                gap: 6px;
+            }
+
             .submit-btn {
                 padding: 13px;
                 font-size: 14px;
             }
 
+            .contact-sales-btn {
+                padding: 12px 14px;
+                font-size: 14px;
+            }
+
+            .contact-sales-btn .btn-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 18px;
+            }
+
+            .contact-sales-btn .btn-text .main {
+                font-size: 14px;
+            }
+
+            .contact-sales-btn .btn-text .sub {
+                font-size: 10px;
+            }
+
             .payment-note {
-                padding: 14px 14px;
+                padding: 12px 14px;
                 font-size: 11px;
                 flex-direction: column;
                 align-items: flex-start;
             }
 
             .payment-note .note-icon {
-                width: 32px;
-                height: 32px;
-                font-size: 14px;
+                width: 30px;
+                height: 30px;
+                font-size: 13px;
             }
 
             .payment-note .note-content .note-title {
@@ -1277,7 +1539,6 @@
             }
         }
 
-        /* ===== Very Small Mobile ===== */
         @media (max-width: 420px) {
             html, body {
                 padding: 4px;
@@ -1359,6 +1620,31 @@
                 border-radius: 12px;
             }
 
+            .contact-sales-btn {
+                padding: 10px 12px;
+                font-size: 13px;
+                border-radius: 12px;
+            }
+
+            .contact-sales-btn .btn-icon {
+                width: 32px;
+                height: 32px;
+                font-size: 16px;
+            }
+
+            .contact-sales-btn .btn-text .main {
+                font-size: 13px;
+            }
+
+            .contact-sales-btn .btn-text .sub {
+                font-size: 9px;
+            }
+
+            .image-gallery {
+                grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+                gap: 5px;
+            }
+
             .trust-section .trust-content {
                 font-size: 10px;
             }
@@ -1379,6 +1665,18 @@
                 font-size: 10px;
             }
 
+            .multi-file-upload {
+                padding: 12px 8px;
+            }
+
+            .multi-file-upload i {
+                font-size: 20px;
+            }
+
+            .multi-file-upload p {
+                font-size: 10px;
+            }
+
             .product-item .product-code-display {
                 font-size: 12px;
             }
@@ -1389,7 +1687,7 @@
             }
 
             .payment-note {
-                padding: 12px 12px;
+                padding: 10px 12px;
                 font-size: 10px;
             }
 
@@ -1402,13 +1700,12 @@
             }
 
             .payment-note .note-icon {
-                width: 28px;
-                height: 28px;
+                width: 26px;
+                height: 26px;
                 font-size: 12px;
             }
         }
 
-        /* ===== Tablet & Desktop - NO SCROLL ===== */
         @media (min-width: 641px) {
             html, body {
                 padding: 20px;
@@ -1440,9 +1737,12 @@
             .payment-header h1 {
                 font-size: 24px;
             }
+
+            .image-gallery {
+                grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+            }
         }
 
-        /* ===== Large Desktop ===== */
         @media (min-width: 1024px) {
             .payment-container {
                 max-width: 640px;
@@ -1458,9 +1758,12 @@
             .payment-header h1 {
                 font-size: 26px;
             }
+
+            .image-gallery {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            }
         }
 
-        /* ===== Landscape Mobile - WITH SCROLL ===== */
         @media (max-height: 700px) and (orientation: landscape) {
             html, body {
                 padding: 6px;
@@ -1646,6 +1949,24 @@
                 font-size: 10px;
             }
 
+            .multi-file-upload {
+                padding: 8px 10px;
+            }
+
+            .multi-file-upload i {
+                font-size: 18px;
+            }
+
+            .multi-file-upload p {
+                font-size: 9px;
+            }
+
+            .image-gallery {
+                grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+                gap: 5px;
+                max-height: 120px;
+            }
+
             .footer-actions {
                 padding-top: 4px;
             }
@@ -1656,6 +1977,26 @@
                 border-radius: 10px;
             }
 
+            .contact-sales-btn {
+                padding: 8px 12px;
+                font-size: 12px;
+                border-radius: 10px;
+            }
+
+            .contact-sales-btn .btn-icon {
+                width: 30px;
+                height: 30px;
+                font-size: 14px;
+            }
+
+            .contact-sales-btn .btn-text .main {
+                font-size: 12px;
+            }
+
+            .contact-sales-btn .btn-text .sub {
+                font-size: 9px;
+            }
+
             .submit-status {
                 font-size: 9px;
                 padding: 4px 10px;
@@ -1663,15 +2004,15 @@
             }
 
             .payment-note {
-                padding: 10px 12px;
+                padding: 8px 12px;
                 font-size: 10px;
-                margin-top: 8px;
+                margin-top: 6px;
             }
 
             .payment-note .note-icon {
-                width: 28px;
-                height: 28px;
-                font-size: 12px;
+                width: 26px;
+                height: 26px;
+                font-size: 11px;
             }
 
             .payment-note .note-content .note-title {
@@ -1708,7 +2049,6 @@
             }
         }
 
-        /* ===== Small Landscape Mobile ===== */
         @media (max-height: 550px) and (orientation: landscape) {
             .payment-header .icon {
                 width: 32px;
@@ -1777,9 +2117,46 @@
                 font-size: 8px;
             }
 
+            .multi-file-upload {
+                padding: 6px 8px;
+            }
+
+            .multi-file-upload i {
+                font-size: 14px;
+            }
+
+            .multi-file-upload p {
+                font-size: 8px;
+            }
+
+            .image-gallery {
+                grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+                gap: 4px;
+                max-height: 80px;
+            }
+
             .submit-btn {
                 padding: 6px;
                 font-size: 10px;
+            }
+
+            .contact-sales-btn {
+                padding: 6px 10px;
+                font-size: 10px;
+            }
+
+            .contact-sales-btn .btn-icon {
+                width: 24px;
+                height: 24px;
+                font-size: 12px;
+            }
+
+            .contact-sales-btn .btn-text .main {
+                font-size: 10px;
+            }
+
+            .contact-sales-btn .btn-text .sub {
+                display: none;
             }
 
             .payment-note {
@@ -1827,9 +2204,9 @@
     <div class="payment-container">
         <!-- HEADER -->
         <div class="payment-header">
-            <div class="icon"><i class="fas fa-shield-alt"></i></div>
+            <div class="icon"><i class="fas fa-shopping-bag"></i></div>
             <h1>ការបញ្ជាទិញ និងទូទាត់ប្រាក់</h1>
-            <p>ប្រព័ន្ធទូទាត់ប្រកបដោយសុវត្ថិភាព និងគួរទុកចិត្ត</p>
+            <p>ប្រព័ន្ធបញ្ជាទិញដែលមានសុវត្ថិភាព និងគួរទុកចិត្ត</p>
             <span class="sub-badge"><i class="fas fa-check-circle"></i> បានផ្ទៀងផ្ទាត់</span>
         </div>
 
@@ -1837,16 +2214,28 @@
         <div class="trust-section">
             <div class="trust-icon"><i class="fas fa-handshake"></i></div>
             <div class="trust-content">
-                <strong><i class="fas fa-shield-check" style="color:#22C55E;"></i> ហេតុអ្វីត្រូវប្រើប្រាស់ប្រព័ន្ធនេះ?</strong>
-                ប្រព័ន្ធនេះត្រូវបានបង្កើតឡើងដើម្បី <span class="highlight">ការពារការបោកប្រាស់</span> និងធានាថាការទូទាត់របស់អ្នកមានសុវត្ថិភាព៖
-                <br>✓ ការទូទាត់ត្រូវបានបញ្ជូនតាមប្រព័ន្ធ <span class="highlight">ABA KHQR</span> ស្តង់ដារ
-                <br>✓ រាល់ការបញ្ជាទិញត្រូវបាន <span class="highlight">រក្សាទុក</span> និងផ្ទៀងផ្ទាត់ដោយស្វ័យប្រវត្តិ
+                <strong><i class="fas fa-shield-check" style="color:#22C55E;"></i> សូមស្វាគមន៍មកកាន់ប្រព័ន្ធបញ្ជាទិញរបស់យើង!</strong>
+                យើងខ្ញុំសូមធានាថាការបញ្ជាទិញរបស់អ្នកមានសុវត្ថិភាព៖
+                <br>✓ ការទូទាត់តាមរយៈ <span class="highlight">ABA KHQR</span> ស្តង់ដារសុវត្ថិភាពខ្ពស់
+                <br>✓ រាល់ការបញ្ជាទិញត្រូវបាន <span class="highlight">រក្សាទុក</span> និងតាមដានដោយស្វ័យប្រវត្តិ
                 <br>✓ អ្នកនឹងទទួលបាន <span class="highlight">ការបញ្ជាក់</span> តាមរយៈតេឡេក្រាមភ្លាមៗ
             </div>
         </div>
 
         <!-- ALERT -->
         <div id="alert" class="alert"></div>
+
+        <!-- CONTACT SALES BUTTON -->
+        <div class="contact-sales-section">
+            <a href="https://t.me/ZTg88889999" target="_blank" class="contact-sales-btn">
+                <span class="btn-icon"><i class="fab fa-telegram-plane"></i></span>
+                <span class="btn-text">
+                    <span class="main">💬 ទាក់ទងអ្នកគ្រប់គ្រងផ្នែកលក់</span>
+                    <span class="sub">ចុចទីនេះដើម្បីជជែកជាមួយបុគ្គលិកផ្នែកលក់ផ្ទាល់</span>
+                </span>
+                <span class="btn-arrow"><i class="fas fa-chevron-right"></i></span>
+            </a>
+        </div>
 
         <!-- FORM WRAPPER -->
         <div class="form-wrapper">
@@ -1859,53 +2248,53 @@
                 </div>
 
                 <div class="form-group">
-                    <label>ឈ្មោះពេញ <span class="required">*</span></label>
-                    <input type="text" id="fullName" placeholder="បំពេញឈ្មោះពេញរបស់អ្នក" required>
-                    <span class="error-text" id="fullNameError">សូមបំពេញឈ្មោះពេញ (យ៉ាងតិច ៣ តួអក្សរ)</span>
+                    <label>ឈ្មោះពេញរបស់អ្នក <span class="required">*</span></label>
+                    <input type="text" id="fullName" placeholder="សូមបញ្ចូលឈ្មោះពេញរបស់អ្នក" required>
+                    <span class="error-text" id="fullNameError">សូមបញ្ចូលឈ្មោះពេញរបស់អ្នក (យ៉ាងតិច ៣ តួអក្សរ)</span>
                     <span class="valid-text" id="fullNameValid">✅ ឈ្មោះត្រឹមត្រូវ</span>
                 </div>
 
                 <div class="form-group">
-                    <label>លេខទូរស័ព្ទ (Telegram) <span class="required">*</span></label>
-                    <input type="tel" id="phone" placeholder="បំពេញលេខទូរស័ព្ទ (ឧ: 0123456789)" required>
-                    <span class="error-text" id="phoneError">សូមបំពេញលេខទូរស័ព្ទឲ្យបានត្រឹមត្រូវ (៨-១០ ខ្ទង់)</span>
+                    <label>លេខទូរស័ព្ទរបស់អ្នក (សម្រាប់តេឡេក្រាម) <span class="required">*</span></label>
+                    <input type="tel" id="phone" placeholder="ឧទាហរណ៍: 0123456789" required>
+                    <span class="error-text" id="phoneError">សូមបញ្ចូលលេខទូរស័ព្ទឱ្យបានត្រឹមត្រូវ (៨-១០ ខ្ទង់)</span>
                     <span class="valid-text" id="phoneValid">✅ លេខទូរស័ព្ទត្រឹមត្រូវ</span>
-                    <div class="hint">📌 លេខទូរស័ព្ទដូចគ្នានឹងលេខតេឡេក្រាមរបស់អ្នក</div>
+                    <div class="hint">📌 លេខនេះត្រូវតែជាលេខតេឡេក្រាមដែលអ្នកប្រើប្រាស់</div>
                 </div>
 
                 <div class="form-group">
-                    <label>តេឡេក្រាម (Link / Username) <span class="required">*</span></label>
-                    <input type="text" id="telegram" placeholder="ឧ: https://t.me/username ឬ @username" required>
-                    <span class="error-text" id="telegramError">សូមបំពេញតេឡេក្រាមឲ្យបានត្រឹមត្រូវ</span>
+                    <label>តេឡេក្រាមរបស់អ្នក (Link / Username) <span class="required">*</span></label>
+                    <input type="text" id="telegram" placeholder="ឧទាហរណ៍: https://t.me/username ឬ @username" required>
+                    <span class="error-text" id="telegramError">សូមបញ្ចូលតេឡេក្រាមឱ្យបានត្រឹមត្រូវ</span>
                     <span class="valid-text" id="telegramValid">✅ តេឡេក្រាមត្រឹមត្រូវ</span>
-                    <div class="hint">📌 ភ្នាក់ងារនឹងប្រើតេឡេក្រាមដើម្បីទាក់ទងអ្នក</div>
+                    <div class="hint">📌 យើងនឹងប្រើតេឡេក្រាមនេះដើម្បីទាក់ទងអ្នក</div>
                 </div>
 
                 <!-- Location -->
                 <div class="section-title">
                     <span class="step">2</span>
-                    ទីតាំងអតិថិជន
+                    ទីតាំងដឹកជញ្ជូន
                     <i class="fas fa-map-marker-alt" style="margin-left:auto;color:#94A3B8;font-size:12px;"></i>
                 </div>
 
                 <div class="form-group">
                     <label>ភូមិ <span class="required">*</span></label>
-                    <input type="text" id="village" placeholder="បំពេញឈ្មោះភូមិ" required>
-                    <span class="error-text" id="villageError">សូមបំពេញឈ្មោះភូមិ</span>
+                    <input type="text" id="village" placeholder="សូមបញ្ចូលឈ្មោះភូមិ" required>
+                    <span class="error-text" id="villageError">សូមបញ្ចូលឈ្មោះភូមិ</span>
                     <span class="valid-text" id="villageValid">✅ ភូមិត្រឹមត្រូវ</span>
                 </div>
 
                 <div class="location-grid">
                     <div class="form-group">
                         <label>ឃុំ/សង្កាត់ <span class="required">*</span></label>
-                        <input type="text" id="commune" placeholder="ឃុំ/សង្កាត់" required>
-                        <span class="error-text" id="communeError">សូមបំពេញឃុំ/សង្កាត់</span>
+                        <input type="text" id="commune" placeholder="សូមបញ្ចូលឃុំ/សង្កាត់" required>
+                        <span class="error-text" id="communeError">សូមបញ្ចូលឃុំ/សង្កាត់</span>
                         <span class="valid-text" id="communeValid">✅ ត្រឹមត្រូវ</span>
                     </div>
                     <div class="form-group">
                         <label>ស្រុក/ខណ្ឌ <span class="required">*</span></label>
-                        <input type="text" id="district" placeholder="ស្រុក/ខណ្ឌ" required>
-                        <span class="error-text" id="districtError">សូមបំពេញស្រុក/ខណ្ឌ</span>
+                        <input type="text" id="district" placeholder="សូមបញ្ចូលស្រុក/ខណ្ឌ" required>
+                        <span class="error-text" id="districtError">សូមបញ្ចូលស្រុក/ខណ្ឌ</span>
                         <span class="valid-text" id="districtValid">✅ ត្រឹមត្រូវ</span>
                     </div>
                 </div>
@@ -1913,20 +2302,20 @@
                 <div class="location-grid">
                     <div class="form-group">
                         <label>ខេត្ត/រាជធានី <span class="required">*</span></label>
-                        <input type="text" id="province" placeholder="ខេត្ត/រាជធានី" required>
-                        <span class="error-text" id="provinceError">សូមបំពេញខេត្ត/រាជធានី</span>
+                        <input type="text" id="province" placeholder="សូមបញ្ចូលខេត្ត/រាជធានី" required>
+                        <span class="error-text" id="provinceError">សូមបញ្ចូលខេត្ត/រាជធានី</span>
                         <span class="valid-text" id="provinceValid">✅ ត្រឹមត្រូវ</span>
                     </div>
                     <div class="form-group">
-                        <label>លេខកូដប្រៃសណីយ៍ <span class="hint">(ស្រេចចិត្ត)</span></label>
+                        <label>លេខកូដប្រៃសណីយ៍ <span class="hint">(ប្រសិនបើមាន)</span></label>
                         <input type="text" id="postalCode" placeholder="លេខកូដប្រៃសណីយ៍">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label>អាសយដ្ឋានលម្អិត <span class="required">*</span></label>
-                    <textarea id="addressDetail" placeholder="បំពេញអាសយដ្ឋានលម្អិត (ផ្ទះលេខ, ផ្លូវ, ចំណាំ...)" required></textarea>
-                    <span class="error-text" id="addressDetailError">សូមបំពេញអាសយដ្ឋានលម្អិត</span>
+                    <textarea id="addressDetail" placeholder="សូមបញ្ចូលអាសយដ្ឋានលម្អិត (ផ្ទះលេខ, ផ្លូវ, ចំណាំ...)" required></textarea>
+                    <span class="error-text" id="addressDetailError">សូមបញ្ចូលអាសយដ្ឋានលម្អិត</span>
                     <span class="valid-text" id="addressDetailValid">✅ អាសយដ្ឋានត្រឹមត្រូវ</span>
                 </div>
 
@@ -1965,7 +2354,7 @@
                             <input type="text" id="productCodeInput" placeholder="1234" maxlength="4" inputmode="numeric" required>
                             <span class="prefix">P</span>
                         </div>
-                        <span class="error-text" id="productCodeError">សូមបំពេញលេខកូដផលិតផលជាលេខ ៤ ខ្ទង់</span>
+                        <span class="error-text" id="productCodeError">សូមបញ្ចូលលេខកូដផលិតផលជាលេខ ៤ ខ្ទង់</span>
                         <span class="valid-text" id="productCodeValid">✅ លេខកូដត្រឹមត្រូវ</span>
                     </div>
                     <button type="button" class="add-btn" id="addProductBtn">
@@ -1981,7 +2370,7 @@
                 <!-- Payment Amount -->
                 <div class="section-title">
                     <span class="step">5</span>
-                    ចំនួនទឹកប្រាក់ដែលបានទូទាត់
+                    ចំនួនទឹកប្រាក់ដែលត្រូវទូទាត់
                     <i class="fas fa-money-bill-wave" style="margin-left:auto;color:#94A3B8;font-size:12px;"></i>
                 </div>
 
@@ -1998,8 +2387,8 @@
                     </div>
                     <div class="form-group amount-input">
                         <label>ចំនួនទឹកប្រាក់ <span class="required">*</span></label>
-                        <input type="number" id="paymentAmount" placeholder="បំពេញចំនួនទឹកប្រាក់" step="0.01" min="0.01" required>
-                        <span class="error-text" id="paymentAmountError">សូមបំពេញចំនួនទឹកប្រាក់ដែលបានទូទាត់</span>
+                        <input type="number" id="paymentAmount" placeholder="សូមបញ្ចូលចំនួនទឹកប្រាក់" step="0.01" min="0.01" required>
+                        <span class="error-text" id="paymentAmountError">សូមបញ្ចូលចំនួនទឹកប្រាក់ដែលត្រូវទូទាត់</span>
                         <span class="valid-text" id="paymentAmountValid">✅ ចំនួនទឹកប្រាក់ត្រឹមត្រូវ</span>
                     </div>
                 </div>
@@ -2008,11 +2397,11 @@
                         <i class="fas fa-circle" style="font-size:7px; color:#22C55E;"></i>
                         រូបិយប័ណ្ណបច្ចុប្បន្ន: 💵 ដុល្លារ ($)
                     </span>
-                    <span style="font-size:10px; color:#94A3B8;">ជ្រើសរើសប្រភេទរូបិយប័ណ្ណខាងលើ</span>
+                    <span style="font-size:10px; color:#94A3B8;">សូមជ្រើសរើសប្រភេទរូបិយប័ណ្ណខាងលើ</span>
                 </div>
                 <div class="payment-hint">
                     <i class="fas fa-info-circle"></i>
-                    បំពេញចំនួនទឹកប្រាក់ដែលអ្នកបានទូទាត់ជាក់ស្តែង
+                    សូមបញ្ចូលចំនួនទឹកប្រាក់ដែលអ្នកបានទូទាត់ជាក់ស្តែង
                 </div>
 
                 <!-- Payment -->
@@ -2023,7 +2412,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label>ជំហានទី ១: បង់ប្រាក់តាម ABA Pay</label>
+                    <label>ជំហានទី ១: បង់ប្រាក់តាមរយៈ ABA Pay</label>
                     <div class="aba-payment-wrapper">
                         <a href="https://pay.ababank.com/oRF8/e6wai8xh" target="_blank" class="aba-khqr-btn" id="abaPayBtn">
                             <span class="khqr-left">
@@ -2032,8 +2421,8 @@
                                     <span class="qr-symbol">KHQR</span>
                                 </span>
                                 <span class="khqr-text">
-                                    <span class="main">🏦 ABA Bank</span>
-                                    <span class="sub">បង់ប្រាក់តាម KHQR ស្តង់ដារ</span>
+                                    <span class="main">🏦 ធនាគារ ABA</span>
+                                    <span class="sub">បង់ប្រាក់តាមរយៈ KHQR ស្តង់ដារ</span>
                                 </span>
                             </span>
                             <span class="khqr-right">
@@ -2058,7 +2447,7 @@
                     <label>ជំហានទី ២: ភ្ជាប់រូបភាពថតអេក្រង់បន្ទាប់ពីបង់ប្រាក់ <span class="required">*</span></label>
                     <div class="file-upload" id="fileUpload">
                         <i class="fas fa-camera"></i>
-                        <p>ចុចដើម្បីភ្ជាប់រូបភាព (Screenshot)</p>
+                        <p>ចុចដើម្បីភ្ជាប់រូបភាពថតអេក្រង់ (Screenshot)</p>
                         <div class="file-name" id="fileName"></div>
                         <div class="file-size" id="fileSize"></div>
                         <input type="file" id="screenshot" accept="image/*" required>
@@ -2070,19 +2459,19 @@
                     </div>
                 </div>
 
-                <!-- Product Image -->
+                <!-- Product Images (Album - Multiple) -->
                 <div class="form-group">
-                    <label>ភ្ជាប់រូបភាពផលិតផលដែលអ្នកបញ្ជាទិញ <span class="hint">(ស្រេចចិត្ត)</span></label>
-                    <div class="file-upload" id="productFileUpload" style="border-color:#D1D9E6;">
-                        <i class="fas fa-image"></i>
-                        <p>ចុចដើម្បីភ្ជាប់រូបភាពផលិតផល</p>
-                        <div class="file-name" id="productFileName"></div>
-                        <div class="file-size" id="productFileSize"></div>
-                        <input type="file" id="productImage" accept="image/*">
+                    <label>ភ្ជាប់រូបភាពផលិតផលដែលអ្នកបញ្ជាទិញ <span class="hint">(អាចភ្ជាប់បានច្រើនរូប)</span></label>
+                    <div class="multi-file-upload" id="productFileUpload">
+                        <i class="fas fa-images"></i>
+                        <p>ចុចដើម្បីភ្ជាប់រូបភាពផលិតផល (អាចភ្ជាប់បានច្រើន)</p>
+                        <div class="file-count" id="productFileCount">📎 រូបភាពចំនួន 0</div>
+                        <div class="file-size-total" id="productFileTotalSize">ទំហំសរុប: 0 KB</div>
+                        <input type="file" id="productImages" accept="image/*" multiple>
                     </div>
-                    <div class="file-preview" id="productFilePreview">
-                        <img id="productPreviewImage" src="" alt="Product Preview">
-                    </div>
+                    <div class="image-gallery" id="productImageGallery"></div>
+                    <span class="error-text" id="productImagesError">សូមភ្ជាប់រូបភាពផលិតផលយ៉ាងតិច ១ រូប</span>
+                    <span class="valid-text" id="productImagesValid">✅ បានភ្ជាប់រូបភាពចំនួន <span id="validImageCount">0</span> រូប</span>
                 </div>
             </form>
         </div>
@@ -2099,14 +2488,14 @@
             </div>
 
             <div class="submit-status incomplete" id="submitStatus">
-                <i class="fas fa-exclamation-circle"></i> សូមបំពេញព័ត៌មានឲ្យបានពេញលេញ និងត្រឹមត្រូវ
+                <i class="fas fa-exclamation-circle"></i> សូមបំពេញព័ត៌មានឱ្យបានពេញលេញ និងត្រឹមត្រូវ
             </div>
 
             <!-- SUCCESS -->
             <div class="success-message" id="successMessage">
                 <i class="fas fa-check-circle"></i>
                 ✅ ការបញ្ជាទិញរបស់អ្នកត្រូវបានផ្ញើដោយជោគជ័យ!
-                <br><small style="font-weight:400; display:block; margin-top:4px;">ភ្នាក់ងារនឹងទាក់ទងអ្នកតាមរយៈតេឡេក្រាមក្នុងពេលឆាប់ៗ</small>
+                <br><small style="font-weight:400; display:block; margin-top:4px;">យើងខ្ញុំនឹងទាក់ទងអ្នកតាមរយៈតេឡេក្រាមក្នុងពេលឆាប់ៗ</small>
             </div>
 
             <!-- ORDER SUMMARY -->
@@ -2121,7 +2510,7 @@
                     <i class="fas fa-info-circle"></i>
                 </div>
                 <div class="note-content">
-                    <span class="note-title">📋 សេចក្តីបញ្ជាក់បន្ថែម</span>
+                    <span class="note-title">📋 សេចក្តីបញ្ជាក់បន្ថែមសម្រាប់អតិថិជន</span>
                     <ul class="note-list">
                         <li>
                             <i class="fas fa-check-circle" style="color:#22C55E;"></i>
@@ -2137,15 +2526,15 @@
                         </li>
                         <li>
                             <i class="fas fa-phone" style="color:#22C55E;"></i>
-                            <span>ប្រសិនបើមានបញ្ហា សូមទាក់ទងភ្នាក់ងារតាមរយៈ <span class="highlight-text">លេខទូរស័ព្ទ</span> ឬ <span class="highlight-text">តេឡេក្រាម</span> ដែលអ្នកបានផ្តល់</span>
+                            <span>ប្រសិនបើមានបញ្ហា សូមទាក់ទងយើងខ្ញុំតាមរយៈ <span class="highlight-text">ប៊ូតុងទាក់ទងអ្នកគ្រប់គ្រងផ្នែកលក់</span> ខាងលើ</span>
                         </li>
                         <li>
                             <i class="fas fa-lock" style="color:#7C3AED;"></i>
                             <span>រាល់ព័ត៌មានរបស់អ្នកត្រូវបាន <span class="highlight-text">រក្សាទុកដោយសុវត្ថិភាព</span> និងមិនត្រូវបានចែករំលែកទៅភាគីទីបីឡើយ</span>
                         </li>
                         <li>
-                            <i class="fas fa-exclamation-triangle" style="color:#F59E0B;"></i>
-                            <span><span class="warning-text">សូមប្រុងប្រយ័ត្ន៖</span> កុំផ្ញើប្រាក់ទៅកាន់គណនីផ្សេងក្រៅពីលេខគណនីដែលបានបង្ហាញនៅលើ ABA KHQR</span>
+                            <i class="fas fa-image" style="color:#8B5CF6;"></i>
+                            <span>អ្នកអាចភ្ជាប់រូបភាពផលិតផលបាន <span class="highlight-text">ច្រើនរូប</span> ដើម្បីឱ្យយើងខ្ញុំអាចមើលឃើញផលិតផលរបស់អ្នកបានច្បាស់</span>
                         </li>
                         <li>
                             <i class="fas fa-file-invoice" style="color:#2563EB;"></i>
@@ -2187,8 +2576,16 @@
         const paymentAmountInput = document.getElementById('paymentAmount');
         const fileInput = document.getElementById('screenshot');
         const fileUpload = document.getElementById('fileUpload');
-        const productImageInput = document.getElementById('productImage');
+
+        // Multi-image upload
+        const productImagesInput = document.getElementById('productImages');
         const productFileUpload = document.getElementById('productFileUpload');
+        const productFileCount = document.getElementById('productFileCount');
+        const productFileTotalSize = document.getElementById('productFileTotalSize');
+        const productImageGallery = document.getElementById('productImageGallery');
+        const productImagesError = document.getElementById('productImagesError');
+        const productImagesValid = document.getElementById('productImagesValid');
+        const validImageCount = document.getElementById('validImageCount');
 
         const currencyType = document.getElementById('currencyType');
         const currencyIcon = document.getElementById('currencyIcon');
@@ -2230,6 +2627,10 @@
         let lastSubmitTime = 0;
         const SUBMIT_COOLDOWN = 3000;
 
+        // Store uploaded product images
+        let productImageFiles = [];
+        let productImageDataUrls = [];
+
         // ============================================================
         // UTILITY FUNCTIONS
         // ============================================================
@@ -2238,6 +2639,118 @@
             if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
             return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
         }
+
+        function formatTotalSize(bytes) {
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+            return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+        }
+
+        // ============================================================
+        // MULTI-IMAGE UPLOAD HANDLER
+        // ============================================================
+        function handleProductImages() {
+            const files = productImagesInput.files;
+            if (files.length === 0) {
+                productFileUpload.classList.remove('has-files');
+                productFileCount.textContent = '📎 រូបភាពចំនួន 0';
+                productFileTotalSize.textContent = 'ទំហំសរុប: 0 KB';
+                productImageGallery.classList.remove('active');
+                productImageGallery.innerHTML = '';
+                productImageFiles = [];
+                productImageDataUrls = [];
+                productImagesError.classList.remove('show');
+                productImagesValid.classList.remove('show');
+                checkFormValidity();
+                return;
+            }
+
+            // Clear previous data
+            productImageFiles = [];
+            productImageDataUrls = [];
+            productImageGallery.innerHTML = '';
+            let totalSize = 0;
+
+            // Process each file
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                if (file.type.startsWith('image/')) {
+                    productImageFiles.push(file);
+                    totalSize += file.size;
+                    
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        productImageDataUrls.push(e.target.result);
+                        renderGallery();
+                    };
+                    reader.readAsDataURL(file);
+                }
+            }
+
+            // Update UI
+            productFileUpload.classList.add('has-files');
+            productFileCount.textContent = `📎 រូបភាពចំនួន ${files.length}`;
+            productFileTotalSize.textContent = `ទំហំសរុប: ${formatTotalSize(totalSize)}`;
+            productImagesError.classList.remove('show');
+            
+            if (files.length > 0) {
+                productImagesValid.classList.add('show');
+                validImageCount.textContent = files.length;
+            }
+
+            checkFormValidity();
+        }
+
+        function renderGallery() {
+            if (productImageDataUrls.length === 0) {
+                productImageGallery.classList.remove('active');
+                productImageGallery.innerHTML = '';
+                return;
+            }
+
+            productImageGallery.classList.add('active');
+            productImageGallery.innerHTML = productImageDataUrls.map((url, index) => `
+                <div class="gallery-item">
+                    <img src="${url}" alt="រូបភាពផលិតផល ${index + 1}">
+                    <button type="button" class="remove-image" onclick="removeProductImage(${index})">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <span class="image-index">#${index + 1}</span>
+                </div>
+            `).join('');
+        }
+
+        function removeProductImage(index) {
+            // Remove from arrays
+            productImageFiles.splice(index, 1);
+            productImageDataUrls.splice(index, 1);
+            
+            // Update file input
+            const dt = new DataTransfer();
+            productImageFiles.forEach(file => dt.items.add(file));
+            productImagesInput.files = dt.files;
+            
+            renderGallery();
+            
+            // Update count
+            const count = productImageFiles.length;
+            productFileCount.textContent = `📎 រូបភាពចំនួន ${count}`;
+            
+            let totalSize = 0;
+            productImageFiles.forEach(f => totalSize += f.size);
+            productFileTotalSize.textContent = `ទំហំសរុប: ${formatTotalSize(totalSize)}`;
+            
+            if (count === 0) {
+                productFileUpload.classList.remove('has-files');
+                productImagesValid.classList.remove('show');
+            } else {
+                validImageCount.textContent = count;
+            }
+            
+            checkFormValidity();
+        }
+
+        productImagesInput.addEventListener('change', handleProductImages);
 
         // ============================================================
         // CURRENCY SELECT HANDLER
@@ -2298,7 +2811,7 @@
                 if (digits.length > 0 && digits.length < 4) {
                     productCodeInput.classList.add('error');
                     productCodeError.classList.add('show');
-                    productCodeError.textContent = 'សូមបំពេញលេខកូដផលិតផលជាលេខ ៤ ខ្ទង់ (បច្ចុប្បន្ន ' + digits.length + ' ខ្ទង់)';
+                    productCodeError.textContent = 'សូមបញ្ចូលលេខកូដផលិតផលជាលេខ ៤ ខ្ទង់ (បច្ចុប្បន្ន ' + digits.length + ' ខ្ទង់)';
                 } else {
                     productCodeInput.classList.remove('error');
                     productCodeError.classList.remove('show');
@@ -2312,7 +2825,7 @@
             if (digits.length !== 4) {
                 productCodeInput.classList.add('error');
                 productCodeError.classList.add('show');
-                productCodeError.textContent = 'សូមបំពេញលេខកូដផលិតផលជាលេខ ៤ ខ្ទង់';
+                productCodeError.textContent = 'សូមបញ្ចូលលេខកូដផលិតផលជាលេខ ៤ ខ្ទង់';
                 productCodeValid.classList.remove('show');
                 return;
             }
@@ -2372,7 +2885,7 @@
         }
 
         // ============================================================
-        // FILE UPLOAD HANDLERS
+        // FILE UPLOAD HANDLERS (Screenshot)
         // ============================================================
         const fileName = document.getElementById('fileName');
         const fileSize = document.getElementById('fileSize');
@@ -2403,32 +2916,6 @@
                 fileValid.classList.remove('show');
             }
             checkFormValidity();
-        });
-
-        const productFileName = document.getElementById('productFileName');
-        const productFileSize = document.getElementById('productFileSize');
-        const productFilePreview = document.getElementById('productFilePreview');
-        const productPreviewImage = document.getElementById('productPreviewImage');
-
-        productImageInput.addEventListener('change', function() {
-            const file = this.files[0];
-            if (file) {
-                productFileUpload.classList.add('has-file');
-                productFileName.textContent = '📎 ' + file.name;
-                productFileSize.textContent = '📦 ' + formatFileSize(file.size);
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    productPreviewImage.src = e.target.result;
-                    productFilePreview.style.display = 'block';
-                };
-                reader.readAsDataURL(file);
-            } else {
-                productFileUpload.classList.remove('has-file');
-                productFileName.textContent = '';
-                productFileSize.textContent = '';
-                productFilePreview.style.display = 'none';
-                productPreviewImage.src = '';
-            }
         });
 
         // ============================================================
@@ -2531,6 +3018,16 @@
             }
         }
 
+        function validateProductImages() {
+            const files = productImagesInput.files;
+            if (files.length > 0) {
+                productImagesError.classList.remove('show');
+                return true;
+            } else {
+                return false;
+            }
+        }
+
         // ============================================================
         // CHECK FORM VALIDITY
         // ============================================================
@@ -2539,7 +3036,7 @@
                 validateVillage() && validateCommune() && validateDistrict() &&
                 validateProvince() && validateAddressDetail() &&
                 validateShippingCompany() && validateProductCodes() &&
-                validatePaymentAmount() && validateFile();
+                validatePaymentAmount() && validateFile() && validateProductImages();
 
             if (isValid) {
                 submitBtn.disabled = false;
@@ -2548,7 +3045,7 @@
             } else {
                 submitBtn.disabled = true;
                 submitStatus.className = 'submit-status show incomplete';
-                submitStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> សូមបំពេញព័ត៌មានឲ្យបានពេញលេញ និងត្រឹមត្រូវ';
+                submitStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> សូមបំពេញព័ត៌មានឱ្យបានពេញលេញ និងត្រឹមត្រូវ';
             }
         }
 
@@ -2585,7 +3082,7 @@
             } else {
                 productCodeInput.classList.add('error');
                 productCodeError.classList.add('show');
-                productCodeError.textContent = 'សូមបំពេញលេខកូដផលិតផលជាលេខ ៤ ខ្ទង់';
+                productCodeError.textContent = 'សូមបញ្ចូលលេខកូដផលិតផលជាលេខ ៤ ខ្ទង់';
             }
         });
 
@@ -2611,7 +3108,7 @@
         // ============================================================
         // SEND TO TELEGRAM
         // ============================================================
-        function sendToTelegram(screenshotFile, productFile) {
+        function sendToTelegram(screenshotFile, productImageFilesList) {
             return new Promise((resolve, reject) => {
                 if (!screenshotFile) {
                     showAlert('❌ សូមភ្ជាប់រូបភាពថតអេក្រង់!', 'error');
@@ -2655,7 +3152,7 @@
                     `👤 *ឈ្មោះពេញ:* ${fullName}\n` +
                     `📱 *លេខទូរស័ព្ទ:* ${phone}\n` +
                     `📌 *តេឡេក្រាម:* ${telegram}\n\n` +
-                    `📍 *ទីតាំង:*\n` +
+                    `📍 *ទីតាំងដឹកជញ្ជូន:*\n` +
                     `• ភូមិ: ${village}\n` +
                     `• ឃុំ/សង្កាត់: ${commune}\n` +
                     `• ស្រុក/ខណ្ឌ: ${district}\n` +
@@ -2668,17 +3165,19 @@
 
                 caption += `\n🚚 *ក្រុមហ៊ុនដឹកជញ្ជូន:* ${shippingCompany}\n` +
                     `📦 *លេខកូដផលិតផល:* ${products}\n` +
-                    `💵 *ចំនួនទឹកប្រាក់ដែលបានទូទាត់:* ${paymentAmount} ${currencySymbol}\n\n` +
+                    `💵 *ចំនួនទឹកប្រាក់ដែលត្រូវទូទាត់:* ${paymentAmount} ${currencySymbol}\n` +
+                    `🖼️ *រូបភាពផលិតផល:* ${productImageFilesList.length} រូប\n\n` +
                     `🕐 *កាលបរិច្ឆេទ:* ${dateTime}\n\n` +
                     `✅ សូមផ្ទៀងផ្ទាត់ការទូទាត់នេះ។`;
 
+                const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`;
+
+                // Send screenshot first
                 const formData = new FormData();
                 formData.append('chat_id', CHAT_ID);
                 formData.append('photo', screenshotFile);
                 formData.append('caption', caption);
                 formData.append('parse_mode', 'Markdown');
-
-                const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`;
 
                 fetch(url, { method: 'POST', body: formData })
                     .then(response => {
@@ -2691,18 +3190,18 @@
                     })
                     .then(data => {
                         if (data.ok) {
-                            if (productFile) {
+                            // Send product images as album (send each as separate photo with same caption)
+                            const productPromises = productImageFilesList.map((file, index) => {
                                 const productFormData = new FormData();
                                 productFormData.append('chat_id', CHAT_ID);
-                                productFormData.append('photo', productFile);
-                                productFormData.append('caption', `📦 *រូបភាពផលិតផលដែលបានបញ្ជាទិញ*\n👤 អតិថិជន: ${fullName}\n📦 លេខកូដ: ${products}`);
+                                productFormData.append('photo', file);
+                                productFormData.append('caption', `📦 *រូបភាពផលិតផល ${index + 1}/${productImageFilesList.length}*\n👤 អតិថិជន: ${fullName}\n📦 លេខកូដ: ${products}`);
                                 productFormData.append('parse_mode', 'Markdown');
-
                                 return fetch(url, { method: 'POST', body: productFormData })
-                                    .then(res => res.json())
-                                    .then(() => data);
-                            }
-                            return data;
+                                    .then(res => res.json());
+                            });
+
+                            return Promise.all(productPromises).then(() => data);
                         } else {
                             throw new Error(data.description || 'Unknown error');
                         }
@@ -2736,12 +3235,12 @@
 
             checkFormValidity();
             if (submitBtn.disabled) {
-                showAlert('សូមបំពេញព័ត៌មានឲ្យបានត្រឹមត្រូវ!', 'error');
+                showAlert('សូមបំពេញព័ត៌មានឱ្យបានត្រឹមត្រូវ!', 'error');
                 return;
             }
 
             const screenshotFile = fileInput.files[0];
-            const productFile = productImageInput.files[0] || null;
+            const productImageFilesList = productImageFiles;
 
             if (!screenshotFile) {
                 showAlert('សូមភ្ជាប់រូបភាពថតអេក្រង់បន្ទាប់ពីបង់ប្រាក់!', 'error');
@@ -2750,6 +3249,11 @@
 
             if (productCodes.length === 0) {
                 showAlert('សូមបន្ថែមលេខកូដផលិតផលយ៉ាងតិច ១!', 'error');
+                return;
+            }
+
+            if (productImageFilesList.length === 0) {
+                showAlert('សូមភ្ជាប់រូបភាពផលិតផលយ៉ាងតិច ១ រូប!', 'error');
                 return;
             }
 
@@ -2767,7 +3271,7 @@
                 progressBar.style.width = progress + '%';
             }, 300);
 
-            sendToTelegram(screenshotFile, productFile)
+            sendToTelegram(screenshotFile, productImageFilesList)
                 .then((data) => {
                     clearInterval(progressInterval);
                     progressBar.style.width = '100%';
@@ -2808,11 +3312,18 @@
                         fileSize.textContent = '';
                         filePreview.style.display = 'none';
                         previewImage.src = '';
-                        productFileUpload.classList.remove('has-file');
-                        productFileName.textContent = '';
-                        productFileSize.textContent = '';
-                        productFilePreview.style.display = 'none';
-                        productPreviewImage.src = '';
+                        
+                        // Reset product images
+                        productImageFiles = [];
+                        productImageDataUrls = [];
+                        productImageGallery.classList.remove('active');
+                        productImageGallery.innerHTML = '';
+                        productFileUpload.classList.remove('has-files');
+                        productFileCount.textContent = '📎 រូបភាពចំនួន 0';
+                        productFileTotalSize.textContent = 'ទំហំសរុប: 0 KB';
+                        productImagesValid.classList.remove('show');
+                        productImagesInput.value = '';
+                        
                         document.querySelectorAll('.form-group .valid').forEach(el => el.classList.remove('valid'));
                         document.querySelectorAll('.valid-text.show').forEach(el => el.classList.remove('show'));
                         document.querySelectorAll('.error-text.show').forEach(el => el.classList.remove('show'));
