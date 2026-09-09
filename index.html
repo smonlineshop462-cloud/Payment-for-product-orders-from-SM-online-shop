@@ -68,6 +68,10 @@
             50% { opacity: 0.7; }
             100% { opacity: 1; }
         }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
         @keyframes dots {
             0% { content: ''; }
             25% { content: '.'; }
@@ -1230,19 +1234,21 @@
             border: 1px solid #FECACA;
         }
 
+        /* ===== SUCCESS MESSAGE WITH TIMER ===== */
         .success-message {
             display: none;
             background: linear-gradient(135deg, #F0FDF4, #DCFCE7);
             border: 2px solid #86EFAC;
             border-radius: 14px;
             color: #166534;
-            padding: 16px;
+            padding: 20px 16px;
             margin-top: 10px;
             text-align: center;
             font-weight: 600;
             font-size: 13px;
             animation: fadeIn 0.5s ease;
             flex-shrink: 0;
+            position: relative;
         }
 
         .success-message i {
@@ -1250,6 +1256,81 @@
             display: block;
             margin-bottom: 6px;
             color: #22C55E;
+        }
+
+        .success-message .timer-container {
+            margin-top: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .success-message .timer-container .timer-circle {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2563EB, #7C3AED);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+            animation: pulse 1s ease-in-out infinite;
+        }
+
+        .success-message .timer-container .timer-text {
+            font-size: 13px;
+            color: #475569;
+        }
+
+        .success-message .timer-container .timer-text strong {
+            color: #1D4ED8;
+        }
+
+        .success-message .btn-close-success {
+            margin-top: 12px;
+            padding: 10px 30px;
+            background: linear-gradient(135deg, #2563EB, #1D4ED8);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Kantumruy Pro', sans-serif;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.25);
+        }
+
+        .success-message .btn-close-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(37, 99, 235, 0.35);
+        }
+
+        .success-message .btn-close-success:active {
+            transform: scale(0.95);
+        }
+
+        /* Progress bar for timer */
+        .success-message .timer-progress {
+            width: 100%;
+            height: 4px;
+            background: #E8EDF5;
+            border-radius: 4px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+
+        .success-message .timer-progress .timer-progress-bar {
+            height: 100%;
+            width: 100%;
+            background: linear-gradient(90deg, #22C55E, #2563EB, #7C3AED);
+            border-radius: 4px;
+            transition: width 1s linear;
         }
 
         .order-summary {
@@ -1611,6 +1692,8 @@
             .payment-note .note-content .note-title { font-size: 12px; }
             .payment-note .note-content .note-list li { font-size: 10.5px; }
             .aba-pay-status { font-size: 11px; }
+            .success-message .timer-container .timer-circle { width: 40px; height: 40px; font-size: 16px; }
+            .success-message .btn-close-success { padding: 8px 20px; font-size: 13px; }
         }
 
         @media (max-width: 420px) {
@@ -1650,6 +1733,7 @@
             .payment-note .note-content .note-list li { font-size: 10px; }
             .payment-note .note-icon { width: 26px; height: 26px; font-size: 12px; }
             .aba-pay-status { font-size: 10px; }
+            .success-message .timer-container .timer-circle { width: 36px; height: 36px; font-size: 14px; }
         }
 
         @media (min-width: 641px) {
@@ -1722,8 +1806,6 @@
             .payment-note .note-icon { width: 26px; height: 26px; font-size: 11px; }
             .payment-note .note-content .note-title { font-size: 11px; }
             .payment-note .note-content .note-list li { font-size: 9.5px; }
-            .success-message { font-size: 11px; padding: 10px; margin-top: 6px; }
-            .success-message i { font-size: 22px; }
             .order-summary { padding: 8px 10px; margin-top: 6px; }
             .order-summary .summary-grid { font-size: 10px; gap: 1px 10px; }
             .form-wrapper { overflow-y: visible; max-height: none; }
@@ -1736,6 +1818,8 @@
             .auto-reply-header { font-size: 12px; }
             .copy-reply-btn { padding: 4px 10px; font-size: 10px; }
             .reply-message p { font-size: 12px; }
+            .success-message .timer-container .timer-circle { width: 44px; height: 44px; font-size: 18px; }
+            .success-message .btn-close-success { padding: 8px 24px; font-size: 13px; }
         }
 
         @media (max-height: 550px) and (orientation: landscape) {
@@ -1774,6 +1858,8 @@
             .product-code-wrapper .prefix { font-size: 10px; left: 8px; }
             .product-item .product-code-display { font-size: 10px; }
             .aba-pay-status { font-size: 9px; }
+            .success-message .timer-container .timer-circle { width: 30px; height: 30px; font-size: 12px; }
+            .success-message .btn-close-success { padding: 4px 14px; font-size: 10px; }
         }
     </style>
 </head>
@@ -2077,15 +2163,33 @@
                 <i class="fas fa-exclamation-circle"></i> សូមបំពេញព័ត៌មានឱ្យបានពេញលេញ និងត្រឹមត្រូវ
             </div>
 
-            <!-- SUCCESS -->
+            <!-- ===== SUCCESS MESSAGE WITH TIMER ===== -->
             <div class="success-message" id="successMessage">
                 <i class="fas fa-check-circle"></i>
-                ✅ ការបញ្ជាទិញរបស់អ្នកត្រូវបានផ្ញើដោយជោគជ័យ!
-                <br><span style="display:block; margin-top:6px; font-size:16px; background:#DBEAFE; padding:8px 16px; border-radius:10px; color:#1D4ED8;">
+                <div style="font-size:16px; font-weight:700;">✅ ការបញ្ជាទិញរបស់អ្នកត្រូវបានផ្ញើដោយជោគជ័យ!</div>
+                <br>
+                <span style="display:block; font-size:15px; background:#DBEAFE; padding:10px 16px; border-radius:10px; color:#1D4ED8;">
                     🆔 <strong>លេខសម្គាល់ការបញ្ជាទិញរបស់អ្នក: <span id="successOrderId">ORD-20260908-XXXXX</span></strong>
                 </span>
                 <small style="font-weight:400; display:block; margin-top:6px;">សូមរក្សាទុកលេខសម្គាល់នេះសម្រាប់តាមដានការបញ្ជាទិញរបស់អ្នក</small>
                 <small style="font-weight:400; display:block; margin-top:4px;">យើងខ្ញុំនឹងទាក់ទងអ្នកតាមរយៈតេឡេក្រាមក្នុងពេលឆាប់ៗ</small>
+                
+                <div class="timer-container">
+                    <div class="timer-circle" id="timerCircle">60</div>
+                    <div class="timer-text">
+                        <strong id="timerLabel">បិទដោយស្វ័យប្រវត្តិក្នុងរយៈពេល</strong>
+                        <br>
+                        <span id="timerSeconds">60</span> វិនាទី
+                    </div>
+                </div>
+                
+                <button class="btn-close-success" id="btnCloseSuccess">
+                    <i class="fas fa-check"></i> យល់ព្រម
+                </button>
+                
+                <div class="timer-progress">
+                    <div class="timer-progress-bar" id="timerProgressBar"></div>
+                </div>
             </div>
 
             <!-- ORDER SUMMARY -->
@@ -2266,12 +2370,25 @@
         const orderSummary = document.getElementById('orderSummary');
         const summaryContent = document.getElementById('summaryContent');
 
+        // Success message elements
+        const successMessage = document.getElementById('successMessage');
+        const timerCircle = document.getElementById('timerCircle');
+        const timerSeconds = document.getElementById('timerSeconds');
+        const timerProgressBar = document.getElementById('timerProgressBar');
+        const btnCloseSuccess = document.getElementById('btnCloseSuccess');
+
         let productCodes = [];
         let isSubmitting = false;
         let autoAddTimer = null;
         let lastSubmitTime = 0;
         const SUBMIT_COOLDOWN = 5000;
         let isAbaPayClicked = false;
+
+        // Timer variables
+        let successTimer = null;
+        let successTimerInterval = null;
+        let remainingSeconds = 60;
+        let isSuccessClosed = false;
 
         // Store uploaded product images
         let productImageFiles = [];
@@ -2309,7 +2426,77 @@
         }
 
         // ============================================================
-        // AUTO-REPLY MESSAGE FOR CUSTOMER (អាចចម្លងទៅផ្ញើតាមតេឡេក្រាម)
+        // SUCCESS MESSAGE TIMER (1 MINUTE)
+        // ============================================================
+        function showSuccessMessage(orderId) {
+            // Reset timer
+            clearInterval(successTimerInterval);
+            clearTimeout(successTimer);
+            isSuccessClosed = false;
+            remainingSeconds = 60;
+            
+            // Update order ID
+            document.getElementById('successOrderId').textContent = orderId;
+            
+            // Show message
+            successMessage.style.display = 'block';
+            timerCircle.textContent = remainingSeconds;
+            timerSeconds.textContent = remainingSeconds;
+            timerProgressBar.style.width = '100%';
+            timerCircle.style.background = 'linear-gradient(135deg, #2563EB, #7C3AED)';
+            
+            // Scroll to success message
+            setTimeout(() => {
+                successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 300);
+            
+            // Start countdown
+            successTimerInterval = setInterval(() => {
+                remainingSeconds--;
+                timerCircle.textContent = remainingSeconds;
+                timerSeconds.textContent = remainingSeconds;
+                timerProgressBar.style.width = (remainingSeconds / 60 * 100) + '%';
+                
+                // Change color when time is low
+                if (remainingSeconds <= 10) {
+                    timerCircle.style.background = 'linear-gradient(135deg, #EF4444, #DC2626)';
+                }
+                
+                if (remainingSeconds <= 0) {
+                    clearInterval(successTimerInterval);
+                    closeSuccessMessage();
+                }
+            }, 1000);
+            
+            // Auto-close after 60 seconds
+            successTimer = setTimeout(() => {
+                closeSuccessMessage();
+            }, 60000);
+            
+            // Close button event
+            btnCloseSuccess.onclick = function() {
+                closeSuccessMessage();
+            };
+        }
+
+        function closeSuccessMessage() {
+            if (isSuccessClosed) return;
+            isSuccessClosed = true;
+            
+            clearInterval(successTimerInterval);
+            clearTimeout(successTimer);
+            
+            successMessage.style.display = 'none';
+            
+            // Reset timer display
+            timerCircle.style.background = 'linear-gradient(135deg, #2563EB, #7C3AED)';
+            timerCircle.textContent = '60';
+            timerSeconds.textContent = '60';
+            timerProgressBar.style.width = '100%';
+        }
+
+        // ============================================================
+        // AUTO-REPLY MESSAGE FOR CUSTOMER
         // ============================================================
         function generateReplyMessage(orderId, fullName, products, paymentAmount, currencySymbol) {
             return `សួស្តីលោកអ្នក,
@@ -2331,10 +2518,8 @@
             const container = document.getElementById('autoReplyContainer');
             const orderIdSpan = document.getElementById('replyOrderId');
             
-            // Update order ID
             orderIdSpan.textContent = orderId;
             
-            // Generate and set reply message
             const replyMessage = generateReplyMessage(orderId, fullName, products, paymentAmount, currencySymbol);
             const replyContent = document.getElementById('autoReplyContent');
             replyContent.innerHTML = `
@@ -2354,21 +2539,18 @@
                 </div>
             `;
             
-            // Show container
             container.style.display = 'block';
             
-            // Scroll to auto-reply
             setTimeout(() => {
                 container.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }, 500);
         }
 
         // ============================================================
-        // COPY REPLY MESSAGE (ចម្លងសារដើម្បីផ្ញើទៅអតិថិជន)
+        // COPY REPLY MESSAGE
         // ============================================================
         function copyReplyMessage() {
             const replyContent = document.getElementById('autoReplyContent');
-            // Get text content without the instruction text
             const textToCopy = replyContent.textContent
                 .replace('ចុចប៊ូតុង "ចម្លង" ដើម្បីចម្លងសារនេះ រួចបិទភ្ជាប់ (Paste) ផ្ញើទៅកាន់អតិថិជនតាមរយៈតេឡេក្រាម', '')
                 .trim();
@@ -2377,28 +2559,22 @@
                 const btn = document.getElementById('copyReplyBtn');
                 btn.innerHTML = '<i class="fas fa-check"></i> បានចម្លង!';
                 btn.classList.add('copied');
-                
-                // Show toast notification
                 showCopyToast('✅ សារត្រូវបានចម្លងដោយជោគជ័យ! សូមបិទភ្ជាប់ (Paste) ផ្ញើទៅអតិថិជនតាមតេឡេក្រាម');
-                
                 setTimeout(() => {
                     btn.innerHTML = '<i class="fas fa-copy"></i> ចម្លង';
                     btn.classList.remove('copied');
                 }, 3000);
             }).catch(() => {
-                // Fallback for older browsers
                 const textArea = document.createElement('textarea');
                 textArea.value = textToCopy;
                 document.body.appendChild(textArea);
                 textArea.select();
                 document.execCommand('copy');
                 document.body.removeChild(textArea);
-                
                 const btn = document.getElementById('copyReplyBtn');
                 btn.innerHTML = '<i class="fas fa-check"></i> បានចម្លង!';
                 btn.classList.add('copied');
                 showCopyToast('✅ សារត្រូវបានចម្លងដោយជោគជ័យ! សូមបិទភ្ជាប់ (Paste) ផ្ញើទៅអតិថិជនតាមតេឡេក្រាម');
-                
                 setTimeout(() => {
                     btn.innerHTML = '<i class="fas fa-copy"></i> ចម្លង';
                     btn.classList.remove('copied');
@@ -2406,26 +2582,16 @@
             });
         }
 
-        // ============================================================
-        // COPY TOAST NOTIFICATION
-        // ============================================================
         function showCopyToast(message) {
-            // Remove existing toast if any
             const existingToast = document.querySelector('.copy-toast');
-            if (existingToast) {
-                existingToast.remove();
-            }
-            
+            if (existingToast) existingToast.remove();
             const toast = document.createElement('div');
             toast.className = 'copy-toast show';
             toast.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
             document.body.appendChild(toast);
-            
             setTimeout(() => {
                 toast.classList.remove('show');
-                setTimeout(() => {
-                    toast.remove();
-                }, 400);
+                setTimeout(() => toast.remove(), 400);
             }, 3000);
         }
 
@@ -2433,24 +2599,16 @@
         // ABA PAY - UNLOCK SCREENSHOT UPLOAD
         // ============================================================
         abaPayBtn.addEventListener('click', function(e) {
-            // Don't prevent default - allow opening ABA Pay link
             isAbaPayClicked = true;
-            
-            // Unlock the file upload
             fileInput.disabled = false;
             fileUpload.classList.remove('locked');
             fileUpload.classList.add('unlocked');
             fileUpload.querySelector('i').className = 'fas fa-camera';
             fileUpload.querySelector('p').innerHTML = '📸 ចុចដើម្បីភ្ជាប់រូបភាពថតអេក្រង់ (Screenshot)';
-            
-            // Update status
             abaPayStatusIcon.textContent = '✅';
             abaPayStatusText.textContent = 'អ្នកបានចុច ABA Pay រួចហើយ! សូមភ្ជាប់រូបភាពថតអេក្រង់បន្ទាប់ពីបង់ប្រាក់';
             abaPayStatusText.className = 'status-text unlocked';
-            
             showAlert('✅ សូមបង់ប្រាក់តាមរយៈ ABA Pay រួចភ្ជាប់រូបភាពថតអេក្រង់', 'success');
-            
-            console.log('🔓 Screenshot upload unlocked after ABA Pay click');
             checkFormValidity();
         });
 
@@ -2459,8 +2617,6 @@
         // ============================================================
         function handleProductImages() {
             const files = productImagesInput.files;
-            console.log('📸 Files selected:', files.length);
-            
             if (files.length === 0) {
                 productFileUpload.classList.remove('has-files');
                 productFileCount.textContent = '📎 រូបភាពចំនួន 0';
@@ -2485,7 +2641,6 @@
                 if (file.type.startsWith('image/') || file.type === '') {
                     productImageFiles.push(file);
                     totalSize += file.size;
-                    
                     try {
                         const url = URL.createObjectURL(file);
                         productImageDataUrls.push(url);
@@ -2505,17 +2660,14 @@
             }
 
             renderGallery();
-
             productFileUpload.classList.add('has-files');
             productFileCount.textContent = `📎 រូបភាពចំនួន ${files.length}`;
             productFileTotalSize.textContent = `ទំហំសរុប: ${formatTotalSize(totalSize)}`;
             productImagesError.classList.remove('show');
-            
             if (files.length > 0) {
                 productImagesValid.classList.add('show');
                 validImageCount.textContent = files.length;
             }
-
             checkFormValidity();
         }
 
@@ -2525,7 +2677,6 @@
                 productImageGallery.innerHTML = '';
                 return;
             }
-
             productImageGallery.classList.add('active');
             productImageGallery.innerHTML = productImageDataUrls.map((url, index) => `
                 <div class="gallery-item">
@@ -2543,30 +2694,23 @@
             if (productImageDataUrls[index] && productImageDataUrls[index].startsWith('blob:')) {
                 URL.revokeObjectURL(productImageDataUrls[index]);
             }
-            
             productImageFiles.splice(index, 1);
             productImageDataUrls.splice(index, 1);
-            
             const dt = new DataTransfer();
             productImageFiles.forEach(file => dt.items.add(file));
             productImagesInput.files = dt.files;
-            
             renderGallery();
-            
             const count = productImageFiles.length;
             productFileCount.textContent = `📎 រូបភាពចំនួន ${count}`;
-            
             let totalSize = 0;
             productImageFiles.forEach(f => totalSize += f.size);
             productFileTotalSize.textContent = `ទំហំសរុប: ${formatTotalSize(totalSize)}`;
-            
             if (count === 0) {
                 productFileUpload.classList.remove('has-files');
                 productImagesValid.classList.remove('show');
             } else {
                 validImageCount.textContent = count;
             }
-            
             checkFormValidity();
         }
 
@@ -2610,17 +2754,14 @@
             const rawValue = productCodeInput.value;
             const digits = formatProductCode(rawValue);
             productCodeInput.value = digits;
-            
             if (autoAddTimer) {
                 clearTimeout(autoAddTimer);
                 autoAddTimer = null;
             }
-            
             if (digits.length === 4) {
                 productCodeInput.classList.remove('error');
                 productCodeError.classList.remove('show');
                 productCodeValid.classList.add('show');
-                
                 autoAddTimer = setTimeout(() => {
                     addProductCode();
                     autoAddTimer = null;
@@ -2641,7 +2782,6 @@
 
         function addProductCode() {
             const digits = productCodeInput.value.trim();
-            
             if (digits.length !== 4) {
                 productCodeInput.classList.add('error');
                 productCodeError.classList.add('show');
@@ -2649,9 +2789,7 @@
                 productCodeValid.classList.remove('show');
                 return;
             }
-
             const fullCode = 'P' + digits;
-            
             if (productCodes.includes(fullCode)) {
                 showAlert('លេខកូដ ' + fullCode + ' ត្រូវបានបន្ថែមរួចហើយ!', 'error');
                 productCodeInput.classList.add('error');
@@ -2659,7 +2797,6 @@
                 productCodeValid.classList.remove('show');
                 return;
             }
-
             productCodes.push(fullCode);
             productCodeInput.value = '';
             productCodeInput.classList.remove('error');
@@ -2684,7 +2821,6 @@
                 productCountDisplay.innerHTML = '';
                 return;
             }
-
             productList.innerHTML = productCodes.map((code, index) => `
                 <div class="product-item">
                     <span class="product-code-display">
@@ -2695,7 +2831,6 @@
                     </button>
                 </div>
             `).join('');
-
             const countText = productCodes.length === 1 ? 'ផលិតផល' : 'ផលិតផល';
             productCountDisplay.innerHTML = `
                 <span class="product-count-badge">
@@ -2712,7 +2847,6 @@
         const filePreview = document.getElementById('filePreview');
         const previewImage = document.getElementById('previewImage');
 
-        // Prevent clicking on file input if ABA Pay not clicked
         fileInput.addEventListener('click', function(e) {
             if (!isAbaPayClicked) {
                 e.preventDefault();
@@ -2727,7 +2861,6 @@
                 showAlert('🔒 សូមចុចប៊ូតុង ABA Pay ជាមុនសិន!', 'error');
                 return;
             }
-            
             const file = this.files[0];
             if (file) {
                 fileUpload.classList.add('has-file');
@@ -2861,7 +2994,6 @@
             } else {
                 fileValid.classList.remove('show');
                 if (!isAbaPayClicked && file) {
-                    // If file is selected but ABA Pay not clicked
                     fileInput.value = '';
                     fileUpload.classList.remove('has-file');
                     fileName.textContent = '';
@@ -2914,7 +3046,6 @@
                     if (!validatePaymentAmount()) missing.push('ចំនួនទឹកប្រាក់');
                     if (!validateFile()) missing.push('រូបភាពថតអេក្រង់');
                     if (!validateProductImages()) missing.push('រូបភាពផលិតផល');
-                    
                     submitStatus.innerHTML = `<i class="fas fa-exclamation-circle"></i> សូមបំពេញព័ត៌មានឱ្យបានពេញលេញ (ត្រូវការ: ${missing.join(', ')})`;
                 }
             }
@@ -3042,7 +3173,6 @@
                 formData1.append('caption', caption1);
                 formData1.append('parse_mode', 'Markdown');
 
-                // Send Message 1
                 fetch(url + 'sendPhoto', { method: 'POST', body: formData1 })
                     .then(response => {
                         if (!response.ok) {
@@ -3066,7 +3196,6 @@
                                 `📌 យើងខ្ញុំនឹងដំណើរការការបញ្ជាទិញរបស់លោកអ្នកក្នុងពេលឆាប់ៗ ហើយនឹងជូនដំណឹងតាមរយៈតេឡេក្រាម។\n\n` +
                                 `សូមអរគុណ! 🙏`;
 
-                            // Send auto-reply to Telegram group
                             const formDataReply = new FormData();
                             formDataReply.append('chat_id', CHAT_ID);
                             formDataReply.append('text', autoReplyMessage);
@@ -3090,7 +3219,6 @@
                                     if (productImageFilesList.length > 0) {
                                         console.log(`📤 Sending ${productImageFilesList.length} product images as album...`);
 
-                                        // Build caption for album
                                         const albumCaption = 
                                             `📦 *រូបភាពផលិតផលដែលបានបញ្ជាទិញ*\n` +
                                             `🆔 Order ID: \`${orderId}\`\n` +
@@ -3098,11 +3226,9 @@
                                             `📦 លេខកូដ: ${products}\n` +
                                             `🖼️ រូបភាពចំនួន ${productImageFilesList.length} រូប`;
 
-                                        // Use sendMediaGroup with multipart/form-data
                                         const formData2 = new FormData();
                                         formData2.append('chat_id', CHAT_ID);
                                         
-                                        // Build media array as JSON string with attach:// references
                                         const mediaArray = productImageFilesList.map((file, index) => {
                                             const attachName = `photo_${index}`;
                                             return {
@@ -3115,7 +3241,6 @@
                                         
                                         formData2.append('media', JSON.stringify(mediaArray));
                                         
-                                        // Attach each image file
                                         productImageFilesList.forEach((file, index) => {
                                             formData2.append(`photo_${index}`, file);
                                         });
@@ -3199,7 +3324,6 @@
             submitBtn.classList.add('loading');
             submitBtn.disabled = true;
             
-            // Show sending status
             sendingStatus.classList.add('show');
             
             document.querySelectorAll('#paymentForm input, #paymentForm select, #paymentForm textarea, #paymentForm button').forEach(el => {
@@ -3246,52 +3370,18 @@
                     `;
                     orderSummary.style.display = 'block';
 
-                    document.getElementById('successOrderId').textContent = orderId;
-                    document.getElementById('successMessage').style.display = 'block';
+                    // ===== SHOW SUCCESS MESSAGE WITH TIMER =====
+                    showSuccessMessage(orderId);
+
                     showAlert(`✅ ការបញ្ជាទិញរបស់អ្នកត្រូវបានផ្ញើជោគជ័យ! (Order ID: ${orderId})`, 'success');
 
                     setTimeout(() => {
                         progressContainer.classList.remove('active');
                         progressBar.style.width = '0%';
                         
-                        form.reset();
-                        document.getElementById('successMessage').style.display = 'none';
-                        orderSummary.style.display = 'none';
-                        document.getElementById('autoReplyContainer').style.display = 'none';
-                        productCodes = [];
-                        renderProductList();
-                        fileUpload.classList.remove('has-file');
-                        fileUpload.classList.remove('unlocked');
-                        fileUpload.classList.add('locked');
-                        fileUpload.querySelector('i').className = 'fas fa-lock';
-                        fileUpload.querySelector('p').innerHTML = '🔒 សូមចុចបង់ប្រាក់តាមរយៈ ABA Pay ជាមុនសិន';
-                        fileName.textContent = '';
-                        fileSize.textContent = '';
-                        filePreview.style.display = 'none';
-                        previewImage.src = '';
-                        fileInput.disabled = true;
-                        isAbaPayClicked = false;
-                        abaPayStatusIcon.textContent = '🔒';
-                        abaPayStatusText.textContent = 'សូមចុចប៊ូតុង ABA Pay ខាងលើ ដើម្បីដោះសោការភ្ជាប់រូបភាព';
-                        abaPayStatusText.className = 'status-text';
-                        
-                        productImageFiles = [];
-                        productImageDataUrls = [];
-                        productImageGallery.classList.remove('active');
-                        productImageGallery.innerHTML = '';
-                        productFileUpload.classList.remove('has-files');
-                        productFileCount.textContent = '📎 រូបភាពចំនួន 0';
-                        productFileTotalSize.textContent = 'ទំហំសរុប: 0 KB';
-                        productImagesValid.classList.remove('show');
-                        productImagesInput.value = '';
-                        
-                        document.querySelectorAll('.form-group .valid').forEach(el => el.classList.remove('valid'));
-                        document.querySelectorAll('.valid-text.show').forEach(el => el.classList.remove('show'));
-                        document.querySelectorAll('.error-text.show').forEach(el => el.classList.remove('show'));
-                        shippingCompanyInput.classList.remove('valid');
-                        updateCurrencyDisplay();
-                        resetSubmitButton();
-                    }, 6000);
+                        // Don't auto-reset everything - user can close with button or timer
+                        // Only reset form after timer or button click
+                    }, 1000);
                 })
                 .catch(error => {
                     console.error('❌ Error:', error);
@@ -3332,6 +3422,7 @@
         console.log('❌ Add Product button REMOVED - auto-add only');
         console.log('📱 Social follow buttons moved to FOOTER');
         console.log('📝 Auto-reply message sent to Telegram automatically');
+        console.log('⏱️ Success message auto-closes after 60 seconds with timer and OK button');
     </script>
 </body>
 </html>
