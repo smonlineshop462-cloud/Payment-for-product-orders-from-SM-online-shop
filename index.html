@@ -406,34 +406,6 @@
             margin-bottom: 0;
         }
 
-        .product-code-container .add-btn {
-            padding: 10px 16px;
-            background: linear-gradient(135deg, #2563EB, #1D4ED8);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-size: 13px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-            font-family: 'Kantumruy Pro', sans-serif;
-            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.25);
-            height: 44px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .product-code-container .add-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 25px rgba(37, 99, 235, 0.35);
-        }
-
-        .product-code-container .add-btn:active {
-            transform: scale(0.95);
-        }
-
         .product-code-wrapper {
             position: relative;
             display: flex;
@@ -923,6 +895,7 @@
             color: #2563EB;
         }
 
+        /* ===== FILE UPLOAD LOCK/UNLOCK STYLES ===== */
         .file-upload {
             position: relative;
             border: 2px dashed #D1D9E6;
@@ -934,14 +907,58 @@
             background: #FAFBFD;
         }
 
-        .file-upload:hover {
+        .file-upload.locked {
+            border-color: #94A3B8;
+            background: #F1F5F9;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .file-upload.locked:hover {
+            border-color: #94A3B8;
+            background: #F1F5F9;
+        }
+
+        .file-upload.locked i {
+            color: #94A3B8;
+        }
+
+        .file-upload.locked p {
+            color: #94A3B8;
+        }
+
+        .file-upload.unlocked {
+            border-color: #2563EB;
+            background: #FAFBFD;
+            opacity: 1;
+            cursor: pointer;
+        }
+
+        .file-upload.unlocked:hover {
             border-color: #2563EB;
             background: #F1F7FF;
+        }
+
+        .file-upload.unlocked i {
+            color: #2563EB;
+        }
+
+        .file-upload.unlocked p {
+            color: #64748B;
         }
 
         .file-upload.has-file {
             border-color: #22C55E;
             background: #F0FDF4;
+        }
+
+        .file-upload.has-file.locked {
+            border-color: #94A3B8;
+            background: #F1F5F9;
+        }
+
+        .file-upload.has-file.locked i {
+            color: #94A3B8;
         }
 
         .file-upload.error {
@@ -992,6 +1009,10 @@
             z-index: 2;
         }
 
+        .file-upload.locked input[type="file"] {
+            cursor: not-allowed;
+        }
+
         .file-preview {
             margin-top: 8px;
             max-width: 100%;
@@ -1007,6 +1028,28 @@
             width: 100%;
             height: auto;
             display: block;
+        }
+
+        .aba-pay-status {
+            margin-top: 6px;
+            font-size: 12px;
+            color: #94A3B8;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .aba-pay-status .status-icon {
+            font-size: 14px;
+        }
+
+        .aba-pay-status .status-text {
+            color: #94A3B8;
+        }
+
+        .aba-pay-status .status-text.unlocked {
+            color: #22C55E;
+            font-weight: 600;
         }
 
         .alert {
@@ -1291,9 +1334,6 @@
             .payment-header p { font-size: 12px; }
             .form-wrapper { overflow-y: visible; max-height: none; }
             .location-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
-            .product-code-container { flex-direction: column; }
-            .product-code-container .form-group { width: 100%; min-width: unset; }
-            .product-code-container .add-btn { width: 100%; justify-content: center; height: 42px; }
             .currency-amount-container { flex-direction: column; }
             .currency-amount-container .currency-select { flex: 1; width: 100%; min-width: unset; }
             .currency-amount-container .amount-input { flex: 1; width: 100%; min-width: unset; }
@@ -1332,6 +1372,7 @@
             .payment-note .note-icon { width: 30px; height: 30px; font-size: 13px; }
             .payment-note .note-content .note-title { font-size: 12px; }
             .payment-note .note-content .note-list li { font-size: 10.5px; }
+            .aba-pay-status { font-size: 11px; }
         }
 
         @media (max-width: 420px) {
@@ -1350,7 +1391,6 @@
             .currency-amount-container .form-group select,
             .currency-amount-container .form-group input { height: 38px; }
             .currency-select-wrapper select { height: 38px; font-size: 12px; }
-            .product-code-container .add-btn { height: 38px; font-size: 12px; }
             .submit-btn { padding: 12px; font-size: 13px; border-radius: 12px; }
             .contact-sales-btn { padding: 10px 12px; font-size: 13px; border-radius: 12px; }
             .contact-sales-btn .btn-icon { width: 32px; height: 32px; font-size: 16px; }
@@ -1371,6 +1411,7 @@
             .payment-note .note-content .note-title { font-size: 11px; }
             .payment-note .note-content .note-list li { font-size: 10px; }
             .payment-note .note-icon { width: 26px; height: 26px; font-size: 12px; }
+            .aba-pay-status { font-size: 10px; }
         }
 
         @media (min-width: 641px) {
@@ -1410,7 +1451,6 @@
             .currency-amount-container .form-group select,
             .currency-amount-container .form-group input { height: 34px; }
             .currency-select-wrapper select { height: 34px; font-size: 11px; }
-            .product-code-container .add-btn { height: 34px; font-size: 11px; padding: 6px 12px; }
             .product-code-wrapper input { padding: 6px 10px 6px 24px !important; font-size: 12px !important; }
             .product-code-wrapper .prefix { font-size: 12px; left: 10px; }
             .product-list { margin-top: 4px; gap: 3px; }
@@ -1449,6 +1489,7 @@
             .order-summary { padding: 8px 10px; margin-top: 6px; }
             .order-summary .summary-grid { font-size: 10px; gap: 1px 10px; }
             .form-wrapper { overflow-y: visible; max-height: none; }
+            .aba-pay-status { font-size: 10px; }
         }
 
         @media (max-height: 550px) and (orientation: landscape) {
@@ -1481,10 +1522,10 @@
             .currency-amount-container .form-group select,
             .currency-amount-container .form-group input { height: 28px; }
             .currency-select-wrapper select { height: 28px; font-size: 10px; }
-            .product-code-container .add-btn { height: 28px; font-size: 10px; padding: 4px 10px; }
             .product-code-wrapper input { padding: 4px 8px 4px 20px !important; font-size: 10px !important; }
             .product-code-wrapper .prefix { font-size: 10px; left: 8px; }
             .product-item .product-code-display { font-size: 10px; }
+            .aba-pay-status { font-size: 9px; }
         }
     </style>
 </head>
@@ -1629,7 +1670,7 @@
                     <span class="valid-text" id="shippingCompanyValid">✅ បានជ្រើសរើសក្រុមហ៊ុនដឹកជញ្ជូន</span>
                 </div>
 
-                <!-- Product Codes -->
+                <!-- Product Codes - WITHOUT Add Button -->
                 <div class="section-title">
                     <span class="step">4</span>
                     លេខកូដផលិតផល
@@ -1645,10 +1686,8 @@
                         </div>
                         <span class="error-text" id="productCodeError">សូមបញ្ចូលលេខកូដផលិតផលជាលេខ ៤ ខ្ទង់</span>
                         <span class="valid-text" id="productCodeValid">✅ លេខកូដត្រឹមត្រូវ</span>
+                        <div class="hint">📌 បញ្ចូលលេខ ៤ ខ្ទង់ រួចរង់ចាំការបន្ថែមដោយស្វ័យប្រវត្តិ</div>
                     </div>
-                    <button type="button" class="add-btn" id="addProductBtn">
-                        <i class="fas fa-plus"></i> បន្ថែម
-                    </button>
                 </div>
 
                 <div id="productListContainer">
@@ -1701,7 +1740,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label>ជំហានទី ១: បង់ប្រាក់តាមរយៈ ABA Pay</label>
+                    <label>ជំហានទី ១: បង់ប្រាក់តាមរយៈ ABA Pay <span class="required">*</span></label>
                     <div class="aba-payment-wrapper">
                         <a href="https://pay.ababank.com/oRF8/e6wai8xh" target="_blank" class="aba-khqr-btn" id="abaPayBtn">
                             <span class="khqr-left">
@@ -1731,20 +1770,24 @@
                     </div>
                 </div>
 
-                <!-- Screenshot -->
+                <!-- Screenshot - LOCKED until ABA Pay is clicked -->
                 <div class="form-group">
                     <label>ជំហានទី ២: ភ្ជាប់រូបភាពថតអេក្រង់បន្ទាប់ពីបង់ប្រាក់ <span class="required">*</span></label>
-                    <div class="file-upload" id="fileUpload">
-                        <i class="fas fa-camera"></i>
-                        <p>ចុចដើម្បីភ្ជាប់រូបភាពថតអេក្រង់ (Screenshot)</p>
+                    <div class="file-upload locked" id="fileUpload">
+                        <i class="fas fa-lock"></i>
+                        <p>🔒 សូមចុចបង់ប្រាក់តាមរយៈ ABA Pay ជាមុនសិន</p>
                         <div class="file-name" id="fileName"></div>
                         <div class="file-size" id="fileSize"></div>
-                        <input type="file" id="screenshot" accept="image/*" required>
+                        <input type="file" id="screenshot" accept="image/*" required disabled>
                     </div>
                     <span class="error-text" id="fileError">សូមភ្ជាប់រូបភាពថតអេក្រង់បន្ទាប់ពីបង់ប្រាក់</span>
                     <span class="valid-text" id="fileValid">✅ រូបភាពត្រូវបានភ្ជាប់</span>
                     <div class="file-preview" id="filePreview">
                         <img id="previewImage" src="" alt="Screenshot Preview">
+                    </div>
+                    <div class="aba-pay-status" id="abaPayStatus">
+                        <span class="status-icon">🔒</span>
+                        <span class="status-text" id="abaPayStatusText">សូមចុចប៊ូតុង ABA Pay ខាងលើ ដើម្បីដោះសោការភ្ជាប់រូបភាព</span>
                     </div>
                 </div>
 
@@ -1863,7 +1906,6 @@
         const addressDetailInput = document.getElementById('addressDetail');
         const shippingCompanyInput = document.getElementById('shippingCompany');
         const productCodeInput = document.getElementById('productCodeInput');
-        const addProductBtn = document.getElementById('addProductBtn');
         const productList = document.getElementById('productList');
         const productCountDisplay = document.getElementById('productCountDisplay');
         const paymentAmountInput = document.getElementById('paymentAmount');
@@ -1879,6 +1921,11 @@
         const productImagesError = document.getElementById('productImagesError');
         const productImagesValid = document.getElementById('productImagesValid');
         const validImageCount = document.getElementById('validImageCount');
+
+        // ABA Pay elements
+        const abaPayBtn = document.getElementById('abaPayBtn');
+        const abaPayStatusText = document.getElementById('abaPayStatusText');
+        const abaPayStatusIcon = document.querySelector('.aba-pay-status .status-icon');
 
         const currencyType = document.getElementById('currencyType');
         const currencyIcon = document.getElementById('currencyIcon');
@@ -1919,6 +1966,7 @@
         let autoAddTimer = null;
         let lastSubmitTime = 0;
         const SUBMIT_COOLDOWN = 5000;
+        let isAbaPayClicked = false;
 
         // Store uploaded product images
         let productImageFiles = [];
@@ -1954,6 +2002,31 @@
             if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
             return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
         }
+
+        // ============================================================
+        // ABA PAY - UNLOCK SCREENSHOT UPLOAD
+        // ============================================================
+        abaPayBtn.addEventListener('click', function(e) {
+            // Don't prevent default - allow opening ABA Pay link
+            isAbaPayClicked = true;
+            
+            // Unlock the file upload
+            fileInput.disabled = false;
+            fileUpload.classList.remove('locked');
+            fileUpload.classList.add('unlocked');
+            fileUpload.querySelector('i').className = 'fas fa-camera';
+            fileUpload.querySelector('p').innerHTML = '📸 ចុចដើម្បីភ្ជាប់រូបភាពថតអេក្រង់ (Screenshot)';
+            
+            // Update status
+            abaPayStatusIcon.textContent = '✅';
+            abaPayStatusText.textContent = 'អ្នកបានចុច ABA Pay រួចហើយ! សូមភ្ជាប់រូបភាពថតអេក្រង់បន្ទាប់ពីបង់ប្រាក់';
+            abaPayStatusText.className = 'status-text unlocked';
+            
+            showAlert('✅ សូមបង់ប្រាក់តាមរយៈ ABA Pay រួចភ្ជាប់រូបភាពថតអេក្រង់', 'success');
+            
+            console.log('🔓 Screenshot upload unlocked after ABA Pay click');
+            checkFormValidity();
+        });
 
         // ============================================================
         // MULTI-IMAGE UPLOAD HANDLER
@@ -2097,7 +2170,7 @@
         currencyType.addEventListener('change', updateCurrencyDisplay);
 
         // ============================================================
-        // PRODUCT CODE MANAGEMENT
+        // PRODUCT CODE MANAGEMENT (Auto-add after 4 digits)
         // ============================================================
         function formatProductCode(input) {
             let digits = input.replace(/\D/g, '');
@@ -2206,14 +2279,29 @@
         }
 
         // ============================================================
-        // FILE UPLOAD HANDLERS (Screenshot)
+        // FILE UPLOAD HANDLERS (Screenshot with ABA Pay check)
         // ============================================================
         const fileName = document.getElementById('fileName');
         const fileSize = document.getElementById('fileSize');
         const filePreview = document.getElementById('filePreview');
         const previewImage = document.getElementById('previewImage');
 
-        fileInput.addEventListener('change', function() {
+        // Prevent clicking on file input if ABA Pay not clicked
+        fileInput.addEventListener('click', function(e) {
+            if (!isAbaPayClicked) {
+                e.preventDefault();
+                showAlert('🔒 សូមចុចប៊ូតុង ABA Pay ជាមុនសិន ដើម្បីដោះសោការភ្ជាប់រូបភាព!', 'error');
+                return false;
+            }
+        });
+
+        fileInput.addEventListener('change', function(e) {
+            if (!isAbaPayClicked) {
+                this.value = '';
+                showAlert('🔒 សូមចុចប៊ូតុង ABA Pay ជាមុនសិន!', 'error');
+                return;
+            }
+            
             const file = this.files[0];
             if (file) {
                 fileUpload.classList.add('has-file');
@@ -2339,13 +2427,23 @@
 
         function validateFile() {
             const file = fileInput.files[0];
-            if (file) {
+            if (file && isAbaPayClicked) {
                 fileUpload.classList.remove('error');
                 fileError.classList.remove('show');
                 fileValid.classList.add('show');
                 return true;
             } else {
                 fileValid.classList.remove('show');
+                if (!isAbaPayClicked && file) {
+                    // If file is selected but ABA Pay not clicked
+                    fileInput.value = '';
+                    fileUpload.classList.remove('has-file');
+                    fileName.textContent = '';
+                    fileSize.textContent = '';
+                    filePreview.style.display = 'none';
+                    previewImage.src = '';
+                    showAlert('🔒 សូមចុចប៊ូតុង ABA Pay ជាមុនសិន!', 'error');
+                }
                 return false;
             }
         }
@@ -2368,7 +2466,8 @@
                 validateVillage() && validateCommune() && validateDistrict() &&
                 validateProvince() && validateAddressDetail() &&
                 validateShippingCompany() && validateProductCodes() &&
-                validatePaymentAmount() && validateFile() && validateProductImages();
+                validatePaymentAmount() && validateFile() && validateProductImages() &&
+                isAbaPayClicked;
 
             if (!isSubmitting) {
                 if (isValid) {
@@ -2378,7 +2477,19 @@
                 } else {
                     submitBtn.disabled = true;
                     submitStatus.className = 'submit-status show incomplete';
-                    submitStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> សូមបំពេញព័ត៌មានឱ្យបានពេញលេញ និងត្រឹមត្រូវ';
+                    let missing = [];
+                    if (!isAbaPayClicked) missing.push('ចុច ABA Pay');
+                    if (!validateFullName()) missing.push('ឈ្មោះ');
+                    if (!validatePhone()) missing.push('ទូរស័ព្ទ');
+                    if (!validateTelegram()) missing.push('តេឡេក្រាម');
+                    if (!validateVillage() || !validateCommune() || !validateDistrict() || !validateProvince() || !validateAddressDetail()) missing.push('ទីតាំង');
+                    if (!validateShippingCompany()) missing.push('ក្រុមហ៊ុនដឹកជញ្ជូន');
+                    if (!validateProductCodes()) missing.push('លេខកូដផលិតផល');
+                    if (!validatePaymentAmount()) missing.push('ចំនួនទឹកប្រាក់');
+                    if (!validateFile()) missing.push('រូបភាពថតអេក្រង់');
+                    if (!validateProductImages()) missing.push('រូបភាពផលិតផល');
+                    
+                    submitStatus.innerHTML = `<i class="fas fa-exclamation-circle"></i> សូមបំពេញព័ត៌មានឱ្យបានពេញលេញ (ត្រូវការ: ${missing.join(', ')})`;
                 }
             }
         }
@@ -2407,16 +2518,6 @@
                 if (this.value.length === 4) {
                     addProductCode();
                 }
-            }
-        });
-
-        addProductBtn.addEventListener('click', function() {
-            if (productCodeInput.value.length === 4) {
-                addProductCode();
-            } else {
-                productCodeInput.classList.add('error');
-                productCodeError.classList.add('show');
-                productCodeError.textContent = 'សូមបញ្ចូលលេខកូដផលិតផលជាលេខ ៤ ខ្ទង់';
             }
         });
 
@@ -2720,10 +2821,19 @@
                         productCodes = [];
                         renderProductList();
                         fileUpload.classList.remove('has-file');
+                        fileUpload.classList.remove('unlocked');
+                        fileUpload.classList.add('locked');
+                        fileUpload.querySelector('i').className = 'fas fa-lock';
+                        fileUpload.querySelector('p').innerHTML = '🔒 សូមចុចបង់ប្រាក់តាមរយៈ ABA Pay ជាមុនសិន';
                         fileName.textContent = '';
                         fileSize.textContent = '';
                         filePreview.style.display = 'none';
                         previewImage.src = '';
+                        fileInput.disabled = true;
+                        isAbaPayClicked = false;
+                        abaPayStatusIcon.textContent = '🔒';
+                        abaPayStatusText.textContent = 'សូមចុចប៊ូតុង ABA Pay ខាងលើ ដើម្បីដោះសោការភ្ជាប់រូបភាព';
+                        abaPayStatusText.className = 'status-text';
                         
                         productImageFiles = [];
                         productImageDataUrls = [];
@@ -2776,6 +2886,8 @@
         console.log('   1️⃣ Screenshot + Order Info (sendPhoto)');
         console.log('   2️⃣ Product Images as ALBUM (sendMediaGroup with Multipart)');
         console.log('✅ No duplicate images!');
+        console.log('🔒 Screenshot upload is LOCKED until ABA Pay is clicked');
+        console.log('❌ Add Product button REMOVED - auto-add only');
     </script>
 </body>
 </html>
