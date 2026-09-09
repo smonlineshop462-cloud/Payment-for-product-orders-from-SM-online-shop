@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        /* ===== CSS STYLES (ដូចមុន) ===== */
+        /* ===== CSS STYLES ===== */
         * {
             margin: 0;
             padding: 0;
@@ -67,6 +67,13 @@
             0% { opacity: 1; }
             50% { opacity: 0.7; }
             100% { opacity: 1; }
+        }
+        @keyframes dots {
+            0% { content: ''; }
+            25% { content: '.'; }
+            50% { content: '..'; }
+            75% { content: '...'; }
+            100% { content: ''; }
         }
 
         .payment-header {
@@ -1168,6 +1175,31 @@
             animation: shimmer 2s linear infinite;
         }
 
+        /* ===== SENDING STATUS ===== */
+        .sending-status {
+            display: none;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 500;
+            margin-top: 6px;
+            padding: 8px 12px;
+            border-radius: 10px;
+            background: #EFF6FF;
+            color: #1D4ED8;
+            border: 1px solid #BFDBFE;
+            animation: slideDown 0.4s ease;
+            flex-shrink: 0;
+        }
+
+        .sending-status.show {
+            display: block;
+        }
+
+        .sending-status .status-dots::after {
+            content: '';
+            animation: dots 1.5s steps(4, end) infinite;
+        }
+
         .submit-status {
             display: none;
             text-align: center;
@@ -2035,6 +2067,12 @@
                 <div class="progress-bar" id="progressBar"></div>
             </div>
 
+            <!-- SENDING STATUS -->
+            <div class="sending-status" id="sendingStatus">
+                <i class="fas fa-spinner fa-spin"></i>
+                <span>កំពុងផ្ញើព័ត៌មានទៅកាន់ Telegram<span class="status-dots"></span></span>
+            </div>
+
             <div class="submit-status incomplete" id="submitStatus">
                 <i class="fas fa-exclamation-circle"></i> សូមបំពេញព័ត៌មានឱ្យបានពេញលេញ និងត្រឹមត្រូវ
             </div>
@@ -2224,6 +2262,7 @@
 
         const progressContainer = document.getElementById('progressContainer');
         const progressBar = document.getElementById('progressBar');
+        const sendingStatus = document.getElementById('sendingStatus');
         const orderSummary = document.getElementById('orderSummary');
         const summaryContent = document.getElementById('summaryContent');
 
@@ -2928,9 +2967,7 @@
         }
 
         // ============================================================
-        // SEND TO TELEGRAM - SEND 2 SEPARATE MESSAGES
-        // MESSAGE 1: Screenshot + Order Info (sendPhoto)
-        // MESSAGE 2: Product Images as ALBUM (sendMediaGroup with Multipart)
+        // SEND TO TELEGRAM - OPTIMIZED FOR SPEED
         // ============================================================
         function sendToTelegram(screenshotFile, productImageFilesList, orderId) {
             return new Promise((resolve, reject) => {
@@ -2974,7 +3011,7 @@
 
                 const url = `https://api.telegram.org/bot${BOT_TOKEN}/`;
 
-                // ===== MESSAGE 1: Screenshot + Order Info =====
+                // ===== MESSAGE 1: Screenshot + Order Info (sendPhoto) =====
                 let caption1 = `🛒 *ការបញ្ជាទិញ និងទូទាត់ប្រាក់*\n\n` +
                     `🆔 *លេខសម្គាល់ការបញ្ជាទិញ (Order ID):* \`${orderId}\`\n\n` +
                     `👤 *ឈ្មោះពេញ:* ${fullName}\n` +
@@ -3005,6 +3042,7 @@
                 formData1.append('caption', caption1);
                 formData1.append('parse_mode', 'Markdown');
 
+                // Send Message 1
                 fetch(url + 'sendPhoto', { method: 'POST', body: formData1 })
                     .then(response => {
                         if (!response.ok) {
@@ -3018,88 +3056,94 @@
                         console.log('✅ Message 1 sent successfully');
                         
                         if (data.ok) {
-                            // ===== MESSAGE 2: Product Images as ALBUM using Multipart =====
-                            if (productImageFilesList.length > 0) {
-                                console.log(`📤 Sending ${productImageFilesList.length} product images as album...`);
+                            // ===== MESSAGE 2: AUTO-REPLY TO CUSTOMER (sendMessage) =====
+                            const autoReplyMessage = 
+                                `✅ *ការបញ្ជាទិញរបស់លោកអ្នកត្រូវបានទទួលដោយជោគជ័យ!*\n\n` +
+                                `🆔 *លេខសម្គាល់ការបញ្ជាទិញ (Order ID):* \`${orderId}\`\n\n` +
+                                `👤 *ឈ្មោះអតិថិជន:* ${fullName}\n` +
+                                `📦 *ផលិតផល:* ${products}\n` +
+                                `💰 *ចំនួនទឹកប្រាក់:* ${paymentAmount} ${currencySymbol}\n\n` +
+                                `📌 យើងខ្ញុំនឹងដំណើរការការបញ្ជាទិញរបស់លោកអ្នកក្នុងពេលឆាប់ៗ ហើយនឹងជូនដំណឹងតាមរយៈតេឡេក្រាម។\n\n` +
+                                `សូមអរគុណ! 🙏`;
 
-                                // Build caption for album
-                                const albumCaption = 
-                                    `📦 *រូបភាពផលិតផលដែលបានបញ្ជាទិញ*\n` +
-                                    `🆔 Order ID: \`${orderId}\`\n` +
-                                    `👤 អតិថិជន: ${fullName}\n` +
-                                    `📦 លេខកូដ: ${products}\n` +
-                                    `🖼️ រូបភាពចំនួន ${productImageFilesList.length} រូប`;
+                            // Send auto-reply to Telegram group
+                            const formDataReply = new FormData();
+                            formDataReply.append('chat_id', CHAT_ID);
+                            formDataReply.append('text', autoReplyMessage);
+                            formDataReply.append('parse_mode', 'Markdown');
 
-                                // Use sendMediaGroup with multipart/form-data
-                                const formData2 = new FormData();
-                                formData2.append('chat_id', CHAT_ID);
-                                
-                                // Build media array as JSON string with attach:// references
-                                const mediaArray = productImageFilesList.map((file, index) => {
-                                    const attachName = `photo_${index}`;
-                                    return {
-                                        type: 'photo',
-                                        media: `attach://${attachName}`,
-                                        caption: index === 0 ? albumCaption : '',
-                                        parse_mode: 'Markdown'
-                                    };
-                                });
-                                
-                                formData2.append('media', JSON.stringify(mediaArray));
-                                
-                                // Attach each image file
-                                productImageFilesList.forEach((file, index) => {
-                                    formData2.append(`photo_${index}`, file);
-                                });
-
-                                return fetch(url + 'sendMediaGroup', {
-                                    method: 'POST',
-                                    body: formData2
-                                }).then(res => {
+                            console.log('📤 Sending Auto-Reply Message to Telegram...');
+                            
+                            return fetch(url + 'sendMessage', { method: 'POST', body: formDataReply })
+                                .then(res => {
                                     if (!res.ok) {
                                         return res.json().then(err => {
                                             throw new Error(err.description || `HTTP ${res.status}`);
                                         });
                                     }
                                     return res.json();
+                                })
+                                .then(replyData => {
+                                    console.log('✅ Auto-Reply sent to Telegram successfully!');
+                                    
+                                    // ===== MESSAGE 3: Product Images as ALBUM (sendMediaGroup) =====
+                                    if (productImageFilesList.length > 0) {
+                                        console.log(`📤 Sending ${productImageFilesList.length} product images as album...`);
+
+                                        // Build caption for album
+                                        const albumCaption = 
+                                            `📦 *រូបភាពផលិតផលដែលបានបញ្ជាទិញ*\n` +
+                                            `🆔 Order ID: \`${orderId}\`\n` +
+                                            `👤 អតិថិជន: ${fullName}\n` +
+                                            `📦 លេខកូដ: ${products}\n` +
+                                            `🖼️ រូបភាពចំនួន ${productImageFilesList.length} រូប`;
+
+                                        // Use sendMediaGroup with multipart/form-data
+                                        const formData2 = new FormData();
+                                        formData2.append('chat_id', CHAT_ID);
+                                        
+                                        // Build media array as JSON string with attach:// references
+                                        const mediaArray = productImageFilesList.map((file, index) => {
+                                            const attachName = `photo_${index}`;
+                                            return {
+                                                type: 'photo',
+                                                media: `attach://${attachName}`,
+                                                caption: index === 0 ? albumCaption : '',
+                                                parse_mode: 'Markdown'
+                                            };
+                                        });
+                                        
+                                        formData2.append('media', JSON.stringify(mediaArray));
+                                        
+                                        // Attach each image file
+                                        productImageFilesList.forEach((file, index) => {
+                                            formData2.append(`photo_${index}`, file);
+                                        });
+
+                                        return fetch(url + 'sendMediaGroup', {
+                                            method: 'POST',
+                                            body: formData2
+                                        }).then(res => {
+                                            if (!res.ok) {
+                                                return res.json().then(err => {
+                                                    throw new Error(err.description || `HTTP ${res.status}`);
+                                                });
+                                            }
+                                            return res.json();
+                                        });
+                                    }
+                                    return replyData;
                                 });
-                            }
-                            return data;
                         } else {
                             throw new Error(data.description || 'Unknown error');
                         }
                     })
                     .then(data => {
-                        console.log('✅ Album sent successfully without duplicates!');
+                        console.log('✅ All messages sent successfully!');
                         resolve(data);
                     })
                     .catch(error => {
                         console.error('❌ Error:', error);
-                        
-                        // FALLBACK: Try sending images separately if album fails
-                        if (productImageFilesList.length > 0) {
-                            console.log('🔄 Album failed, sending images separately as fallback...');
-                            showAlert('⚠️ Album failed, sending images one by one...', 'info');
-                            
-                            const fallbackPromises = productImageFilesList.map((file, index) => {
-                                const formData = new FormData();
-                                formData.append('chat_id', CHAT_ID);
-                                formData.append('photo', file);
-                                formData.append('caption', 
-                                    `📦 *រូបភាពផលិតផល ${index + 1}/${productImageFilesList.length}*\n` +
-                                    `🆔 Order ID: \`${orderId}\`\n` +
-                                    `👤 អតិថិជន: ${fullName}`
-                                );
-                                formData.append('parse_mode', 'Markdown');
-                                return fetch(url + 'sendPhoto', { method: 'POST', body: formData });
-                            });
-                            
-                            return Promise.all(fallbackPromises).then(responses => {
-                                console.log('✅ All images sent separately as fallback');
-                                return responses;
-                            });
-                        }
-                        
                         showAlert(`❌ ${error.message}`, 'error');
                         reject(error);
                     });
@@ -3155,6 +3199,9 @@
             submitBtn.classList.add('loading');
             submitBtn.disabled = true;
             
+            // Show sending status
+            sendingStatus.classList.add('show');
+            
             document.querySelectorAll('#paymentForm input, #paymentForm select, #paymentForm textarea, #paymentForm button').forEach(el => {
                 el.disabled = true;
             });
@@ -3173,6 +3220,7 @@
                 .then((data) => {
                     clearInterval(progressInterval);
                     progressBar.style.width = '100%';
+                    sendingStatus.classList.remove('show');
                     
                     const fullName = document.getElementById('fullName').value.trim();
                     const phone = document.getElementById('phone').value.trim();
@@ -3182,7 +3230,7 @@
                     const currencySymbol = currency === '$' ? '💵 USD ($)' : '🇰🇭 រៀល (៛)';
                     const products = productCodes.join(', ');
 
-                    // ===== SHOW AUTO-REPLY MESSAGE (អាចចម្លងផ្ញើទៅអតិថិជន) =====
+                    // ===== SHOW AUTO-REPLY MESSAGE =====
                     showAutoReply(orderId, fullName, products, paymentAmount, currencySymbol);
 
                     summaryContent.innerHTML = `
@@ -3250,6 +3298,7 @@
                     clearInterval(progressInterval);
                     progressContainer.classList.remove('active');
                     progressBar.style.width = '0%';
+                    sendingStatus.classList.remove('show');
                     resetSubmitButton();
                 });
         });
@@ -3274,14 +3323,15 @@
         console.log('✅ Page loaded successfully');
         console.log('🔒 ប្រព័ន្ធត្រៀមរួចរាល់!');
         console.log('📱 Compatible with all devices (Android, iPhone, Tablet, Desktop)');
-        console.log('📤 Will send 2 messages:');
+        console.log('📤 Will send 3 messages:');
         console.log('   1️⃣ Screenshot + Order Info (sendPhoto)');
-        console.log('   2️⃣ Product Images as ALBUM (sendMediaGroup with Multipart)');
-        console.log('✅ No duplicate images!');
+        console.log('   2️⃣ Auto-Reply to customer (sendMessage)');
+        console.log('   3️⃣ Product Images as ALBUM (sendMediaGroup with Multipart)');
+        console.log('✅ Optimized for SPEED!');
         console.log('🔒 Screenshot upload is LOCKED until ABA Pay is clicked');
         console.log('❌ Add Product button REMOVED - auto-add only');
-        console.log('📱 Social follow buttons moved to FOOTER (below order summary)');
-        console.log('📝 Auto-reply message added with COPY button for sending to customer via Telegram');
+        console.log('📱 Social follow buttons moved to FOOTER');
+        console.log('📝 Auto-reply message sent to Telegram automatically');
     </script>
 </body>
 </html>
