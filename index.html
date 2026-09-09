@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-        /* ===== CSS STYLES ===== */
+        /* ===== CSS STYLES (ដូចមុន) ===== */
         * {
             margin: 0;
             padding: 0;
@@ -2075,7 +2075,7 @@
                         <hr>
                         <p style="font-size:12px; color:#94A3B8;">
                             <i class="fas fa-info-circle"></i> 
-                            ចុចប៊ូតុង "ចម្លង" ដើម្បីចម្លងសារនេះទៅកាន់អតិថិជន
+                            ចុចប៊ូតុង "ចម្លង" ដើម្បីចម្លងសារនេះ រួចបិទភ្ជាប់ (Paste) ផ្ញើទៅកាន់អតិថិជនតាមរយៈតេឡេក្រាម
                         </p>
                     </div>
                 </div>
@@ -2270,7 +2270,7 @@
         }
 
         // ============================================================
-        // AUTO-REPLY MESSAGE FOR CUSTOMER
+        // AUTO-REPLY MESSAGE FOR CUSTOMER (អាចចម្លងទៅផ្ញើតាមតេឡេក្រាម)
         // ============================================================
         function generateReplyMessage(orderId, fullName, products, paymentAmount, currencySymbol) {
             return `សួស្តីលោកអ្នក,
@@ -2310,7 +2310,7 @@
                     <hr>
                     <p style="font-size:12px; color:#94A3B8;">
                         <i class="fas fa-info-circle"></i> 
-                        ចុចប៊ូតុង "ចម្លង" ដើម្បីចម្លងសារនេះទៅកាន់អតិថិជន
+                        ចុចប៊ូតុង "ចម្លង" ដើម្បីចម្លងសារនេះ រួចបិទភ្ជាប់ (Paste) ផ្ញើទៅកាន់អតិថិជនតាមរយៈតេឡេក្រាម
                     </p>
                 </div>
             `;
@@ -2325,12 +2325,13 @@
         }
 
         // ============================================================
-        // COPY REPLY MESSAGE
+        // COPY REPLY MESSAGE (ចម្លងសារដើម្បីផ្ញើទៅអតិថិជន)
         // ============================================================
         function copyReplyMessage() {
             const replyContent = document.getElementById('autoReplyContent');
+            // Get text content without the instruction text
             const textToCopy = replyContent.textContent
-                .replace('ចុចប៊ូតុង "ចម្លង" ដើម្បីចម្លងសារនេះទៅកាន់អតិថិជន', '')
+                .replace('ចុចប៊ូតុង "ចម្លង" ដើម្បីចម្លងសារនេះ រួចបិទភ្ជាប់ (Paste) ផ្ញើទៅកាន់អតិថិជនតាមរយៈតេឡេក្រាម', '')
                 .trim();
             
             navigator.clipboard.writeText(textToCopy).then(() => {
@@ -2339,7 +2340,7 @@
                 btn.classList.add('copied');
                 
                 // Show toast notification
-                showCopyToast('✅ សារត្រូវបានចម្លងដោយជោគជ័យ!');
+                showCopyToast('✅ សារត្រូវបានចម្លងដោយជោគជ័យ! សូមបិទភ្ជាប់ (Paste) ផ្ញើទៅអតិថិជនតាមតេឡេក្រាម');
                 
                 setTimeout(() => {
                     btn.innerHTML = '<i class="fas fa-copy"></i> ចម្លង';
@@ -2357,7 +2358,7 @@
                 const btn = document.getElementById('copyReplyBtn');
                 btn.innerHTML = '<i class="fas fa-check"></i> បានចម្លង!';
                 btn.classList.add('copied');
-                showCopyToast('✅ សារត្រូវបានចម្លងដោយជោគជ័យ!');
+                showCopyToast('✅ សារត្រូវបានចម្លងដោយជោគជ័យ! សូមបិទភ្ជាប់ (Paste) ផ្ញើទៅអតិថិជនតាមតេឡេក្រាម');
                 
                 setTimeout(() => {
                     btn.innerHTML = '<i class="fas fa-copy"></i> ចម្លង';
@@ -3181,7 +3182,7 @@
                     const currencySymbol = currency === '$' ? '💵 USD ($)' : '🇰🇭 រៀល (៛)';
                     const products = productCodes.join(', ');
 
-                    // ===== SHOW AUTO-REPLY MESSAGE =====
+                    // ===== SHOW AUTO-REPLY MESSAGE (អាចចម្លងផ្ញើទៅអតិថិជន) =====
                     showAutoReply(orderId, fullName, products, paymentAmount, currencySymbol);
 
                     summaryContent.innerHTML = `
@@ -3280,7 +3281,7 @@
         console.log('🔒 Screenshot upload is LOCKED until ABA Pay is clicked');
         console.log('❌ Add Product button REMOVED - auto-add only');
         console.log('📱 Social follow buttons moved to FOOTER (below order summary)');
-        console.log('📝 Auto-reply message added with COPY button');
+        console.log('📝 Auto-reply message added with COPY button for sending to customer via Telegram');
     </script>
 </body>
 </html>
