@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <meta name="description" content="ប្រព័ន្ធបញ្ជាទិញ និងទូទាត់ប្រាក់តាមរយៈ ABA KHQR ប្រកបដោយសុវត្ថិភាព">
-    <meta name="keywords" content="ABA, KHQR, បញ្ជាទិញ, ទូទាត់, កម្ពុជា">
+    <meta name="keywords" content="ABA, KHQR, បញ្ជាទិញ, ទuទាត់, កម្ពុជា">
     <title>ការបញ្ជាទិញ និងទូទាត់ប្រាក់</title>
     <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -2426,7 +2426,7 @@
         // TELEGRAM CONFIGURATION
         // ============================================================
         const BOT_TOKEN = '8942837103:AAF8DhL94GBKW5PJ1pUuS5l61hsUwBhym_w';
-        const CHAT_ID = '-1003623295691';
+        const CHAT_ID = '-1003623295691'; // ក្រុមបុគ្គលិកផ្នែកលក់
 
         // ============================================================
         // DOM ELEMENTS
@@ -2521,7 +2521,6 @@
         let productImageDataUrls = [];
 
         let currentOrderData = null;
-        let screenshotSentFlag = false;
 
         // ============================================================
         // ORDER ID GENERATION
@@ -2556,6 +2555,24 @@
         }
 
         // ============================================================
+        // EXTRACT TELEGRAM USERNAME FROM INPUT
+        // ============================================================
+        function extractTelegramUsername(telegramInput) {
+            const trimmed = telegramInput.trim();
+            // @username
+            if (trimmed.startsWith('@')) {
+                return trimmed;
+            }
+            // https://t.me/username
+            const tmeMatch = trimmed.match(/t\.me\/([a-zA-Z0-9_]+)/);
+            if (tmeMatch) {
+                return '@' + tmeMatch[1];
+            }
+            // Phone number - can't directly message by username
+            return null;
+        }
+
+        // ============================================================
         // UTILITY FUNCTIONS
         // ============================================================
         function formatFileSize(bytes) {
@@ -2571,7 +2588,51 @@
         }
 
         // ============================================================
-        // SEND SCREENSHOT TO TELEGRAM (AUTO-SEND)
+        // BUILD CAPTION FOR SALES TEAM (Copyable Format)
+        // ============================================================
+        function buildSalesTeamCaption(source) {
+            if (!currentOrderData) return '';
+
+            const d = currentOrderData;
+            const sourceLabel = source === 'screenshot' ? '📸 ថតអេក្រង់' : '📋 ចម្លង';
+
+            // This caption is designed so the sales team can copy it and send to customer
+            let caption = `╔══════════════════════════════════╗\n`;
+            caption += `║  📋 ព័ត៌មានការបញ្ជាទិញ  ║\n`;
+            caption += `╚══════════════════════════════════╝\n\n`;
+            caption += `🆔 Order ID: ${d.orderId}\n`;
+            caption += `📅 កាលបរិច្ឆេទ: ${d.dateTime}\n`;
+            caption += `📎 ប្រភព: ${sourceLabel}\n\n`;
+            caption += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+            caption += `👤 ព័ត៌មានអតិថិជន\n`;
+            caption += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+            caption += `ឈ្មោះ: ${d.fullName}\n`;
+            caption += `ទូរស័ព្ទ: ${d.phone}\n`;
+            caption += `តេឡេក្រាម: ${d.telegram}\n\n`;
+            caption += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+            caption += `📍 ទីតាំងដឹកជញ្ជូន\n`;
+            caption += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+            caption += `ភូមិ: ${d.village}\n`;
+            caption += `ឃុំ/សង្កាត់: ${d.commune}\n`;
+            caption += `ស្រុក/ខណ្ឌ: ${d.district}\n`;
+            caption += `ខេត្ត/រាជធានី: ${d.province}\n`;
+            if (d.postalCode) caption += `លេខកូដប្រៃសណីយ៍: ${d.postalCode}\n`;
+            caption += `អាសយដ្ឋានលម្អិត: ${d.addressDetail}\n\n`;
+            caption += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+            caption += `📦 ព័ត៌មានផលិតផល\n`;
+            caption += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+            caption += `លេខកូដ: ${d.products}\n`;
+            caption += `ចំនួនទឹកប្រាក់: ${d.paymentAmount} ${d.currencySymbol}\n`;
+            caption += `ក្រុមហ៊ុនដឹកជញ្ជូន: ${d.shippingCompany}\n\n`;
+            caption += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+            caption += `✅ សូមបុគ្គលិកផ្នែកលក់រៀបចំការដឹកជញ្ជូន\n`;
+            caption += `📌 សូមចម្លង Caption នេះផ្ញើទៅអតិថិជន`;
+
+            return caption;
+        }
+
+        // ============================================================
+        // SEND SCREENSHOT TO TELEGRAM (TO SALES TEAM GROUP)
         // ============================================================
         function sendScreenshotToTelegram(imageBlob, source) {
             return new Promise((resolve, reject) => {
@@ -2580,24 +2641,12 @@
                     return;
                 }
 
-                const d = currentOrderData;
+                const caption = buildSalesTeamCaption(source);
                 const formData = new FormData();
                 formData.append('chat_id', CHAT_ID);
-                formData.append('photo', imageBlob, `Order_${d.orderId}_${source}.png`);
-                
-                let caption = `📸 *រូបភាពការបញ្ជាទិញ (${source === 'screenshot' ? 'ថតអេក្រង់' : 'ចម្លង'})*\n\n`;
-                caption += `🆔 *Order ID:* \`${d.orderId}\`\n`;
-                caption += `👤 *អតិថិជន:* ${d.fullName}\n`;
-                caption += `📱 *ទូរស័ព្ទ:* ${d.phone}\n`;
-                caption += `📌 *តេឡេក្រាម:* ${d.telegram}\n`;
-                caption += `📦 *ផលិតផល:* ${d.products}\n`;
-                caption += `💰 *ចំនួនទឹកប្រាក់:* ${d.paymentAmount} ${d.currencySymbol}\n`;
-                caption += `🚚 *ក្រុមហ៊ុនដឹកជញ្ជូន:* ${d.shippingCompany}\n`;
-                caption += `🕐 *កាលបរិច្ឆេទ:* ${d.dateTime}\n\n`;
-                caption += `✅ សូមបុគ្គលិកផ្នែកលក់រៀបចំការដឹកជញ្ជូន។`;
-
+                formData.append('photo', imageBlob, `Order_${currentOrderData.orderId}_${source}.png`);
                 formData.append('caption', caption);
-                formData.append('parse_mode', 'Markdown');
+                formData.append('parse_mode', 'HTML');
 
                 fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {
                     method: 'POST',
@@ -2619,6 +2668,37 @@
                     console.error(`❌ Error sending ${source} screenshot:`, error);
                     reject(error);
                 });
+            });
+        }
+
+        // ============================================================
+        // SEND COPY TEXT TO TELEGRAM (TO SALES TEAM GROUP)
+        // ============================================================
+        function sendCopyTextToTelegram() {
+            if (!currentOrderData) return Promise.reject(new Error('No order data'));
+
+            const caption = buildSalesTeamCaption('copy');
+
+            const formData = new FormData();
+            formData.append('chat_id', CHAT_ID);
+            formData.append('text', caption);
+            formData.append('parse_mode', 'HTML');
+
+            return fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                method: 'POST',
+                body: formData
+            })
+            .then(res => {
+                if (!res.ok) {
+                    return res.json().then(err => {
+                        throw new Error(err.description || `HTTP ${res.status}`);
+                    });
+                }
+                return res.json();
+            })
+            .then(data => {
+                console.log('✅ Copy text sent to Telegram successfully!');
+                return data;
             });
         }
 
@@ -2651,7 +2731,7 @@
                         document.body.removeChild(link);
                         URL.revokeObjectURL(url);
 
-                        // Auto-send to Telegram
+                        // Auto-send to Telegram (Sales Team Group)
                         sendScreenshotToTelegram(blob, source)
                             .then(() => {
                                 button.innerHTML = '<i class="fas fa-check"></i> បានផ្ញើ!';
@@ -2694,7 +2774,7 @@
             }
         }
 
-        // Screenshot for auto-reply container (auto-sends to Telegram)
+        // Screenshot for auto-reply container
         function captureOrderScreenshot() {
             const element = document.getElementById('autoReplyContent');
             const button = document.getElementById('screenshotBtn');
@@ -2702,7 +2782,7 @@
             captureElementScreenshot(element, button, 'Order_' + orderId, 'screenshot');
         }
 
-        // Screenshot for order summary (auto-sends to Telegram)
+        // Screenshot for order summary
         function captureSummaryScreenshot() {
             const element = document.getElementById('orderSummary');
             const button = document.getElementById('summaryScreenshotBtn');
@@ -3281,7 +3361,7 @@
         }
 
         // ============================================================
-        // BUILD PLAIN TEXT FOR COPY
+        // BUILD PLAIN TEXT FOR COPY (Customer-facing message)
         // ============================================================
         function buildCopyText() {
             if (!currentOrderData) return '';
@@ -3309,66 +3389,16 @@
         }
 
         // ============================================================
-        // SEND COPY TEXT TO TELEGRAM (AUTO-SEND)
-        // ============================================================
-        function sendCopyTextToTelegram() {
-            if (!currentOrderData) return Promise.reject(new Error('No order data'));
-
-            const d = currentOrderData;
-            let message = `📋 *ព័ត៌មានការបញ្ជាទិញ (ចម្លង)*\n\n`;
-            message += `🆔 *Order ID:* \`${d.orderId}\`\n\n`;
-            message += `👤 *ឈ្មោះអតិថិជន:* ${d.fullName}\n`;
-            message += `📱 *លេខទូរស័ព្ទ:* ${d.phone}\n`;
-            message += `📌 *តេឡេក្រាម:* ${d.telegram}\n\n`;
-            message += `📍 *ទីតាំងដឹកជញ្ជូន:*\n`;
-            message += `• ភូមិ: ${d.village}\n`;
-            message += `• ឃុំ/សង្កាត់: ${d.commune}\n`;
-            message += `• ស្រុក/ខណ្ឌ: ${d.district}\n`;
-            message += `• ខេត្ត/រាជធានី: ${d.province}\n`;
-            if (d.postalCode) message += `• លេខកូដប្រៃសណីយ៍: ${d.postalCode}\n`;
-            message += `• អាសយដ្ឋានលម្អិត: ${d.addressDetail}\n\n`;
-            message += `📦 *ផលិតផល:* ${d.products}\n`;
-            message += `💰 *ចំនួនទឹកប្រាក់:* ${d.paymentAmount} ${d.currencySymbol}\n`;
-            message += `🚚 *ក្រុមហ៊ុនដឹកជញ្ជូន:* ${d.shippingCompany}\n`;
-            message += `🕐 *កាលបរិច្ឆេទ:* ${d.dateTime}\n\n`;
-            message += `✅ សូមបុគ្គលិកផ្នែកលក់រៀបចំការដឹកជញ្ជូន។`;
-
-            const formData = new FormData();
-            formData.append('chat_id', CHAT_ID);
-            formData.append('text', message);
-            formData.append('parse_mode', 'Markdown');
-
-            return fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-                method: 'POST',
-                body: formData
-            })
-            .then(res => {
-                if (!res.ok) {
-                    return res.json().then(err => {
-                        throw new Error(err.description || `HTTP ${res.status}`);
-                    });
-                }
-                return res.json();
-            })
-            .then(data => {
-                console.log('✅ Copy text sent to Telegram successfully!');
-                return data;
-            });
-        }
-
-        // ============================================================
-        // COPY REPLY MESSAGE (with auto-send to Telegram)
+        // COPY REPLY MESSAGE (with auto-send to Sales Team)
         // ============================================================
         function copyReplyMessage() {
             const textToCopy = buildCopyText();
 
-            // Copy to clipboard
             navigator.clipboard.writeText(textToCopy).then(() => {
                 const btn = document.getElementById('copyReplyBtn');
                 btn.innerHTML = '<i class="fas fa-check"></i> បានចម្លង!';
                 btn.classList.add('copied');
-                
-                // Auto-send to Telegram
+
                 sendCopyTextToTelegram()
                     .then(() => {
                         showCopyToast('✅ សារត្រូវបានចម្លង និងផ្ញើទៅបុគ្គលិកផ្នែកលក់ដោយស្វ័យប្រវត្តិ!');
@@ -3392,7 +3422,7 @@
                 const btn = document.getElementById('copyReplyBtn');
                 btn.innerHTML = '<i class="fas fa-check"></i> បានចម្លង!';
                 btn.classList.add('copied');
-                
+
                 sendCopyTextToTelegram()
                     .then(() => {
                         showCopyToast('✅ សារត្រូវបានចម្លង និងផ្ញើទៅបុគ្គលិកផ្នែកលក់ដោយស្វ័យប្រវត្តិ!');
@@ -3539,7 +3569,6 @@
             submitBtn.disabled = true;
 
             currentOrderData = null;
-            screenshotSentFlag = false;
 
             document.querySelectorAll('#paymentForm input, #paymentForm select, #paymentForm textarea, #paymentForm button').forEach(el => {
                 el.disabled = false;
@@ -3589,25 +3618,36 @@
                 const currencySymbol = currency === '$' ? '💵 USD ($)' : '🇰🇭 រៀល (៛)';
                 const url = `https://api.telegram.org/bot${BOT_TOKEN}/`;
 
-                let caption1 = `🛒 *ការបញ្ជាទិញ និងទូទាត់ប្រាក់*\n\n` +
-                    `🆔 *លេខសម្គាល់ការបញ្ជាទិញ (Order ID):* \`${orderId}\`\n\n` +
-                    `👤 *ឈ្មោះពេញ:* ${fullName}\n` +
-                    `📱 *លេខទូរស័ព្ទ:* ${phone}\n` +
-                    `📌 *តេឡេក្រាម:* ${telegram}\n\n` +
-                    `📍 *ទីតាំងដឹកជញ្ជូន:*\n` +
-                    `• ភូមិ: ${village}\n` +
-                    `• ឃុំ/សង្កាត់: ${commune}\n` +
-                    `• ស្រុក/ខណ្ឌ: ${district}\n` +
-                    `• ខេត្ត/រាជធានី: ${province}\n` +
-                    `• អាសយដ្ឋាន: ${addressDetail}\n`;
-
-                if (postalCode) caption1 += `• លេខកូដប្រៃសណីយ៍: ${postalCode}\n`;
-
-                caption1 += `\n🚚 *ក្រុមហ៊ុនដឹកជញ្ជូន:* ${shippingCompany}\n` +
-                    `📦 *លេខកូដផលិតផល:* ${products}\n` +
-                    `💵 *ចំនួនទឹកប្រាក់ដែលត្រូវទូទាត់:* ${paymentAmount} ${currencySymbol}\n` +
-                    `🕐 *កាលបរិច្ឆេទ:* ${dateTime}\n\n` +
-                    `✅ សូមផ្ទៀងផ្ទាត់ការទូទាត់នេះ។`;
+                // Build comprehensive caption for sales team
+                let caption1 = `╔══════════════════════════════════╗\n`;
+                caption1 += `║  🛒 ការបញ្ជាទិញថ្មី  ║\n`;
+                caption1 += `╚══════════════════════════════════╝\n\n`;
+                caption1 += `🆔 Order ID: ${orderId}\n`;
+                caption1 += `📅 កាលបរិច្ឆេទ: ${dateTime}\n\n`;
+                caption1 += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+                caption1 += `👤 ព័ត៌មានអតិថិជន\n`;
+                caption1 += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+                caption1 += `ឈ្មោះ: ${fullName}\n`;
+                caption1 += `ទូរស័ព្ទ: ${phone}\n`;
+                caption1 += `តេឡេក្រាម: ${telegram}\n\n`;
+                caption1 += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+                caption1 += `📍 ទីតាំងដឹកជញ្ជូន\n`;
+                caption1 += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+                caption1 += `ភូមិ: ${village}\n`;
+                caption1 += `ឃុំ/សង្កាត់: ${commune}\n`;
+                caption1 += `ស្រុក/ខណ្ឌ: ${district}\n`;
+                caption1 += `ខេត្ត/រាជធានី: ${province}\n`;
+                if (postalCode) caption1 += `លេខកូដប្រៃសណីយ៍: ${postalCode}\n`;
+                caption1 += `អាសយដ្ឋានលម្អិត: ${addressDetail}\n\n`;
+                caption1 += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+                caption1 += `📦 ព័ត៌មានផលិតផល\n`;
+                caption1 += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+                caption1 += `លេខកូដ: ${products}\n`;
+                caption1 += `ចំនួនទឹកប្រាក់: ${paymentAmount} ${currencySymbol}\n`;
+                caption1 += `ក្រុមហ៊ុនដឹកជញ្ជូន: ${shippingCompany}\n\n`;
+                caption1 += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+                caption1 += `✅ សូមបុគ្គលិកផ្នែកលក់រៀបចំការដឹកជញ្ជូន\n`;
+                caption1 += `📌 សូមចម្លង Caption នេះផ្ញើទៅអតិថិជន`;
 
                 console.log('📤 Sending Message 1: Screenshot + Order Info...');
 
@@ -3615,7 +3655,7 @@
                 formData1.append('chat_id', CHAT_ID);
                 formData1.append('photo', screenshotFile);
                 formData1.append('caption', caption1);
-                formData1.append('parse_mode', 'Markdown');
+                formData1.append('parse_mode', 'HTML');
 
                 fetch(url + 'sendPhoto', { method: 'POST', body: formData1 })
                     .then(response => {
@@ -3630,25 +3670,24 @@
                         console.log('✅ Message 1 sent successfully');
 
                         if (data.ok) {
-                            const autoReplyMessage =
-                                `✅ *ការបញ្ជាទិញរបស់លោកអ្នកត្រូវបានទទួលដោយជោគជ័យ!*\n\n` +
-                                `🆔 *លេខសម្គាល់ការបញ្ជាទិញ (Order ID):* \`${orderId}\`\n\n` +
-                                `👤 *ឈ្មោះអតិថិជន:* ${fullName}\n` +
-                                `📱 *លេខទូរស័ព្ទ:* ${phone}\n` +
-                                `📌 *តេឡេក្រាម:* ${telegram}\n\n` +
-                                `📦 *ផលិតផល:* ${products}\n` +
-                                `💰 *ចំនួនទឹកប្រាក់:* ${paymentAmount} ${currencySymbol}\n` +
-                                `🚚 *ក្រុមហ៊ុនដឹកជញ្ជូន:* ${shippingCompany}\n` +
-                                `🕐 *កាលបរិច្ឆេទ:* ${dateTime}\n\n` +
-                                `📌 យើងខ្ញុំនឹងដំណើរការការបញ្ជាទិញរបស់លោកអ្នកក្នុងពេលឆាប់ៗ ហើយនឹងជូនដំណឹងតាមរយៈតេឡេក្រាម។\n\n` +
-                                `សូមអរគុណ! 🙏`;
+                            // Send confirmation message to sales team
+                            const confirmMessage = `✅ ការបញ្ជាទិញថ្មីត្រូវបានទទួល!\n\n` +
+                                `🆔 Order ID: ${orderId}\n` +
+                                `👤 អតិថិជន: ${fullName}\n` +
+                                `📱 ទូរស័ព្ទ: ${phone}\n` +
+                                `📌 តេឡេក្រាម: ${telegram}\n` +
+                                `📦 ផលិតផល: ${products}\n` +
+                                `💰 ចំនួនទឹកប្រាក់: ${paymentAmount} ${currencySymbol}\n` +
+                                `🚚 ក្រុមហ៊ុនដឹកជញ្ជូន: ${shippingCompany}\n` +
+                                `🕐 កាលបរិច្ឆេទ: ${dateTime}\n\n` +
+                                `📌 សូមបុគ្គលិកផ្នែកលក់រៀបចំការដឹកជញ្ជូនជូនអតិថិជន។`;
 
                             const formDataReply = new FormData();
                             formDataReply.append('chat_id', CHAT_ID);
-                            formDataReply.append('text', autoReplyMessage);
-                            formDataReply.append('parse_mode', 'Markdown');
+                            formDataReply.append('text', confirmMessage);
+                            formDataReply.append('parse_mode', 'HTML');
 
-                            console.log('📤 Sending Auto-Reply Message to Telegram...');
+                            console.log('📤 Sending Confirmation Message to Telegram...');
 
                             return fetch(url + 'sendMessage', { method: 'POST', body: formDataReply })
                                 .then(res => {
@@ -3660,14 +3699,14 @@
                                     return res.json();
                                 })
                                 .then(replyData => {
-                                    console.log('✅ Auto-Reply sent to Telegram successfully!');
+                                    console.log('✅ Confirmation sent to Telegram successfully!');
 
                                     if (productImageFilesList.length > 0) {
                                         console.log(`📤 Sending ${productImageFilesList.length} product images as album...`);
 
                                         const albumCaption =
-                                            `📦 *រូបភាពផលិតផលដែលបានបញ្ជាទិញ*\n` +
-                                            `🆔 Order ID: \`${orderId}\`\n` +
+                                            `📦 រូបភាពផលិតផលដែលបានបញ្ជាទិញ\n` +
+                                            `🆔 Order ID: ${orderId}\n` +
                                             `👤 អតិថិជន: ${fullName}\n` +
                                             `📦 លេខកូដ: ${products}\n` +
                                             `🖼️ រូបភាពចំនួន ${productImageFilesList.length} រូប`;
@@ -3681,7 +3720,7 @@
                                                 type: 'photo',
                                                 media: `attach://${attachName}`,
                                                 caption: index === 0 ? albumCaption : '',
-                                                parse_mode: 'Markdown'
+                                                parse_mode: 'HTML'
                                             };
                                         });
 
@@ -3872,7 +3911,8 @@
         checkFormValidity();
         console.log('✅ Page loaded successfully');
         console.log('🔒 ប្រព័ន្ធត្រៀមរួចរាល់!');
-        console.log('📸 Screenshot & Copy auto-send to Telegram');
+        console.log('📸 Screenshot & Copy auto-send to SALES TEAM Telegram Group');
+        console.log('📋 Caption is formatted for sales team to copy & send to customer');
         console.log('🔄 Form auto-resets 65 seconds after successful submission');
     </script>
 </body>
