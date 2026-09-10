@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <meta name="description" content="ប្រព័ន្ធបញ្ជាទិញ និងទូទាត់ប្រាក់តាមរយៈ ABA KHQR ប្រកបដោយសុវត្ថិភាព">
-    <meta name="keywords" content="ABA, KHQR, បញ្ជាទិញ, ទuទាត់, កម្ពុជា">
+    <meta name="keywords" content="ABA, KHQR, បញ្ជាទិញ, ទូទាត់, កម្ពុជា">
     <title>ការបញ្ជាទិញ និងទូទាត់ប្រាក់</title>
     <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -2371,7 +2371,7 @@
                 </div>
             </div>
 
-            <!-- ===== PAYMENT NOTE (UPDATED) ===== -->
+            <!-- ===== PAYMENT NOTE ===== -->
             <div class="payment-note">
                 <div class="note-icon">
                     <i class="fas fa-info-circle"></i>
@@ -2426,7 +2426,7 @@
         // TELEGRAM CONFIGURATION
         // ============================================================
         const BOT_TOKEN = '8942837103:AAF8DhL94GBKW5PJ1pUuS5l61hsUwBhym_w';
-        const CHAT_ID = '-1003623295691'; // ក្រុមបុគ្គលិកផ្នែកលក់
+        const CHAT_ID = '-1003623295691';
 
         // ============================================================
         // DOM ELEMENTS
@@ -2555,24 +2555,6 @@
         }
 
         // ============================================================
-        // EXTRACT TELEGRAM USERNAME FROM INPUT
-        // ============================================================
-        function extractTelegramUsername(telegramInput) {
-            const trimmed = telegramInput.trim();
-            // @username
-            if (trimmed.startsWith('@')) {
-                return trimmed;
-            }
-            // https://t.me/username
-            const tmeMatch = trimmed.match(/t\.me\/([a-zA-Z0-9_]+)/);
-            if (tmeMatch) {
-                return '@' + tmeMatch[1];
-            }
-            // Phone number - can't directly message by username
-            return null;
-        }
-
-        // ============================================================
         // UTILITY FUNCTIONS
         // ============================================================
         function formatFileSize(bytes) {
@@ -2588,51 +2570,39 @@
         }
 
         // ============================================================
-        // BUILD CAPTION FOR SALES TEAM (Copyable Format)
+        // BUILD CAPTION FOR SALES TEAM
         // ============================================================
         function buildSalesTeamCaption(source) {
             if (!currentOrderData) return '';
-
             const d = currentOrderData;
             const sourceLabel = source === 'screenshot' ? '📸 ថតអេក្រង់' : '📋 ចម្លង';
 
-            // This caption is designed so the sales team can copy it and send to customer
-            let caption = `╔══════════════════════════════════╗\n`;
-            caption += `║  📋 ព័ត៌មានការបញ្ជាទិញ  ║\n`;
-            caption += `╚══════════════════════════════════╝\n\n`;
+            let caption = `📋 ព័ត៌មានការបញ្ជាទិញ\n\n`;
             caption += `🆔 Order ID: ${d.orderId}\n`;
             caption += `📅 កាលបរិច្ឆេទ: ${d.dateTime}\n`;
             caption += `📎 ប្រភព: ${sourceLabel}\n\n`;
-            caption += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
             caption += `👤 ព័ត៌មានអតិថិជន\n`;
-            caption += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
-            caption += `ឈ្មោះ: ${d.fullName}\n`;
-            caption += `ទូរស័ព្ទ: ${d.phone}\n`;
-            caption += `តេឡេក្រាម: ${d.telegram}\n\n`;
-            caption += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+            caption += `• ឈ្មោះ: ${d.fullName}\n`;
+            caption += `• ទូរស័ព្ទ: ${d.phone}\n`;
+            caption += `• តេឡេក្រាម: ${d.telegram}\n\n`;
             caption += `📍 ទីតាំងដឹកជញ្ជូន\n`;
-            caption += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
-            caption += `ភូមិ: ${d.village}\n`;
-            caption += `ឃុំ/សង្កាត់: ${d.commune}\n`;
-            caption += `ស្រុក/ខណ្ឌ: ${d.district}\n`;
-            caption += `ខេត្ត/រាជធានី: ${d.province}\n`;
-            if (d.postalCode) caption += `លេខកូដប្រៃសណីយ៍: ${d.postalCode}\n`;
-            caption += `អាសយដ្ឋានលម្អិត: ${d.addressDetail}\n\n`;
-            caption += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+            caption += `• ភូមិ: ${d.village}\n`;
+            caption += `• ឃុំ/សង្កាត់: ${d.commune}\n`;
+            caption += `• ស្រុក/ខណ្ឌ: ${d.district}\n`;
+            caption += `• ខេត្ត/រាជធានី: ${d.province}\n`;
+            if (d.postalCode) caption += `• លេខកូដប្រៃសណីយ៍: ${d.postalCode}\n`;
+            caption += `• អាសយដ្ឋានលម្អិត: ${d.addressDetail}\n\n`;
             caption += `📦 ព័ត៌មានផលិតផល\n`;
-            caption += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
-            caption += `លេខកូដ: ${d.products}\n`;
-            caption += `ចំនួនទឹកប្រាក់: ${d.paymentAmount} ${d.currencySymbol}\n`;
-            caption += `ក្រុមហ៊ុនដឹកជញ្ជូន: ${d.shippingCompany}\n\n`;
-            caption += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+            caption += `• លេខកូដ: ${d.products}\n`;
+            caption += `• ចំនួនទឹកប្រាក់: ${d.paymentAmount} ${d.currencySymbol}\n`;
+            caption += `• ក្រុមហ៊ុនដឹកជញ្ជូន: ${d.shippingCompany}\n\n`;
             caption += `✅ សូមបុគ្គលិកផ្នែកលក់រៀបចំការដឹកជញ្ជូន\n`;
             caption += `📌 សូមចម្លង Caption នេះផ្ញើទៅអតិថិជន`;
-
             return caption;
         }
 
         // ============================================================
-        // SEND SCREENSHOT TO TELEGRAM (TO SALES TEAM GROUP)
+        // SEND SCREENSHOT TO TELEGRAM
         // ============================================================
         function sendScreenshotToTelegram(imageBlob, source) {
             return new Promise((resolve, reject) => {
@@ -2640,7 +2610,6 @@
                     reject(new Error('No order data'));
                     return;
                 }
-
                 const caption = buildSalesTeamCaption(source);
                 const formData = new FormData();
                 formData.append('chat_id', CHAT_ID);
@@ -2672,13 +2641,11 @@
         }
 
         // ============================================================
-        // SEND COPY TEXT TO TELEGRAM (TO SALES TEAM GROUP)
+        // SEND COPY TEXT TO TELEGRAM
         // ============================================================
         function sendCopyTextToTelegram() {
             if (!currentOrderData) return Promise.reject(new Error('No order data'));
-
             const caption = buildSalesTeamCaption('copy');
-
             const formData = new FormData();
             formData.append('chat_id', CHAT_ID);
             formData.append('text', caption);
@@ -2703,11 +2670,10 @@
         }
 
         // ============================================================
-        // UNIVERSAL SCREENSHOT FUNCTION (with auto-send)
+        // UNIVERSAL SCREENSHOT FUNCTION
         // ============================================================
         function captureElementScreenshot(element, button, filename, source) {
             if (!element) return;
-
             const originalHTML = button.innerHTML;
             button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> កំពុងថត...';
             button.disabled = true;
@@ -2731,14 +2697,14 @@
                         document.body.removeChild(link);
                         URL.revokeObjectURL(url);
 
-                        // Auto-send to Telegram (Sales Team Group)
+                        // Auto-send to Telegram
                         sendScreenshotToTelegram(blob, source)
                             .then(() => {
                                 button.innerHTML = '<i class="fas fa-check"></i> បានផ្ញើ!';
                                 button.classList.add('captured');
                                 showAlert('✅ រូបភាពត្រូវបានថត ទាញយក និងផ្ញើទៅបុគ្គលិកផ្នែកលក់ដោយស្វ័យប្រវត្តិ!', 'success');
                             })
-                            .catch((err) => {
+                            .catch(() => {
                                 button.innerHTML = '<i class="fas fa-check"></i> បានថត!';
                                 button.classList.add('captured');
                                 showAlert('⚠️ រូបភាពបានថត ប៉ុន្តែមិនអាចផ្ញើទៅ Telegram បានទេ។ សូមព្យាយាមម្តងទៀត។', 'error');
@@ -2774,7 +2740,6 @@
             }
         }
 
-        // Screenshot for auto-reply container
         function captureOrderScreenshot() {
             const element = document.getElementById('autoReplyContent');
             const button = document.getElementById('screenshotBtn');
@@ -2782,7 +2747,6 @@
             captureElementScreenshot(element, button, 'Order_' + orderId, 'screenshot');
         }
 
-        // Screenshot for order summary
         function captureSummaryScreenshot() {
             const element = document.getElementById('orderSummary');
             const button = document.getElementById('summaryScreenshotBtn');
@@ -3361,7 +3325,7 @@
         }
 
         // ============================================================
-        // BUILD PLAIN TEXT FOR COPY (Customer-facing message)
+        // BUILD PLAIN TEXT FOR COPY
         // ============================================================
         function buildCopyText() {
             if (!currentOrderData) return '';
@@ -3389,12 +3353,12 @@
         }
 
         // ============================================================
-        // COPY REPLY MESSAGE (with auto-send to Sales Team)
+        // COPY REPLY MESSAGE (with auto-send to Telegram)
         // ============================================================
         function copyReplyMessage() {
             const textToCopy = buildCopyText();
 
-            navigator.clipboard.writeText(textToCopy).then(() => {
+            const onCopySuccess = () => {
                 const btn = document.getElementById('copyReplyBtn');
                 btn.innerHTML = '<i class="fas fa-check"></i> បានចម្លង!';
                 btn.classList.add('copied');
@@ -3412,30 +3376,16 @@
                             btn.classList.remove('copied');
                         }, 3000);
                     });
-            }).catch(() => {
+            };
+
+            navigator.clipboard.writeText(textToCopy).then(onCopySuccess).catch(() => {
                 const textArea = document.createElement('textarea');
                 textArea.value = textToCopy;
                 document.body.appendChild(textArea);
                 textArea.select();
                 document.execCommand('copy');
                 document.body.removeChild(textArea);
-                const btn = document.getElementById('copyReplyBtn');
-                btn.innerHTML = '<i class="fas fa-check"></i> បានចម្លង!';
-                btn.classList.add('copied');
-
-                sendCopyTextToTelegram()
-                    .then(() => {
-                        showCopyToast('✅ សារត្រូវបានចម្លង និងផ្ញើទៅបុគ្គលិកផ្នែកលក់ដោយស្វ័យប្រវត្តិ!');
-                    })
-                    .catch(() => {
-                        showCopyToast('✅ សារត្រូវបានចម្លង! (មិនអាចផ្ញើទៅ Telegram បានទេ)');
-                    })
-                    .finally(() => {
-                        setTimeout(() => {
-                            btn.innerHTML = '<i class="fas fa-copy"></i> ចម្លង';
-                            btn.classList.remove('copied');
-                        }, 3000);
-                    });
+                onCopySuccess();
             });
         }
 
@@ -3618,34 +3568,25 @@
                 const currencySymbol = currency === '$' ? '💵 USD ($)' : '🇰🇭 រៀល (៛)';
                 const url = `https://api.telegram.org/bot${BOT_TOKEN}/`;
 
-                // Build comprehensive caption for sales team
-                let caption1 = `╔══════════════════════════════════╗\n`;
-                caption1 += `║  🛒 ការបញ្ជាទិញថ្មី  ║\n`;
-                caption1 += `╚══════════════════════════════════╝\n\n`;
+                // Build caption without ━ and ╔╗
+                let caption1 = `🛒 ការបញ្ជាទិញថ្មី\n\n`;
                 caption1 += `🆔 Order ID: ${orderId}\n`;
                 caption1 += `📅 កាលបរិច្ឆេទ: ${dateTime}\n\n`;
-                caption1 += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
                 caption1 += `👤 ព័ត៌មានអតិថិជន\n`;
-                caption1 += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
-                caption1 += `ឈ្មោះ: ${fullName}\n`;
-                caption1 += `ទូរស័ព្ទ: ${phone}\n`;
-                caption1 += `តេឡេក្រាម: ${telegram}\n\n`;
-                caption1 += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+                caption1 += `• ឈ្មោះ: ${fullName}\n`;
+                caption1 += `• ទូរស័ព្ទ: ${phone}\n`;
+                caption1 += `• តេឡេក្រាម: ${telegram}\n\n`;
                 caption1 += `📍 ទីតាំងដឹកជញ្ជូន\n`;
-                caption1 += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
-                caption1 += `ភូមិ: ${village}\n`;
-                caption1 += `ឃុំ/សង្កាត់: ${commune}\n`;
-                caption1 += `ស្រុក/ខណ្ឌ: ${district}\n`;
-                caption1 += `ខេត្ត/រាជធានី: ${province}\n`;
-                if (postalCode) caption1 += `លេខកូដប្រៃសណីយ៍: ${postalCode}\n`;
-                caption1 += `អាសយដ្ឋានលម្អិត: ${addressDetail}\n\n`;
-                caption1 += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+                caption1 += `• ភូមិ: ${village}\n`;
+                caption1 += `• ឃុំ/សង្កាត់: ${commune}\n`;
+                caption1 += `• ស្រុក/ខណ្ឌ: ${district}\n`;
+                caption1 += `• ខេត្ត/រាជធានី: ${province}\n`;
+                if (postalCode) caption1 += `• លេខកូដប្រៃសណីយ៍: ${postalCode}\n`;
+                caption1 += `• អាសយដ្ឋានលម្អិត: ${addressDetail}\n\n`;
                 caption1 += `📦 ព័ត៌មានផលិតផល\n`;
-                caption1 += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
-                caption1 += `លេខកូដ: ${products}\n`;
-                caption1 += `ចំនួនទឹកប្រាក់: ${paymentAmount} ${currencySymbol}\n`;
-                caption1 += `ក្រុមហ៊ុនដឹកជញ្ជូន: ${shippingCompany}\n\n`;
-                caption1 += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+                caption1 += `• លេខកូដ: ${products}\n`;
+                caption1 += `• ចំនួនទឹកប្រាក់: ${paymentAmount} ${currencySymbol}\n`;
+                caption1 += `• ក្រុមហ៊ុនដឹកជញ្ជូន: ${shippingCompany}\n\n`;
                 caption1 += `✅ សូមបុគ្គលិកផ្នែកលក់រៀបចំការដឹកជញ្ជូន\n`;
                 caption1 += `📌 សូមចម្លង Caption នេះផ្ញើទៅអតិថិជន`;
 
@@ -3670,7 +3611,6 @@
                         console.log('✅ Message 1 sent successfully');
 
                         if (data.ok) {
-                            // Send confirmation message to sales team
                             const confirmMessage = `✅ ការបញ្ជាទិញថ្មីត្រូវបានទទួល!\n\n` +
                                 `🆔 Order ID: ${orderId}\n` +
                                 `👤 អតិថិជន: ${fullName}\n` +
@@ -3911,8 +3851,8 @@
         checkFormValidity();
         console.log('✅ Page loaded successfully');
         console.log('🔒 ប្រព័ន្ធត្រៀមរួចរាល់!');
-        console.log('📸 Screenshot & Copy auto-send to SALES TEAM Telegram Group');
-        console.log('📋 Caption is formatted for sales team to copy & send to customer');
+        console.log('📸 Screenshot & Copy auto-send to Telegram Group');
+        console.log('📋 Caption formatted without ━ and ╔╗');
         console.log('🔄 Form auto-resets 65 seconds after successful submission');
     </script>
 </body>
