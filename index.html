@@ -2477,6 +2477,9 @@
         let productImageFiles = [];
         let productImageDataUrls = [];
 
+        // Store the current order data for copy/screenshot
+        let currentOrderData = null;
+
         // ============================================================
         // ORDER ID GENERATION
         // ============================================================
@@ -2491,6 +2494,22 @@
                 random += chars.charAt(Math.floor(Math.random() * chars.length));
             }
             return `ORD-${date}-${random}`;
+        }
+
+        // ============================================================
+        // GET CURRENT DATE TIME IN KHMER FORMAT
+        // ============================================================
+        function getCurrentDateTime() {
+            const now = new Date();
+            return now.toLocaleString('km-KH', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            });
         }
 
         // ============================================================
@@ -2570,23 +2589,57 @@
         }
 
         // ============================================================
-        // AUTO-REPLY MESSAGE FOR CUSTOMER
+        // AUTO-REPLY MESSAGE FOR CUSTOMER (UPDATED WITH FULL INFO)
         // ============================================================
-        function showAutoReply(orderId, fullName, products, paymentAmount, currencySymbol) {
+        function showAutoReply(orderId, fullName, phone, telegram, products, paymentAmount, currencySymbol, shippingCompany, village, commune, district, province, addressDetail, postalCode, dateTime) {
             const container = document.getElementById('autoReplyContainer');
             const orderIdSpan = document.getElementById('replyOrderId');
 
             orderIdSpan.textContent = orderId;
 
+            // Store order data for copy/screenshot
+            currentOrderData = {
+                orderId,
+                fullName,
+                phone,
+                telegram,
+                products,
+                paymentAmount,
+                currencySymbol,
+                shippingCompany,
+                village,
+                commune,
+                district,
+                province,
+                addressDetail,
+                postalCode,
+                dateTime
+            };
+
+            // Build full reply message with all customer info
+            let postalLine = postalCode ? `<p>📮 លេខកូដប្រៃសណីយ៍: ${postalCode}</p>` : '';
+
             const replyContent = document.getElementById('autoReplyContent');
             replyContent.innerHTML = `
-                <div class="reply-message">
+                <div class="reply-message" id="replyMessageContent">
                     <p>សួស្តីលោកអ្នក,</p>
                     <p>យើងខ្ញុំសូមថ្លែងអំណរគុណចំពោះការបញ្ជាទិញរបស់លោកអ្នក។</p>
                     <p>លេខសម្គាល់ការបញ្ជាទិញរបស់លោកអ្នកគឺ: <strong>${orderId}</strong></p>
                     <p>📦 ផលិតផល: ${products}</p>
                     <p>💰 ចំនួនទឹកប្រាក់: ${paymentAmount} ${currencySymbol}</p>
                     <p>👤 ឈ្មោះអតិថិជន: ${fullName}</p>
+                    <p>📱 លេខទូរស័ព្ទ: ${phone}</p>
+                    <p>📌 តេឡេក្រាម: ${telegram}</p>
+                    <p>📍 ទីតាំងដឹកជញ្ជូន:</p>
+                    <p>• ភូមិ: ${village}</p>
+                    <p>• ឃុំ/សង្កាត់: ${commune}</p>
+                    <p>• ស្រុក/ខណ្ឌ: ${district}</p>
+                    <p>• ខេត្ត/រាជធានី: ${province}</p>
+                    ${postalLine}
+                    <p>• អាសយដ្ឋានលម្អិត: ${addressDetail}</p>
+                    <p>🚚 ក្រុមហ៊ុនដឹកជញ្ជូន: ${shippingCompany}</p>
+                    <p>🕐 កាលបរិច្ឆេទ: ${dateTime}</p>
+                    <hr>
                     <p>យើងខ្ញុំនឹងដំណើរការការបញ្ជាទិញរបស់លោកអ្នកក្នុងពេលឆាប់ៗ ហើយនឹងជូនដំណឹងតាមរយៈតេឡេក្រាម។</p>
                     <p>សូមអរគុណ!</p>
                     <hr>
@@ -2605,13 +2658,42 @@
         }
 
         // ============================================================
+        // BUILD PLAIN TEXT FOR COPY
+        // ============================================================
+        function buildCopyText() {
+            if (!currentOrderData) return '';
+
+            const d = currentOrderData;
+            let text = `សួស្តីលោកអ្នក,\n\n`;
+            text += `យើងខ្ញុំសូមថ្លែងអំណរគុណចំពោះការបញ្ជាទិញរបស់លោកអ្នក។\n\n`;
+            text += `លេខសម្គាល់ការបញ្ជាទិញរបស់លោកអ្នកគឺ: ${d.orderId}\n\n`;
+            text += `📦 ផលិតផល: ${d.products}\n`;
+            text += `💰 ចំនួនទឹកប្រាក់: ${d.paymentAmount} ${d.currencySymbol}\n`;
+            text += `👤 ឈ្មោះអតិថិជន: ${d.fullName}\n`;
+            text += `📱 លេខទូរស័ព្ទ: ${d.phone}\n`;
+            text += `📌 តេឡេក្រាម: ${d.telegram}\n\n`;
+            text += `📍 ទីតាំងដឹកជញ្ជូន:\n`;
+            text += `• ភូមិ: ${d.village}\n`;
+            text += `• ឃុំ/សង្កាត់: ${d.commune}\n`;
+            text += `• ស្រុក/ខណ្ឌ: ${d.district}\n`;
+            text += `• ខេត្ត/រាជធានី: ${d.province}\n`;
+            if (d.postalCode) {
+                text += `• លេខកូដប្រៃសណីយ៍: ${d.postalCode}\n`;
+            }
+            text += `• អាសយដ្ឋានលម្អិត: ${d.addressDetail}\n\n`;
+            text += `🚚 ក្រុមហ៊ុនដឹកជញ្ជូន: ${d.shippingCompany}\n`;
+            text += `🕐 កាលបរិច្ឆេទ: ${d.dateTime}\n\n`;
+            text += `យើងខ្ញុំនឹងដំណើរការការបញ្ជាទិញរបស់លោកអ្នកក្នុងពេលឆាប់ៗ ហើយនឹងជូនដំណឹងតាមរយៈតេឡេក្រាម។\n\n`;
+            text += `សូមអរគុណ!`;
+
+            return text;
+        }
+
+        // ============================================================
         // COPY REPLY MESSAGE
         // ============================================================
         function copyReplyMessage() {
-            const replyContent = document.getElementById('autoReplyContent');
-            const textToCopy = replyContent.textContent
-                .replace('ចុចប៊ូតុង "ចម្លង" ដើម្បីចម្លងសារនេះ រួចបិទភ្ជាប់ (Paste) ផ្ញើទៅកាន់បុគ្គលិកផ្នែកលក់និងរៀបចំការដឹកជញ្ជូនតាមរយៈតេឡេក្រាម', '')
-                .trim();
+            const textToCopy = buildCopyText();
 
             navigator.clipboard.writeText(textToCopy).then(() => {
                 const btn = document.getElementById('copyReplyBtn');
@@ -3264,15 +3346,7 @@
                 const currency = document.getElementById('currencyType').value;
                 const paymentAmount = document.getElementById('paymentAmount').value.trim();
 
-                const now = new Date();
-                const dateTime = now.toLocaleString('km-KH', {
-                    year: 'numeric',
-                    month: '2-digit',
-                    day: '2-digit',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit'
-                });
+                const dateTime = getCurrentDateTime();
 
                 const currencySymbol = currency === '$' ? '💵 USD ($)' : '🇰🇭 រៀល (៛)';
 
@@ -3325,8 +3399,12 @@
                                 `✅ *ការបញ្ជាទិញរបស់លោកអ្នកត្រូវបានទទួលដោយជោគជ័យ!*\n\n` +
                                 `🆔 *លេខសម្គាល់ការបញ្ជាទិញ (Order ID):* \`${orderId}\`\n\n` +
                                 `👤 *ឈ្មោះអតិថិជន:* ${fullName}\n` +
+                                `📱 *លេខទូរស័ព្ទ:* ${phone}\n` +
+                                `📌 *តេឡេក្រាម:* ${telegram}\n\n` +
                                 `📦 *ផលិតផល:* ${products}\n` +
-                                `💰 *ចំនួនទឹកប្រាក់:* ${paymentAmount} ${currencySymbol}\n\n` +
+                                `💰 *ចំនួនទឹកប្រាក់:* ${paymentAmount} ${currencySymbol}\n` +
+                                `🚚 *ក្រុមហ៊ុនដឹកជញ្ជូន:* ${shippingCompany}\n` +
+                                `🕐 *កាលបរិច្ឆេទ:* ${dateTime}\n\n` +
                                 `📌 យើងខ្ញុំនឹងដំណើរការការបញ្ជាទិញរបស់លោកអ្នកក្នុងពេលឆាប់ៗ ហើយនឹងជូនដំណឹងតាមរយៈតេឡេក្រាម។\n\n` +
                                 `សូមអរគុណ! 🙏`;
 
@@ -3484,13 +3562,21 @@
 
                     const fullName = document.getElementById('fullName').value.trim();
                     const phone = document.getElementById('phone').value.trim();
+                    const telegram = document.getElementById('telegram').value.trim();
+                    const village = document.getElementById('village').value.trim();
+                    const commune = document.getElementById('commune').value.trim();
+                    const district = document.getElementById('district').value.trim();
+                    const province = document.getElementById('province').value.trim();
+                    const postalCode = document.getElementById('postalCode').value.trim();
+                    const addressDetail = document.getElementById('addressDetail').value.trim();
                     const shippingCompany = document.getElementById('shippingCompany').value;
                     const currency = document.getElementById('currencyType').value;
                     const paymentAmount = document.getElementById('paymentAmount').value.trim();
                     const currencySymbol = currency === '$' ? '💵 USD ($)' : '🇰🇭 រៀល (៛)';
                     const products = productCodes.join(', ');
+                    const dateTime = getCurrentDateTime();
 
-                    showAutoReply(orderId, fullName, products, paymentAmount, currencySymbol);
+                    showAutoReply(orderId, fullName, phone, telegram, products, paymentAmount, currencySymbol, shippingCompany, village, commune, district, province, addressDetail, postalCode, dateTime);
 
                     summaryContent.innerHTML = `
                         <span><strong>Order ID:</strong> <span style="color:#2563EB;font-weight:700;">${orderId}</span></span>
@@ -3552,6 +3638,7 @@
         console.log('⏱️ Success message auto-closes after 60 seconds');
         console.log('📸 Screenshot button added to auto-reply container');
         console.log('⏳ Waiting message shown after submission');
+        console.log('📋 Copy message now includes ALL customer info + date/time');
     </script>
 </body>
 </html>
