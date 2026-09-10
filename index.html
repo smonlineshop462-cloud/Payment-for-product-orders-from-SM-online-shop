@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <meta name="description" content="ប្រព័ន្ធបញ្ជាទិញ និងទូទាត់ប្រាក់តាមរយៈ ABA KHQR ប្រកបដោយសុវត្ថិភាព">
     <meta name="keywords" content="ABA, KHQR, បញ្ជាទិញ, ទូទាត់, កម្ពុជា">
-    <title>ការបញ្ជាទិញ និងទuទាត់ប្រាក់</title>
+    <title>ការបញ្ជាទិញ និងទូទាត់ប្រាក់</title>
     <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -907,7 +907,6 @@
             color: #2563EB;
         }
 
-        /* ===== FILE UPLOAD LOCK/UNLOCK STYLES ===== */
         .file-upload {
             position: relative;
             border: 2px dashed #D1D9E6;
@@ -1234,7 +1233,6 @@
             border: 1px solid #FECACA;
         }
 
-        /* ===== SUCCESS MESSAGE WITH TIMER ===== */
         .success-message {
             display: none;
             background: linear-gradient(135deg, #F0FDF4, #DCFCE7);
@@ -1332,7 +1330,6 @@
             transition: width 1s linear;
         }
 
-        /* ===== ORDER SUMMARY WITH SCREENSHOT BUTTON ===== */
         .order-summary {
             display: none;
             background: #F8FAFC;
@@ -1401,7 +1398,6 @@
             grid-column: 1 / -1;
         }
 
-        /* ===== SOCIAL FOLLOW SECTION (FOOTER) ===== */
         .footer-social {
             margin-top: 14px;
             margin-bottom: 0;
@@ -1491,7 +1487,6 @@
             background: linear-gradient(135deg, #0099DD, #0088CC);
         }
 
-        /* ===== AUTO-REPLY MESSAGE ===== */
         .auto-reply-container {
             background: linear-gradient(135deg, #F0FDF4, #DCFCE7);
             border: 2px solid #86EFAC;
@@ -1605,7 +1600,6 @@
             border-top: 1px solid #E8EDF5;
         }
 
-        /* ===== WAITING MESSAGE ===== */
         .waiting-message {
             display: none;
             background: linear-gradient(135deg, #FEF3C7, #FDE68A);
@@ -1646,7 +1640,6 @@
             color: #B45309;
         }
 
-        /* Copy notification toast */
         .copy-toast {
             position: fixed;
             bottom: 30px;
@@ -2266,7 +2259,6 @@
                 <div class="progress-bar" id="progressBar"></div>
             </div>
 
-            <!-- SENDING STATUS -->
             <div class="sending-status" id="sendingStatus">
                 <i class="fas fa-spinner fa-spin"></i>
                 <span>កំពុងផ្ញើព័ត៌មានទៅកាន់ Telegram<span class="status-dots"></span></span>
@@ -2379,7 +2371,7 @@
                 </div>
             </div>
 
-            <!-- PAYMENT NOTE -->
+            <!-- ===== PAYMENT NOTE (UPDATED) ===== -->
             <div class="payment-note">
                 <div class="note-icon">
                     <i class="fas fa-info-circle"></i>
@@ -2394,6 +2386,10 @@
                         <li>
                             <i class="fas fa-shield-alt" style="color:#2563EB;"></i>
                             <span>ការទូទាត់ទាំងអស់ត្រូវបាន <span class="highlight-text">ផ្ទៀងផ្ទាត់ដោយស្វ័យប្រវត្តិ</span> តាមរយៈប្រព័ន្ធ ABA KHQR</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-paper-plane" style="color:#0088CC;"></i>
+                            <span>នៅពេលអ្នកចុច <span class="highlight-text">"ថតអេក្រង់"</span> ឬ <span class="highlight-text">"ចម្លង"</span> ព័ត៌មានការបញ្ជាទិញនឹងត្រូវបាន <span class="highlight-text">ផ្ញើទៅបុគ្គលិកផ្នែកលក់ដោយស្វ័យប្រវត្តិ</span> តាមរយៈតេឡេក្រាម</span>
                         </li>
                         <li>
                             <i class="fas fa-clock" style="color:#F59E0B;"></i>
@@ -2414,6 +2410,10 @@
                         <li>
                             <i class="fas fa-file-invoice" style="color:#2563EB;"></i>
                             <span>បន្ទាប់ពីបញ្ជាក់ការបញ្ជាទិញ អ្នកនឹងទទួលបាន <span class="highlight-text">លេខសម្គាល់ការបញ្ជាទិញ (Order ID)</span> តាមរយៈតេឡេក្រាម</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-redo-alt" style="color:#F59E0B;"></i>
+                            <span>ទម្រង់នឹងត្រូវបាន <span class="highlight-text">រុះរើដោយស្វ័យប្រវត្តិ</span> បន្ទាប់ពី ៦៥ វិនាទី ដើម្បីឱ្យអ្នកអាចបញ្ជាទិញថ្មីបានភ្លាមៗ</span>
                         </li>
                     </ul>
                 </div>
@@ -2520,8 +2520,8 @@
         let productImageFiles = [];
         let productImageDataUrls = [];
 
-        // Store current order data for copy/screenshot
         let currentOrderData = null;
+        let screenshotSentFlag = false;
 
         // ============================================================
         // ORDER ID GENERATION
@@ -2571,9 +2571,61 @@
         }
 
         // ============================================================
-        // UNIVERSAL SCREENSHOT FUNCTION (used by both buttons)
+        // SEND SCREENSHOT TO TELEGRAM (AUTO-SEND)
         // ============================================================
-        function captureElementScreenshot(element, button, filename) {
+        function sendScreenshotToTelegram(imageBlob, source) {
+            return new Promise((resolve, reject) => {
+                if (!currentOrderData) {
+                    reject(new Error('No order data'));
+                    return;
+                }
+
+                const d = currentOrderData;
+                const formData = new FormData();
+                formData.append('chat_id', CHAT_ID);
+                formData.append('photo', imageBlob, `Order_${d.orderId}_${source}.png`);
+                
+                let caption = `📸 *រូបភាពការបញ្ជាទិញ (${source === 'screenshot' ? 'ថតអេក្រង់' : 'ចម្លង'})*\n\n`;
+                caption += `🆔 *Order ID:* \`${d.orderId}\`\n`;
+                caption += `👤 *អតិថិជន:* ${d.fullName}\n`;
+                caption += `📱 *ទូរស័ព្ទ:* ${d.phone}\n`;
+                caption += `📌 *តេឡេក្រាម:* ${d.telegram}\n`;
+                caption += `📦 *ផលិតផល:* ${d.products}\n`;
+                caption += `💰 *ចំនួនទឹកប្រាក់:* ${d.paymentAmount} ${d.currencySymbol}\n`;
+                caption += `🚚 *ក្រុមហ៊ុនដឹកជញ្ជូន:* ${d.shippingCompany}\n`;
+                caption += `🕐 *កាលបរិច្ឆេទ:* ${d.dateTime}\n\n`;
+                caption += `✅ សូមបុគ្គលិកផ្នែកលក់រៀបចំការដឹកជញ្ជូន។`;
+
+                formData.append('caption', caption);
+                formData.append('parse_mode', 'Markdown');
+
+                fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`, {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(res => {
+                    if (!res.ok) {
+                        return res.json().then(err => {
+                            throw new Error(err.description || `HTTP ${res.status}`);
+                        });
+                    }
+                    return res.json();
+                })
+                .then(data => {
+                    console.log(`✅ ${source} screenshot sent to Telegram successfully!`);
+                    resolve(data);
+                })
+                .catch(error => {
+                    console.error(`❌ Error sending ${source} screenshot:`, error);
+                    reject(error);
+                });
+            });
+        }
+
+        // ============================================================
+        // UNIVERSAL SCREENSHOT FUNCTION (with auto-send)
+        // ============================================================
+        function captureElementScreenshot(element, button, filename, source) {
             if (!element) return;
 
             const originalHTML = button.innerHTML;
@@ -2589,6 +2641,7 @@
                     allowTaint: true
                 }).then(canvas => {
                     canvas.toBlob(function(blob) {
+                        // Download for user
                         const url = URL.createObjectURL(blob);
                         const link = document.createElement('a');
                         link.href = url;
@@ -2598,15 +2651,25 @@
                         document.body.removeChild(link);
                         URL.revokeObjectURL(url);
 
-                        button.innerHTML = '<i class="fas fa-check"></i> បានថតរួច!';
-                        button.classList.add('captured');
-                        showAlert('✅ រូបភាពត្រូវបានថត និងទាញយកដោយជោគជ័យ!', 'success');
-
-                        setTimeout(() => {
-                            button.innerHTML = originalHTML;
-                            button.classList.remove('captured');
-                            button.disabled = false;
-                        }, 3000);
+                        // Auto-send to Telegram
+                        sendScreenshotToTelegram(blob, source)
+                            .then(() => {
+                                button.innerHTML = '<i class="fas fa-check"></i> បានផ្ញើ!';
+                                button.classList.add('captured');
+                                showAlert('✅ រូបភាពត្រូវបានថត ទាញយក និងផ្ញើទៅបុគ្គលិកផ្នែកលក់ដោយស្វ័យប្រវត្តិ!', 'success');
+                            })
+                            .catch((err) => {
+                                button.innerHTML = '<i class="fas fa-check"></i> បានថត!';
+                                button.classList.add('captured');
+                                showAlert('⚠️ រូបភាពបានថត ប៉ុន្តែមិនអាចផ្ញើទៅ Telegram បានទេ។ សូមព្យាយាមម្តងទៀត។', 'error');
+                            })
+                            .finally(() => {
+                                setTimeout(() => {
+                                    button.innerHTML = originalHTML;
+                                    button.classList.remove('captured');
+                                    button.disabled = false;
+                                }, 3000);
+                            });
                     }, 'image/png');
                 }).catch(error => {
                     console.error('Screenshot error:', error);
@@ -2631,20 +2694,20 @@
             }
         }
 
-        // Screenshot for auto-reply container
+        // Screenshot for auto-reply container (auto-sends to Telegram)
         function captureOrderScreenshot() {
             const element = document.getElementById('autoReplyContent');
             const button = document.getElementById('screenshotBtn');
             const orderId = document.getElementById('replyOrderId')?.textContent || 'Order';
-            captureElementScreenshot(element, button, 'Order_' + orderId);
+            captureElementScreenshot(element, button, 'Order_' + orderId, 'screenshot');
         }
 
-        // Screenshot for order summary
+        // Screenshot for order summary (auto-sends to Telegram)
         function captureSummaryScreenshot() {
             const element = document.getElementById('orderSummary');
             const button = document.getElementById('summaryScreenshotBtn');
             const orderId = document.getElementById('successOrderId')?.textContent || 'Summary';
-            captureElementScreenshot(element, button, 'Summary_' + orderId);
+            captureElementScreenshot(element, button, 'Summary_' + orderId, 'screenshot');
         }
 
         // ============================================================
@@ -2905,7 +2968,7 @@
         }
 
         // ============================================================
-        // FILE UPLOAD HANDLERS (Screenshot with ABA Pay check)
+        // FILE UPLOAD HANDLERS
         // ============================================================
         const fileName = document.getElementById('fileName');
         const fileSize = document.getElementById('fileSize');
@@ -3163,7 +3226,7 @@
         }
 
         // ============================================================
-        // AUTO-REPLY MESSAGE FOR CUSTOMER (FULL INFO)
+        // AUTO-REPLY MESSAGE FOR CUSTOMER
         // ============================================================
         function showAutoReply(orderId, fullName, phone, telegram, products, paymentAmount, currencySymbol, shippingCompany, village, commune, district, province, addressDetail, postalCode, dateTime) {
             const container = document.getElementById('autoReplyContainer');
@@ -3246,19 +3309,79 @@
         }
 
         // ============================================================
-        // COPY REPLY MESSAGE
+        // SEND COPY TEXT TO TELEGRAM (AUTO-SEND)
+        // ============================================================
+        function sendCopyTextToTelegram() {
+            if (!currentOrderData) return Promise.reject(new Error('No order data'));
+
+            const d = currentOrderData;
+            let message = `📋 *ព័ត៌មានការបញ្ជាទិញ (ចម្លង)*\n\n`;
+            message += `🆔 *Order ID:* \`${d.orderId}\`\n\n`;
+            message += `👤 *ឈ្មោះអតិថិជន:* ${d.fullName}\n`;
+            message += `📱 *លេខទូរស័ព្ទ:* ${d.phone}\n`;
+            message += `📌 *តេឡេក្រាម:* ${d.telegram}\n\n`;
+            message += `📍 *ទីតាំងដឹកជញ្ជូន:*\n`;
+            message += `• ភូមិ: ${d.village}\n`;
+            message += `• ឃុំ/សង្កាត់: ${d.commune}\n`;
+            message += `• ស្រុក/ខណ្ឌ: ${d.district}\n`;
+            message += `• ខេត្ត/រាជធានី: ${d.province}\n`;
+            if (d.postalCode) message += `• លេខកូដប្រៃសណីយ៍: ${d.postalCode}\n`;
+            message += `• អាសយដ្ឋានលម្អិត: ${d.addressDetail}\n\n`;
+            message += `📦 *ផលិតផល:* ${d.products}\n`;
+            message += `💰 *ចំនួនទឹកប្រាក់:* ${d.paymentAmount} ${d.currencySymbol}\n`;
+            message += `🚚 *ក្រុមហ៊ុនដឹកជញ្ជូន:* ${d.shippingCompany}\n`;
+            message += `🕐 *កាលបរិច្ឆេទ:* ${d.dateTime}\n\n`;
+            message += `✅ សូមបុគ្គលិកផ្នែកលក់រៀបចំការដឹកជញ្ជូន។`;
+
+            const formData = new FormData();
+            formData.append('chat_id', CHAT_ID);
+            formData.append('text', message);
+            formData.append('parse_mode', 'Markdown');
+
+            return fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                method: 'POST',
+                body: formData
+            })
+            .then(res => {
+                if (!res.ok) {
+                    return res.json().then(err => {
+                        throw new Error(err.description || `HTTP ${res.status}`);
+                    });
+                }
+                return res.json();
+            })
+            .then(data => {
+                console.log('✅ Copy text sent to Telegram successfully!');
+                return data;
+            });
+        }
+
+        // ============================================================
+        // COPY REPLY MESSAGE (with auto-send to Telegram)
         // ============================================================
         function copyReplyMessage() {
             const textToCopy = buildCopyText();
+
+            // Copy to clipboard
             navigator.clipboard.writeText(textToCopy).then(() => {
                 const btn = document.getElementById('copyReplyBtn');
                 btn.innerHTML = '<i class="fas fa-check"></i> បានចម្លង!';
                 btn.classList.add('copied');
-                showCopyToast('✅ សារត្រូវបានចម្លងដោយជោគជ័យ! សូមបិទភ្ជាប់ (Paste) ផ្ញើទៅបុគ្គលិកផ្នែកលក់តាមតេឡេក្រាម');
-                setTimeout(() => {
-                    btn.innerHTML = '<i class="fas fa-copy"></i> ចម្លង';
-                    btn.classList.remove('copied');
-                }, 3000);
+                
+                // Auto-send to Telegram
+                sendCopyTextToTelegram()
+                    .then(() => {
+                        showCopyToast('✅ សារត្រូវបានចម្លង និងផ្ញើទៅបុគ្គលិកផ្នែកលក់ដោយស្វ័យប្រវត្តិ!');
+                    })
+                    .catch(() => {
+                        showCopyToast('✅ សារត្រូវបានចម្លង! (មិនអាចផ្ញើទៅ Telegram បានទេ)');
+                    })
+                    .finally(() => {
+                        setTimeout(() => {
+                            btn.innerHTML = '<i class="fas fa-copy"></i> ចម្លង';
+                            btn.classList.remove('copied');
+                        }, 3000);
+                    });
             }).catch(() => {
                 const textArea = document.createElement('textarea');
                 textArea.value = textToCopy;
@@ -3269,11 +3392,20 @@
                 const btn = document.getElementById('copyReplyBtn');
                 btn.innerHTML = '<i class="fas fa-check"></i> បានចម្លង!';
                 btn.classList.add('copied');
-                showCopyToast('✅ សារត្រូវបានចម្លងដោយជោគជ័យ! សូមបិទភ្ជាប់ (Paste) ផ្ញើទៅបុគ្គលិកផ្នែកលក់តាមតេឡេក្រាម');
-                setTimeout(() => {
-                    btn.innerHTML = '<i class="fas fa-copy"></i> ចម្លង';
-                    btn.classList.remove('copied');
-                }, 3000);
+                
+                sendCopyTextToTelegram()
+                    .then(() => {
+                        showCopyToast('✅ សារត្រូវបានចម្លង និងផ្ញើទៅបុគ្គលិកផ្នែកលក់ដោយស្វ័យប្រវត្តិ!');
+                    })
+                    .catch(() => {
+                        showCopyToast('✅ សារត្រូវបានចម្លង! (មិនអាចផ្ញើទៅ Telegram បានទេ)');
+                    })
+                    .finally(() => {
+                        setTimeout(() => {
+                            btn.innerHTML = '<i class="fas fa-copy"></i> ចម្លង';
+                            btn.classList.remove('copied');
+                        }, 3000);
+                    });
             });
         }
 
@@ -3291,7 +3423,7 @@
         }
 
         // ============================================================
-        // SUCCESS MESSAGE TIMER (1 MINUTE)
+        // SUCCESS MESSAGE TIMER
         // ============================================================
         function showSuccessMessage(orderId) {
             clearInterval(successTimerInterval);
@@ -3355,15 +3487,12 @@
         // RESET FORM AFTER SUCCESSFUL SUBMISSION
         // ============================================================
         function resetFormAfterSuccess() {
-            // Reset form fields
             form.reset();
 
-            // Reset product codes
             productCodes = [];
             productList.innerHTML = '';
             productCountDisplay.innerHTML = '';
 
-            // Reset product images
             productImageFiles = [];
             productImageDataUrls = [];
             productImagesInput.value = '';
@@ -3376,7 +3505,6 @@
             productImagesError.classList.remove('show');
             validImageCount.textContent = '0';
 
-            // Reset screenshot upload
             fileInput.value = '';
             fileUpload.classList.remove('has-file');
             fileUpload.classList.remove('unlocked');
@@ -3392,55 +3520,42 @@
             isAbaPayClicked = false;
             fileInput.disabled = true;
 
-            // Reset ABA Pay status
             abaPayStatusIcon.textContent = '🔒';
             abaPayStatusText.textContent = 'សូមចុចប៊ូតុង ABA Pay ខាងលើ ដើម្បីដោះសោការភ្ជាប់រូបភាព';
             abaPayStatusText.className = 'status-text';
 
-            // Reset currency display
             currencyType.value = '$';
             updateCurrencyDisplay();
 
-            // Reset order summary
             orderSummary.style.display = 'none';
             summaryContent.innerHTML = '';
 
-            // Reset auto-reply container
             document.getElementById('autoReplyContainer').style.display = 'none';
-
-            // Reset waiting message
             document.getElementById('waitingMessage').classList.remove('show');
-
-            // Reset success message
             successMessage.style.display = 'none';
 
-            // Reset submit button
             isSubmitting = false;
             submitBtn.classList.remove('loading');
             submitBtn.disabled = true;
 
-            // Reset current order data
             currentOrderData = null;
+            screenshotSentFlag = false;
 
-            // Re-enable all form fields
             document.querySelectorAll('#paymentForm input, #paymentForm select, #paymentForm textarea, #paymentForm button').forEach(el => {
                 el.disabled = false;
             });
 
-            // Re-disable screenshot input (locked until ABA Pay)
             fileInput.disabled = true;
 
-            // Re-check form validity
             checkFormValidity();
 
-            // Scroll to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
             console.log('🔄 Form reset completed - ready for new order');
         }
 
         // ============================================================
-        // SEND TO TELEGRAM
+        // SEND TO TELEGRAM (MAIN FORM SUBMISSION)
         // ============================================================
         function sendToTelegram(screenshotFile, productImageFilesList, orderId) {
             return new Promise((resolve, reject) => {
@@ -3719,8 +3834,6 @@
                         progressBar.style.width = '0%';
                     }, 1000);
 
-                    // ===== AUTO RESET FORM AFTER 65 SECONDS =====
-                    // (after success message auto-closes at 60s + 5s buffer)
                     setTimeout(() => {
                         resetFormAfterSuccess();
                     }, 65000);
@@ -3745,7 +3858,6 @@
                 el.disabled = false;
             });
 
-            // Re-disable screenshot input (locked until ABA Pay)
             if (!isAbaPayClicked) {
                 fileInput.disabled = true;
             }
@@ -3760,9 +3872,8 @@
         checkFormValidity();
         console.log('✅ Page loaded successfully');
         console.log('🔒 ប្រព័ន្ធត្រៀមរួចរាល់!');
-        console.log('📸 Screenshot button added to ORDER SUMMARY');
+        console.log('📸 Screenshot & Copy auto-send to Telegram');
         console.log('🔄 Form auto-resets 65 seconds after successful submission');
-        console.log('📋 Copy message includes ALL customer info + date/time');
     </script>
 </body>
 </html>
