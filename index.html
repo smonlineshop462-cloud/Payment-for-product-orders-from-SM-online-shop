@@ -8,6 +8,7 @@
     <title>ការបញ្ជាទិញ និងទូទាត់ប្រាក់</title>
     <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         /* ===== CSS STYLES ===== */
         * {
@@ -1315,7 +1316,6 @@
             transform: scale(0.95);
         }
 
-        /* Progress bar for timer */
         .success-message .timer-progress {
             width: 100%;
             height: 4px;
@@ -1431,7 +1431,6 @@
             transform: scale(0.95);
         }
 
-        /* Facebook */
         .footer-social .social-follow-btn.facebook {
             background: linear-gradient(135deg, #1877F2, #0D65D9);
         }
@@ -1440,7 +1439,6 @@
             background: linear-gradient(135deg, #1A82FF, #1877F2);
         }
 
-        /* TikTok */
         .footer-social .social-follow-btn.tiktok {
             background: linear-gradient(135deg, #000000, #1A1A1A);
             border: 1px solid #333;
@@ -1451,7 +1449,6 @@
             border-color: #555;
         }
 
-        /* Telegram */
         .footer-social .social-follow-btn.telegram {
             background: linear-gradient(135deg, #0088CC, #0077B5);
         }
@@ -1485,8 +1482,14 @@
             font-size: 18px;
         }
 
-        .copy-reply-btn {
+        .auto-reply-header .header-actions {
             margin-left: auto;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .copy-reply-btn {
             padding: 6px 14px;
             background: linear-gradient(135deg, #2563EB, #1D4ED8);
             color: white;
@@ -1515,6 +1518,35 @@
             background: linear-gradient(135deg, #22C55E, #16A34A);
         }
 
+        .screenshot-btn {
+            padding: 6px 14px;
+            background: linear-gradient(135deg, #7C3AED, #6D28D9);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Kantumruy Pro', sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .screenshot-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+        }
+
+        .screenshot-btn:active {
+            transform: scale(0.95);
+        }
+
+        .screenshot-btn.captured {
+            background: linear-gradient(135deg, #22C55E, #16A34A);
+        }
+
         .auto-reply-content {
             background: white;
             border-radius: 10px;
@@ -1537,6 +1569,47 @@
             margin: 8px 0;
             border: 0;
             border-top: 1px solid #E8EDF5;
+        }
+
+        /* ===== WAITING MESSAGE ===== */
+        .waiting-message {
+            display: none;
+            background: linear-gradient(135deg, #FEF3C7, #FDE68A);
+            border: 2px solid #F59E0B;
+            border-radius: 14px;
+            padding: 16px;
+            margin-top: 12px;
+            text-align: center;
+            animation: slideDown 0.5s ease;
+        }
+
+        .waiting-message.show {
+            display: block;
+        }
+
+        .waiting-message i {
+            font-size: 28px;
+            color: #D97706;
+            display: block;
+            margin-bottom: 6px;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        .waiting-message .waiting-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #92400E;
+            margin-bottom: 4px;
+        }
+
+        .waiting-message .waiting-text {
+            font-size: 12.5px;
+            color: #78350F;
+            line-height: 1.6;
+        }
+
+        .waiting-message .waiting-text strong {
+            color: #B45309;
         }
 
         /* Copy notification toast */
@@ -1660,7 +1733,8 @@
             .footer-social .social-follow-grid { flex-direction: column; gap: 8px; }
             .footer-social .social-follow-btn { padding: 12px 16px; font-size: 14px; min-width: unset; width: 100%; }
             .auto-reply-header { font-size: 13px; }
-            .copy-reply-btn { padding: 5px 12px; font-size: 11px; margin-left: 0; width: 100%; justify-content: center; }
+            .auto-reply-header .header-actions { margin-left: 0; width: 100%; }
+            .copy-reply-btn, .screenshot-btn { padding: 5px 12px; font-size: 11px; flex: 1; justify-content: center; }
             .reply-message p { font-size: 13px; }
             .aba-khqr-btn { flex-wrap: wrap; padding: 10px 12px; gap: 6px; font-size: 14px; }
             .aba-khqr-btn .khqr-text .main { font-size: 14px; }
@@ -1816,7 +1890,7 @@
             .footer-social .social-follow-btn i { font-size: 14px; }
             .auto-reply-container { padding: 12px; margin-top: 10px; }
             .auto-reply-header { font-size: 12px; }
-            .copy-reply-btn { padding: 4px 10px; font-size: 10px; }
+            .copy-reply-btn, .screenshot-btn { padding: 4px 10px; font-size: 10px; }
             .reply-message p { font-size: 12px; }
             .success-message .timer-container .timer-circle { width: 44px; height: 44px; font-size: 18px; }
             .success-message .btn-close-success { padding: 8px 24px; font-size: 13px; }
@@ -1829,6 +1903,7 @@
             .trust-section { display: none; }
             .footer-social { display: none; }
             .auto-reply-container { display: none !important; }
+            .waiting-message { display: none !important; }
             .section-title { font-size: 10px; margin: 4px 0 3px 0; }
             .form-group { margin-bottom: 4px; }
             .form-group input, .form-group select, .form-group textarea { padding: 4px 8px; font-size: 10px; border-radius: 6px; }
@@ -2004,7 +2079,7 @@
                     <span class="valid-text" id="shippingCompanyValid">✅ បានជ្រើសរើសក្រុមហ៊ុនដឹកជញ្ជូន</span>
                 </div>
 
-                <!-- Product Codes - WITHOUT Add Button -->
+                <!-- Product Codes -->
                 <div class="section-title">
                     <span class="step">4</span>
                     លេខកូដផលិតផល
@@ -2201,11 +2276,16 @@
             <!-- ===== AUTO-REPLY MESSAGE FOR CUSTOMER ===== -->
             <div class="auto-reply-container" id="autoReplyContainer" style="display:none;">
                 <div class="auto-reply-header">
-                    <i class="fas fa-reply-all"></i>
-                    <span>សារឆ្លើយតបទៅកាន់អតិថិជន</span>
-                    <button class="copy-reply-btn" id="copyReplyBtn" onclick="copyReplyMessage()">
-                        <i class="fas fa-copy"></i> ចម្លង
-                    </button>
+                    <i class="fas fa-check-circle"></i>
+                    <span class="header-title">ការបញ្ជាទិញរបស់អ្នកទទួលបានជោគជ័យ!</span>
+                    <div class="header-actions">
+                        <button class="copy-reply-btn" id="copyReplyBtn" onclick="copyReplyMessage()">
+                            <i class="fas fa-copy"></i> ចម្លង
+                        </button>
+                        <button class="screenshot-btn" id="screenshotBtn" onclick="captureOrderScreenshot()">
+                            <i class="fas fa-camera"></i> ថតអេក្រង់
+                        </button>
+                    </div>
                 </div>
                 <div class="auto-reply-content" id="autoReplyContent">
                     <div class="reply-message">
@@ -2217,9 +2297,20 @@
                         <hr>
                         <p style="font-size:12px; color:#94A3B8;">
                             <i class="fas fa-info-circle"></i> 
-                            ចុចប៊ូតុង "ចម្លង" ដើម្បីចម្លងសារនេះ រួចបិទភ្ជាប់ (Paste) ផ្ញើទៅកាន់អតិថិជនតាមរយៈតេឡេក្រាម
+                            ចុចប៊ូតុង "ចម្លង" ដើម្បីចម្លងសារនេះ រួចបិទភ្ជាប់ (Paste) ផ្ញើទៅកាន់បុគ្គលិកផ្នែកលក់និងរៀបចំការដឹកជញ្ជូនតាមរយៈតេឡេក្រាម
                         </p>
                     </div>
+                </div>
+            </div>
+
+            <!-- ===== WAITING MESSAGE ===== -->
+            <div class="waiting-message" id="waitingMessage">
+                <i class="fas fa-clock"></i>
+                <div class="waiting-title">⏳ សូមរង់ចាំដោយអត់ធ្មត់!</div>
+                <div class="waiting-text">
+                    បុគ្គលិកផ្នែកលក់នឹងរៀបចំការដឹកជញ្ជូនរបស់យើង 
+                    ហើយនឹងទាក់ទងអ្នកបន្ទាប់ពីទទួលបានការបញ្ជាទិញរបស់អ្នក។
+                    <br><strong>សូមអរគុណសម្រាប់ការជឿជាក់!</strong>
                 </div>
             </div>
 
@@ -2230,17 +2321,14 @@
                     <span>តាមដានយើងតាមរយៈ</span>
                 </div>
                 <div class="social-follow-grid">
-                    <!-- Facebook -->
                     <a href="https://www.facebook.com/share/1MHDfn7Lzh/?mibextid=wwXIfr" target="_blank" class="social-follow-btn facebook">
                         <i class="fab fa-facebook-f"></i>
                         <span>Facebook</span>
                     </a>
-                    <!-- TikTok -->
                     <a href="https://www.tiktok.com/@smonlineshop1688" target="_blank" class="social-follow-btn tiktok">
                         <i class="fab fa-tiktok"></i>
                         <span>TikTok</span>
                     </a>
-                    <!-- Telegram -->
                     <a href="https://t.me/+GDHRFWa4IA0xNzdl" target="_blank" class="social-follow-btn telegram">
                         <i class="fab fa-telegram-plane"></i>
                         <span>Telegram</span>
@@ -2320,7 +2408,6 @@
         const fileInput = document.getElementById('screenshot');
         const fileUpload = document.getElementById('fileUpload');
 
-        // Multi-image upload
         const productImagesInput = document.getElementById('productImages');
         const productFileUpload = document.getElementById('productFileUpload');
         const productFileCount = document.getElementById('productFileCount');
@@ -2330,7 +2417,6 @@
         const productImagesValid = document.getElementById('productImagesValid');
         const validImageCount = document.getElementById('validImageCount');
 
-        // ABA Pay elements
         const abaPayBtn = document.getElementById('abaPayBtn');
         const abaPayStatusText = document.getElementById('abaPayStatusText');
         const abaPayStatusIcon = document.querySelector('.aba-pay-status .status-icon');
@@ -2370,7 +2456,6 @@
         const orderSummary = document.getElementById('orderSummary');
         const summaryContent = document.getElementById('summaryContent');
 
-        // Success message elements
         const successMessage = document.getElementById('successMessage');
         const timerCircle = document.getElementById('timerCircle');
         const timerSeconds = document.getElementById('timerSeconds');
@@ -2384,13 +2469,11 @@
         const SUBMIT_COOLDOWN = 5000;
         let isAbaPayClicked = false;
 
-        // Timer variables
         let successTimer = null;
         let successTimerInterval = null;
         let remainingSeconds = 60;
         let isSuccessClosed = false;
 
-        // Store uploaded product images
         let productImageFiles = [];
         let productImageDataUrls = [];
 
@@ -2429,51 +2512,43 @@
         // SUCCESS MESSAGE TIMER (1 MINUTE)
         // ============================================================
         function showSuccessMessage(orderId) {
-            // Reset timer
             clearInterval(successTimerInterval);
             clearTimeout(successTimer);
             isSuccessClosed = false;
             remainingSeconds = 60;
-            
-            // Update order ID
+
             document.getElementById('successOrderId').textContent = orderId;
-            
-            // Show message
+
             successMessage.style.display = 'block';
             timerCircle.textContent = remainingSeconds;
             timerSeconds.textContent = remainingSeconds;
             timerProgressBar.style.width = '100%';
             timerCircle.style.background = 'linear-gradient(135deg, #2563EB, #7C3AED)';
-            
-            // Scroll to success message
+
             setTimeout(() => {
                 successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }, 300);
-            
-            // Start countdown
+
             successTimerInterval = setInterval(() => {
                 remainingSeconds--;
                 timerCircle.textContent = remainingSeconds;
                 timerSeconds.textContent = remainingSeconds;
                 timerProgressBar.style.width = (remainingSeconds / 60 * 100) + '%';
-                
-                // Change color when time is low
+
                 if (remainingSeconds <= 10) {
                     timerCircle.style.background = 'linear-gradient(135deg, #EF4444, #DC2626)';
                 }
-                
+
                 if (remainingSeconds <= 0) {
                     clearInterval(successTimerInterval);
                     closeSuccessMessage();
                 }
             }, 1000);
-            
-            // Auto-close after 60 seconds
+
             successTimer = setTimeout(() => {
                 closeSuccessMessage();
             }, 60000);
-            
-            // Close button event
+
             btnCloseSuccess.onclick = function() {
                 closeSuccessMessage();
             };
@@ -2482,13 +2557,12 @@
         function closeSuccessMessage() {
             if (isSuccessClosed) return;
             isSuccessClosed = true;
-            
+
             clearInterval(successTimerInterval);
             clearTimeout(successTimer);
-            
+
             successMessage.style.display = 'none';
-            
-            // Reset timer display
+
             timerCircle.style.background = 'linear-gradient(135deg, #2563EB, #7C3AED)';
             timerCircle.textContent = '60';
             timerSeconds.textContent = '60';
@@ -2498,49 +2572,33 @@
         // ============================================================
         // AUTO-REPLY MESSAGE FOR CUSTOMER
         // ============================================================
-        function generateReplyMessage(orderId, fullName, products, paymentAmount, currencySymbol) {
-            return `សួស្តីលោកអ្នក,
-
-        យើងខ្ញុំសូមថ្លែងអំណរគុណចំពោះការបញ្ជាទិញរបស់លោកអ្នក។
-
-        លេខសម្គាល់ការបញ្ជាទិញរបស់លោកអ្នកគឺ: ${orderId}
-
-        📦 ផលិតផលដែលបានបញ្ជាទិញ: ${products}
-        💰 ចំនួនទឹកប្រាក់: ${paymentAmount} ${currencySymbol}
-        👤 ឈ្មោះអតិថិជន: ${fullName}
-
-        យើងខ្ញុំនឹងដំណើរការការបញ្ជាទិញរបស់លោកអ្នកក្នុងពេលឆាប់ៗ ហើយនឹងជូនដំណឹងតាមរយៈតេឡេក្រាម។
-
-        សូមអរគុណ!`;
-        }
-
         function showAutoReply(orderId, fullName, products, paymentAmount, currencySymbol) {
             const container = document.getElementById('autoReplyContainer');
             const orderIdSpan = document.getElementById('replyOrderId');
-            
+
             orderIdSpan.textContent = orderId;
-            
-            const replyMessage = generateReplyMessage(orderId, fullName, products, paymentAmount, currencySymbol);
+
             const replyContent = document.getElementById('autoReplyContent');
             replyContent.innerHTML = `
                 <div class="reply-message">
-                    ${replyMessage.split('\n').map(line => {
-                        if (line.trim() === '') return '<br>';
-                        if (line.startsWith('📦') || line.startsWith('💰') || line.startsWith('👤')) {
-                            return `<p style="margin-bottom:2px;">${line}</p>`;
-                        }
-                        return `<p>${line}</p>`;
-                    }).join('')}
+                    <p>សួស្តីលោកអ្នក,</p>
+                    <p>យើងខ្ញុំសូមថ្លែងអំណរគុណចំពោះការបញ្ជាទិញរបស់លោកអ្នក។</p>
+                    <p>លេខសម្គាល់ការបញ្ជាទិញរបស់លោកអ្នកគឺ: <strong>${orderId}</strong></p>
+                    <p>📦 ផលិតផល: ${products}</p>
+                    <p>💰 ចំនួនទឹកប្រាក់: ${paymentAmount} ${currencySymbol}</p>
+                    <p>👤 ឈ្មោះអតិថិជន: ${fullName}</p>
+                    <p>យើងខ្ញុំនឹងដំណើរការការបញ្ជាទិញរបស់លោកអ្នកក្នុងពេលឆាប់ៗ ហើយនឹងជូនដំណឹងតាមរយៈតេឡេក្រាម។</p>
+                    <p>សូមអរគុណ!</p>
                     <hr>
                     <p style="font-size:12px; color:#94A3B8;">
                         <i class="fas fa-info-circle"></i> 
-                        ចុចប៊ូតុង "ចម្លង" ដើម្បីចម្លងសារនេះ រួចបិទភ្ជាប់ (Paste) ផ្ញើទៅកាន់អតិថិជនតាមរយៈតេឡេក្រាម
+                        ចុចប៊ូតុង "ចម្លង" ដើម្បីចម្លងសារនេះ រួចបិទភ្ជាប់ (Paste) ផ្ញើទៅកាន់បុគ្គលិកផ្នែកលក់និងរៀបចំការដឹកជញ្ជូនតាមរយៈតេឡេក្រាម
                     </p>
                 </div>
             `;
-            
+
             container.style.display = 'block';
-            
+
             setTimeout(() => {
                 container.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }, 500);
@@ -2552,14 +2610,14 @@
         function copyReplyMessage() {
             const replyContent = document.getElementById('autoReplyContent');
             const textToCopy = replyContent.textContent
-                .replace('ចុចប៊ូតុង "ចម្លង" ដើម្បីចម្លងសារនេះ រួចបិទភ្ជាប់ (Paste) ផ្ញើទៅកាន់អតិថិជនតាមរយៈតេឡេក្រាម', '')
+                .replace('ចុចប៊ូតុង "ចម្លង" ដើម្បីចម្លងសារនេះ រួចបិទភ្ជាប់ (Paste) ផ្ញើទៅកាន់បុគ្គលិកផ្នែកលក់និងរៀបចំការដឹកជញ្ជូនតាមរយៈតេឡេក្រាម', '')
                 .trim();
-            
+
             navigator.clipboard.writeText(textToCopy).then(() => {
                 const btn = document.getElementById('copyReplyBtn');
                 btn.innerHTML = '<i class="fas fa-check"></i> បានចម្លង!';
                 btn.classList.add('copied');
-                showCopyToast('✅ សារត្រូវបានចម្លងដោយជោគជ័យ! សូមបិទភ្ជាប់ (Paste) ផ្ញើទៅអតិថិជនតាមតេឡេក្រាម');
+                showCopyToast('✅ សារត្រូវបានចម្លងដោយជោគជ័យ! សូមបិទភ្ជាប់ (Paste) ផ្ញើទៅបុគ្គលិកផ្នែកលក់តាមតេឡេក្រាម');
                 setTimeout(() => {
                     btn.innerHTML = '<i class="fas fa-copy"></i> ចម្លង';
                     btn.classList.remove('copied');
@@ -2574,7 +2632,7 @@
                 const btn = document.getElementById('copyReplyBtn');
                 btn.innerHTML = '<i class="fas fa-check"></i> បានចម្លង!';
                 btn.classList.add('copied');
-                showCopyToast('✅ សារត្រូវបានចម្លងដោយជោគជ័យ! សូមបិទភ្ជាប់ (Paste) ផ្ញើទៅអតិថិជនតាមតេឡេក្រាម');
+                showCopyToast('✅ សារត្រូវបានចម្លងដោយជោគជ័យ! សូមបិទភ្ជាប់ (Paste) ផ្ញើទៅបុគ្គលិកផ្នែកលក់តាមតេឡេក្រាម');
                 setTimeout(() => {
                     btn.innerHTML = '<i class="fas fa-copy"></i> ចម្លង';
                     btn.classList.remove('copied');
@@ -2593,6 +2651,84 @@
                 toast.classList.remove('show');
                 setTimeout(() => toast.remove(), 400);
             }, 3000);
+        }
+
+        // ============================================================
+        // SCREENSHOT FUNCTION FOR ORDER CAPTURE
+        // ============================================================
+        function captureOrderScreenshot() {
+            const autoReplyContent = document.getElementById('autoReplyContent');
+            const screenshotBtn = document.getElementById('screenshotBtn');
+
+            if (!autoReplyContent) return;
+
+            screenshotBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> កំពុងថត...';
+            screenshotBtn.disabled = true;
+
+            if (typeof html2canvas === 'undefined') {
+                const script = document.createElement('script');
+                script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+                script.onload = function() {
+                    performScreenshot(autoReplyContent, screenshotBtn);
+                };
+                script.onerror = function() {
+                    screenshotBtn.innerHTML = '<i class="fas fa-camera"></i> ថតអេក្រង់';
+                    screenshotBtn.disabled = false;
+                    showAlert('❌ មិនអាចផ្ទុកបណ្ណាល័យថតអេក្រង់បានទេ! សូមព្យាយាមម្តងទៀត។', 'error');
+                };
+                document.head.appendChild(script);
+            } else {
+                performScreenshot(autoReplyContent, screenshotBtn);
+            }
+        }
+
+        function performScreenshot(element, button) {
+            html2canvas(element, {
+                scale: 2,
+                useCORS: true,
+                backgroundColor: '#ffffff',
+                logging: false,
+                allowTaint: true
+            }).then(canvas => {
+                canvas.toBlob(function(blob) {
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = 'Order_' + (document.getElementById('replyOrderId')?.textContent || 'Details') + '.png';
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    URL.revokeObjectURL(url);
+
+                    button.innerHTML = '<i class="fas fa-check"></i> បានថតរួច!';
+                    button.classList.add('captured');
+                    showAlert('✅ រូបភាពការបញ្ជាទិញត្រូវបានថត និងទាញយកដោយជោគជ័យ!', 'success');
+
+                    setTimeout(() => {
+                        button.innerHTML = '<i class="fas fa-camera"></i> ថតអេក្រង់';
+                        button.classList.remove('captured');
+                        button.disabled = false;
+                    }, 3000);
+                }, 'image/png');
+            }).catch(error => {
+                console.error('Screenshot error:', error);
+                button.innerHTML = '<i class="fas fa-camera"></i> ថតអេក្រង់';
+                button.disabled = false;
+                showAlert('❌ មានបញ្ហាក្នុងការថតអេក្រង់! សូមព្យាយាមម្តងទៀត។', 'error');
+            });
+        }
+
+        // ============================================================
+        // SHOW WAITING MESSAGE
+        // ============================================================
+        function showWaitingMessage() {
+            const waitingMessage = document.getElementById('waitingMessage');
+            if (waitingMessage) {
+                waitingMessage.classList.add('show');
+                setTimeout(() => {
+                    waitingMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 500);
+            }
         }
 
         // ============================================================
@@ -2740,7 +2876,7 @@
         currencyType.addEventListener('change', updateCurrencyDisplay);
 
         // ============================================================
-        // PRODUCT CODE MANAGEMENT (Auto-add after 4 digits)
+        // PRODUCT CODE MANAGEMENT
         // ============================================================
         function formatProductCode(input) {
             let digits = input.replace(/\D/g, '');
@@ -3098,7 +3234,7 @@
         }
 
         // ============================================================
-        // SEND TO TELEGRAM - OPTIMIZED FOR SPEED
+        // SEND TO TELEGRAM
         // ============================================================
         function sendToTelegram(screenshotFile, productImageFilesList, orderId) {
             return new Promise((resolve, reject) => {
@@ -3142,7 +3278,6 @@
 
                 const url = `https://api.telegram.org/bot${BOT_TOKEN}/`;
 
-                // ===== MESSAGE 1: Screenshot + Order Info (sendPhoto) =====
                 let caption1 = `🛒 *ការបញ្ជាទិញ និងទូទាត់ប្រាក់*\n\n` +
                     `🆔 *លេខសម្គាល់ការបញ្ជាទិញ (Order ID):* \`${orderId}\`\n\n` +
                     `👤 *ឈ្មោះពេញ:* ${fullName}\n` +
@@ -3184,10 +3319,9 @@
                     })
                     .then(data => {
                         console.log('✅ Message 1 sent successfully');
-                        
+
                         if (data.ok) {
-                            // ===== MESSAGE 2: AUTO-REPLY TO CUSTOMER (sendMessage) =====
-                            const autoReplyMessage = 
+                            const autoReplyMessage =
                                 `✅ *ការបញ្ជាទិញរបស់លោកអ្នកត្រូវបានទទួលដោយជោគជ័យ!*\n\n` +
                                 `🆔 *លេខសម្គាល់ការបញ្ជាទិញ (Order ID):* \`${orderId}\`\n\n` +
                                 `👤 *ឈ្មោះអតិថិជន:* ${fullName}\n` +
@@ -3202,7 +3336,7 @@
                             formDataReply.append('parse_mode', 'Markdown');
 
                             console.log('📤 Sending Auto-Reply Message to Telegram...');
-                            
+
                             return fetch(url + 'sendMessage', { method: 'POST', body: formDataReply })
                                 .then(res => {
                                     if (!res.ok) {
@@ -3214,12 +3348,11 @@
                                 })
                                 .then(replyData => {
                                     console.log('✅ Auto-Reply sent to Telegram successfully!');
-                                    
-                                    // ===== MESSAGE 3: Product Images as ALBUM (sendMediaGroup) =====
+
                                     if (productImageFilesList.length > 0) {
                                         console.log(`📤 Sending ${productImageFilesList.length} product images as album...`);
 
-                                        const albumCaption = 
+                                        const albumCaption =
                                             `📦 *រូបភាពផលិតផលដែលបានបញ្ជាទិញ*\n` +
                                             `🆔 Order ID: \`${orderId}\`\n` +
                                             `👤 អតិថិជន: ${fullName}\n` +
@@ -3228,7 +3361,7 @@
 
                                         const formData2 = new FormData();
                                         formData2.append('chat_id', CHAT_ID);
-                                        
+
                                         const mediaArray = productImageFilesList.map((file, index) => {
                                             const attachName = `photo_${index}`;
                                             return {
@@ -3238,9 +3371,9 @@
                                                 parse_mode: 'Markdown'
                                             };
                                         });
-                                        
+
                                         formData2.append('media', JSON.stringify(mediaArray));
-                                        
+
                                         productImageFilesList.forEach((file, index) => {
                                             formData2.append(`photo_${index}`, file);
                                         });
@@ -3323,14 +3456,17 @@
             isSubmitting = true;
             submitBtn.classList.add('loading');
             submitBtn.disabled = true;
-            
+
             sendingStatus.classList.add('show');
-            
+
             document.querySelectorAll('#paymentForm input, #paymentForm select, #paymentForm textarea, #paymentForm button').forEach(el => {
                 el.disabled = true;
             });
-            
+
             showAlert(`⏳ កំពុងផ្ញើព័ត៌មានទៅកាន់ Telegram... (Order ID: ${orderId})`, 'info');
+
+            // Show waiting message immediately after clicking
+            showWaitingMessage();
 
             progressContainer.classList.add('active');
             let progress = 0;
@@ -3345,7 +3481,7 @@
                     clearInterval(progressInterval);
                     progressBar.style.width = '100%';
                     sendingStatus.classList.remove('show');
-                    
+
                     const fullName = document.getElementById('fullName').value.trim();
                     const phone = document.getElementById('phone').value.trim();
                     const shippingCompany = document.getElementById('shippingCompany').value;
@@ -3354,7 +3490,6 @@
                     const currencySymbol = currency === '$' ? '💵 USD ($)' : '🇰🇭 រៀល (៛)';
                     const products = productCodes.join(', ');
 
-                    // ===== SHOW AUTO-REPLY MESSAGE =====
                     showAutoReply(orderId, fullName, products, paymentAmount, currencySymbol);
 
                     summaryContent.innerHTML = `
@@ -3370,7 +3505,6 @@
                     `;
                     orderSummary.style.display = 'block';
 
-                    // ===== SHOW SUCCESS MESSAGE WITH TIMER =====
                     showSuccessMessage(orderId);
 
                     showAlert(`✅ ការបញ្ជាទិញរបស់អ្នកត្រូវបានផ្ញើជោគជ័យ! (Order ID: ${orderId})`, 'success');
@@ -3378,9 +3512,6 @@
                     setTimeout(() => {
                         progressContainer.classList.remove('active');
                         progressBar.style.width = '0%';
-                        
-                        // Don't auto-reset everything - user can close with button or timer
-                        // Only reset form after timer or button click
                     }, 1000);
                 })
                 .catch(error => {
@@ -3397,11 +3528,11 @@
             isSubmitting = false;
             submitBtn.classList.remove('loading');
             submitBtn.disabled = false;
-            
+
             document.querySelectorAll('#paymentForm input, #paymentForm select, #paymentForm textarea, #paymentForm button').forEach(el => {
                 el.disabled = false;
             });
-            
+
             checkFormValidity();
         }
 
@@ -3412,17 +3543,15 @@
         checkFormValidity();
         console.log('✅ Page loaded successfully');
         console.log('🔒 ប្រព័ន្ធត្រៀមរួចរាល់!');
-        console.log('📱 Compatible with all devices (Android, iPhone, Tablet, Desktop)');
         console.log('📤 Will send 3 messages:');
         console.log('   1️⃣ Screenshot + Order Info (sendPhoto)');
         console.log('   2️⃣ Auto-Reply to customer (sendMessage)');
-        console.log('   3️⃣ Product Images as ALBUM (sendMediaGroup with Multipart)');
-        console.log('✅ Optimized for SPEED!');
+        console.log('   3️⃣ Product Images as ALBUM (sendMediaGroup)');
         console.log('🔒 Screenshot upload is LOCKED until ABA Pay is clicked');
-        console.log('❌ Add Product button REMOVED - auto-add only');
-        console.log('📱 Social follow buttons moved to FOOTER');
         console.log('📝 Auto-reply message sent to Telegram automatically');
-        console.log('⏱️ Success message auto-closes after 60 seconds with timer and OK button');
+        console.log('⏱️ Success message auto-closes after 60 seconds');
+        console.log('📸 Screenshot button added to auto-reply container');
+        console.log('⏳ Waiting message shown after submission');
     </script>
 </body>
 </html>
